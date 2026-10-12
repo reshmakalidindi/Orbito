@@ -297,7 +297,7 @@ function clearUser() {
 }
 
 function renderAuthState() {
-  const headerRight = document.querySelector(".header-right-group");
+  const headerRight = document.querySelector(".header-right-group") || document.querySelector(".nav-actions");
   if (!headerRight) return;
 
   const loginLinks = document.querySelectorAll(".auth-trigger-login");
@@ -503,22 +503,13 @@ function initAuthModals() {
 
           <div class="form-group">
             <label class="form-label" for="auth-input-email">Email Address *</label>
-            <input type="email" id="auth-input-email" class="form-control" placeholder="name@example.com" value="${isSignUp ? '' : 'organizer@orbito.com'}" required>
+            <input type="email" id="auth-input-email" class="form-control" placeholder="name@example.com" value="" required>
           </div>
 
           <div class="form-group">
             <label class="form-label" for="auth-input-password">Password *</label>
-            <input type="password" id="auth-input-password" class="form-control" placeholder="At least 6 characters" value="${isSignUp ? '' : 'organizer123'}" required>
+            <input type="password" id="auth-input-password" class="form-control" placeholder="At least 6 characters" value="" required>
           </div>
-
-          ${!isSignUp ? `
-            <div style="background-color: #F8F8FC; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.6rem 0.85rem; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">
-              <strong>Demo Logins:</strong><br>
-              • Organizer: <code>organizer@orbito.com</code> / <code>organizer123</code><br>
-              • Admin: <code>admin@orbito.com</code> / <code>admin123</code><br>
-              • Participant: <code>learner@orbito.com</code> / <code>learner123</code>
-            </div>
-          ` : ''}
 
           <button type="submit" id="auth-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
             ${isSignUp ? "Create Free Account" : "Log In"}
