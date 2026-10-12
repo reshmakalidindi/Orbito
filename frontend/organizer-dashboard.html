@@ -495,26 +495,6 @@
 
       // Initial Load
       loadWorkshops();
-              } catch (err) {
-                showToast("Failed to delete workshop: " + err.message, "error");
-              }
-            }
-          });
-        });
-      }
-
-      // Filter Tab Click handlers
-      document.querySelectorAll(".board-tab-btn").forEach(tab => {
-        tab.addEventListener("click", () => {
-          document.querySelectorAll(".board-tab-btn").forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
-          activeFilter = tab.getAttribute("data-filter");
-          renderFilteredList();
-        });
-      });
-
-      // Initial Load
-      loadWorkshops();
     });
   </script>
 </body>

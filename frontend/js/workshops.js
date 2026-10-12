@@ -10,9 +10,18 @@ function renderWorkshopCard(workshop) {
   const formatBadgeClass = workshop.format === "online" ? "badge-format-online" : "badge-format-offline";
   const formatIconName = workshop.format === "online" ? "video" : "mapPin";
 
+  const coverImg = workshop.coverImageUrl || 
+    (window.COURSE_IMAGE_MAP && (window.COURSE_IMAGE_MAP[workshop.topicId] || window.COURSE_IMAGE_MAP[workshop.topicName])) || null;
+
   return `
     <article class="workshop-card" data-id="${escapeHTML(workshop.id)}">
-      <div class="card-top">
+      ${coverImg ? `
+        <div class="workshop-card-media" style="width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-top-left-radius: 18px; border-top-right-radius: 18px; background: #F3F4F6;">
+          <img src="${escapeHTML(coverImg)}" alt="${escapeHTML(workshop.title)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+        </div>
+      ` : ''}
+
+      <div class="card-top" style="${coverImg ? 'margin-top: 0.5rem;' : ''}">
         <span class="card-category-tag">${escapeHTML(workshop.categoryName)}</span>
         <span class="card-price-tag ${isFree ? 'free' : ''}">${escapeHTML(priceDisplay)}</span>
       </div>

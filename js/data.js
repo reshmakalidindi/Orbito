@@ -6,6 +6,30 @@
  * and ready to be replaced by live FastAPI backend responses.
  */
 
+/**
+ * Central Mapping of Course Images
+ * Easily extensible for all domains and courses across Orbito
+ */
+const COURSE_IMAGE_MAP = {
+  // Domain 1: Technology and AI
+  1: "assets/images/courses/python-programming.png",
+  "Python Programming for Beginners": "assets/images/courses/python-programming.png",
+  2: "assets/images/courses/generative-ai.jpg",
+  "Generative AI and Prompt Engineering": "assets/images/courses/generative-ai.jpg",
+  4: "assets/images/courses/web-development.png",
+  "Web Development Bootcamp": "assets/images/courses/web-development.png",
+
+  // Domain 2: Creativity and Arts
+  9: "assets/images/courses/pottery-clay.jpg",
+  "Pottery and Clay Modelling": "assets/images/courses/pottery-clay.jpg",
+  13: "assets/images/courses/graphic-design-canva.png",
+  "Graphic Design with Canva": "assets/images/courses/graphic-design-canva.png"
+};
+
+if (typeof window !== "undefined") {
+  window.COURSE_IMAGE_MAP = COURSE_IMAGE_MAP;
+}
+
 const ORBITO_CATEGORIES = [
   {
     id: "tech-ai",
@@ -14,14 +38,14 @@ const ORBITO_CATEGORIES = [
     color: "#4F46E5",
     description: "Master modern software, artificial intelligence, robotics, and cloud engineering.",
     topics: [
-      { id: 1, name: "Python Programming for Beginners", popular: true },
-      { id: 2, name: "Generative AI and Prompt Engineering", popular: true },
-      { id: 3, name: "Machine Learning Fundamentals", popular: true },
-      { id: 4, name: "Web Development Bootcamp", popular: true },
-      { id: 5, name: "Cloud Computing and AWS Basics", popular: false },
-      { id: 6, name: "Cybersecurity Awareness", popular: false },
-      { id: 7, name: "Robotics and Arduino", popular: false },
-      { id: 8, name: "Data Analytics with Excel and Python", popular: true }
+      { id: 1, name: "Python Programming for Beginners", popular: true, image: "assets/images/courses/python-programming.png", duration: "4 Weeks", level: "Beginner", format: "Hands-on Cohort", description: "Learn coding basics, variables, loops, and build your first real mini projects." },
+      { id: 2, name: "Generative AI and Prompt Engineering", popular: true, image: "assets/images/courses/generative-ai.jpg", duration: "3.5 Hours", level: "Beginner", format: "Interactive AI Lab", description: "Harness LLMs, craft professional prompts, automate tasks, and build generative workflows." },
+      { id: 3, name: "Machine Learning Fundamentals", popular: true, image: null, duration: "6 Weeks", level: "Beginner to Intermediate", format: "Live Cohort", description: "Explore predictive models, algorithms, and practical datasets step-by-step." },
+      { id: 4, name: "Web Development Bootcamp", popular: true, image: "assets/images/courses/web-development.png", duration: "8 Weeks", level: "Beginner Friendly", format: "Project Studio", description: "Build modern responsive websites from scratch using HTML5, CSS3, modern JavaScript, and React." },
+      { id: 5, name: "Cloud Computing and AWS Basics", popular: false, image: null, duration: "3 Weeks", level: "Beginner", format: "Cloud Sandbox", description: "Understand cloud architecture, serverless deployments, and core AWS services." },
+      { id: 6, name: "Cybersecurity Awareness", popular: false, image: null, duration: "2-Day Workshop", level: "All Levels", format: "Interactive Webinar", description: "Protect digital identities, recognize cyber threats, and practice web safety." },
+      { id: 7, name: "Robotics and Arduino", popular: false, image: null, duration: "4 Sessions", level: "Beginner", format: "Maker Lab", description: "Tinker with microcontrollers, sensors, circuits, and physical computing." },
+      { id: 8, name: "Data Analytics with Excel and Python", popular: true, image: null, duration: "4 Weeks", level: "Beginner", format: "Data Studio", description: "Clean data, extract business insights, and create interactive dashboards." }
     ]
   },
   {
@@ -31,14 +55,14 @@ const ORBITO_CATEGORIES = [
     color: "#EC4899",
     description: "Unleash your visual, tactile, and musical expressions through hands-on creative arts.",
     topics: [
-      { id: 9, name: "Pottery and Clay Modelling", popular: true },
-      { id: 10, name: "Photography for Beginners", popular: true },
-      { id: 11, name: "Digital Art and Illustration", popular: true },
-      { id: 12, name: "Painting and Canvas Art", popular: false },
-      { id: 13, name: "Graphic Design with Canva", popular: true },
-      { id: 14, name: "Creative Writing and Storytelling", popular: false },
-      { id: 15, name: "Dance for Beginners", popular: false },
-      { id: 16, name: "Music and Guitar Basics", popular: true }
+      { id: 9, name: "Pottery and Clay Modelling", popular: true, image: "assets/images/courses/pottery-clay.jpg", duration: "3-Hour Studio", level: "Beginner", format: "In-Person Studio", description: "Shape clay by hand and master wheel throwing in an authentic artisan studio." },
+      { id: 10, name: "Photography for Beginners", popular: true, image: null, duration: "Weekend Workshop", level: "Beginner", format: "Studio & Outdoor Walk", description: "Master camera exposure, lighting, framing, and visual storytelling." },
+      { id: 11, name: "Digital Art and Illustration", popular: true, image: null, duration: "4 Weeks", level: "Beginner to Intermediate", format: "Live Digital Canvas", description: "Draw stunning illustrations using digital tablets, layers, and color theory." },
+      { id: 12, name: "Painting and Canvas Art", popular: false, image: null, duration: "Half-Day Masterclass", level: "All Levels", format: "Art Studio", description: "Express emotion through acrylics, color blending, and textural brushwork." },
+      { id: 13, name: "Graphic Design with Canva", popular: true, image: "assets/images/courses/graphic-design-canva.png", duration: "2-Day Intensive", level: "Beginner", format: "Live Design Lab", description: "Create eye-catching social posts, presentations, and professional branding." },
+      { id: 14, name: "Creative Writing and Storytelling", popular: false, image: null, duration: "3 Weeks", level: "Beginner", format: "Writers Circle", description: "Craft memorable characters, write engaging narratives, and find your voice." },
+      { id: 15, name: "Dance for Beginners", popular: false, image: null, duration: "4 Sessions", level: "Beginner", format: "Dance Studio", description: "Learn expressive choreography, rhythm, and body movement fundamentals." },
+      { id: 16, name: "Music and Guitar Basics", popular: true, image: null, duration: "4 Weeks", level: "Beginner", format: "Live Acoustic Lab", description: "Strum your first chords, understand rhythm tabs, and play favorite melodies." }
     ]
   },
   {
@@ -141,6 +165,7 @@ const SAMPLE_WORKSHOPS = [
     topicId: 1,
     topicName: "Python Programming for Beginners",
     format: "online",
+    coverImageUrl: "assets/images/courses/python-programming.png",
     location: "Zoom Interactive Lab (Live Link Sent Upon Registration)",
     date: "2026-10-24",
     time: "10:00 AM - 1:00 PM EST",
@@ -182,6 +207,7 @@ const SAMPLE_WORKSHOPS = [
     topicId: 2,
     topicName: "Generative AI and Prompt Engineering",
     format: "online",
+    coverImageUrl: "assets/images/courses/generative-ai.jpg",
     location: "Google Meet & Live Prompt Sandbox",
     date: "2026-10-26",
     time: "2:00 PM - 5:30 PM EST",
@@ -223,6 +249,7 @@ const SAMPLE_WORKSHOPS = [
     topicId: 9,
     topicName: "Pottery and Clay Modelling",
     format: "offline",
+    coverImageUrl: "assets/images/courses/pottery-clay.jpg",
     location: "Artisan Loft Studios, 452 Broadway, New York, NY",
     date: "2026-10-31",
     time: "11:00 AM - 3:00 PM EST",
@@ -469,6 +496,7 @@ const SAMPLE_WORKSHOPS = [
     topicId: 4,
     topicName: "Web Development Bootcamp",
     format: "online",
+    coverImageUrl: "assets/images/courses/web-development.png",
     location: "Orbito Code Classroom (Discord + Live Editor)",
     date: "2026-11-08",
     time: "11:00 AM - 3:00 PM EST",
@@ -633,6 +661,7 @@ const SAMPLE_WORKSHOPS = [
     topicId: 13,
     topicName: "Graphic Design with Canva",
     format: "online",
+    coverImageUrl: "assets/images/courses/graphic-design-canva.png",
     location: "Canva Design Studio Webinar & Template Share",
     date: "2026-11-03",
     time: "6:00 PM - 8:00 PM EST",

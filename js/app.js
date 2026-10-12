@@ -965,6 +965,179 @@ function initHowOrbitoWorks() {
   }
 }
 
+/**
+ * Render Fallback Placeholder for Course Cards
+ */
+function renderCoursePlaceholder(categoryName, topicName, categoryId) {
+  const cat = (categoryName || "").toLowerCase();
+  const cid = (categoryId || "").toLowerCase();
+  const isCreativity = cid.includes("creativity") || cat.includes("creativity") || cat.includes("art");
+  const isCareer = cid.includes("career") || cat.includes("career");
+  const isFinance = cid.includes("finance") || cat.includes("finance") || cat.includes("entrepreneur");
+  const isLifestyle = cid.includes("lifestyle") || cat.includes("lifestyle") || cat.includes("wellness");
+
+  let phClass = "course-card-placeholder";
+  let strokeColor = "#7C3AED";
+  let iconSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`;
+
+  if (isCreativity) {
+    phClass += " creativity-placeholder";
+    strokeColor = "#EC4899";
+    iconSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="${strokeColor}"></circle><circle cx="17.5" cy="10.5" r=".5" fill="${strokeColor}"></circle><circle cx="8.5" cy="7.5" r=".5" fill="${strokeColor}"></circle><circle cx="6.5" cy="12.5" r=".5" fill="${strokeColor}"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path></svg>`;
+  } else if (isCareer) {
+    phClass += " career-placeholder";
+    strokeColor = "#2563EB";
+    iconSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`;
+  } else if (isFinance) {
+    phClass += " finance-placeholder";
+    strokeColor = "#D97706";
+    iconSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`;
+  } else if (isLifestyle) {
+    phClass += " lifestyle-placeholder";
+    strokeColor = "#059669";
+    iconSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+  }
+
+  return `
+    <div class="${phClass}" aria-label="${escapeHTML(topicName)}">
+      <div class="placeholder-icon-bubble">
+        ${iconSvg}
+      </div>
+      <span class="placeholder-badge">${escapeHTML(categoryName)}</span>
+    </div>
+  `;
+}
+
+/**
+ * Domain Courses Explorer Interactive Controller
+ */
+const DomainCoursesExplorer = {
+  activeCategoryId: "tech-ai",
+
+  init() {
+    this.bindCategoryCardClicks();
+    // Mark initial active card
+    const initialCard = document.querySelector(`.interest-category-card[data-category="${this.activeCategoryId}"]`);
+    if (initialCard) initialCard.classList.add("is-selected-domain");
+  },
+
+  bindCategoryCardClicks() {
+    const cards = document.querySelectorAll(".interest-category-card");
+    if (!cards.length) return;
+
+    cards.forEach(card => {
+      card.addEventListener("click", (e) => {
+        // If clicking the diagonal arrow button directly, allow navigation to explore.html
+        if (e.target.closest(".card-diagonal-arrow-btn")) {
+          return;
+        }
+        e.preventDefault();
+        const categoryId = card.getAttribute("data-category");
+        if (categoryId) {
+          this.setActiveCategory(categoryId);
+        }
+      });
+    });
+  },
+
+  setActiveCategory(categoryId) {
+    this.activeCategoryId = categoryId;
+
+    // Visual active highlight on category carousel card
+    document.querySelectorAll(".interest-category-card").forEach(c => {
+      if (c.getAttribute("data-category") === categoryId) {
+        c.classList.add("is-selected-domain");
+      } else {
+        c.classList.remove("is-selected-domain");
+      }
+    });
+
+    this.renderCategoryCourses(categoryId);
+  },
+
+  renderCategoryCourses(categoryId) {
+    const grid = document.getElementById("domain-courses-grid");
+    if (!grid) return;
+
+    let lookupId = categoryId;
+    if (lookupId === "career-skills") lookupId = "career-professional";
+
+    const categories = window.ORBITO_CATEGORIES || [];
+    const category = categories.find(c => c.id === lookupId || c.id === categoryId) || categories[0];
+    if (!category) return;
+
+    // Update Header
+    const badgePill = document.getElementById("domain-badge-pill");
+    const heading = document.getElementById("domain-courses-title");
+    const subtitle = document.getElementById("domain-courses-subtitle");
+    const allBtn = document.getElementById("btn-domain-all-workshops");
+    const allBtnLabel = document.getElementById("domain-all-workshops-label");
+
+    if (badgePill) {
+      badgePill.innerHTML = `
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        ${escapeHTML(category.name)}
+      `;
+    }
+    if (heading) heading.textContent = `Courses in ${category.name}`;
+    if (subtitle) subtitle.textContent = category.description || "Browse curated workshops, bootcamps, and masterclasses across this domain.";
+    if (allBtn) allBtn.href = `explore.html?category=${category.id}`;
+    if (allBtnLabel) allBtnLabel.textContent = `View all ${category.name} workshops`;
+
+    // Render topics / courses
+    const topics = category.topics || [];
+    grid.innerHTML = topics.map(topic => {
+      const imgUrl = (window.COURSE_IMAGE_MAP && (window.COURSE_IMAGE_MAP[topic.id] || window.COURSE_IMAGE_MAP[topic.name])) || topic.image;
+      const isPopular = topic.popular;
+      const level = topic.level || "Beginner";
+      const duration = topic.duration || "4 Weeks";
+      const description = topic.description || `Practical, hands-on workshop designed to develop real skills in ${topic.name}.`;
+
+      return `
+        <article class="orbito-course-card" data-course-id="${topic.id}">
+          <div class="course-card-media">
+            ${imgUrl ? `
+              <img src="${escapeHTML(imgUrl)}" alt="${escapeHTML(topic.name)}" class="course-card-img" loading="lazy" onerror="this.parentElement.innerHTML=renderCoursePlaceholder('${escapeHTML(category.name)}', '${escapeHTML(topic.name)}', '${escapeHTML(category.id)}')">
+            ` : renderCoursePlaceholder(category.name, topic.name, category.id)}
+            ${isPopular ? `<span class="course-badge-overlay">Popular</span>` : ''}
+          </div>
+
+          <div class="course-card-content">
+            <div class="course-card-meta-top">
+              <span class="course-domain-tag">${escapeHTML(category.name)}</span>
+              <span class="course-level-tag">${escapeHTML(level)}</span>
+            </div>
+
+            <h4 class="course-card-title">
+              <a href="explore.html?category=${encodeURIComponent(category.id)}&topic=${encodeURIComponent(topic.id)}">
+                ${escapeHTML(topic.name)}
+              </a>
+            </h4>
+
+            <p class="course-card-desc">${escapeHTML(description)}</p>
+
+            <div class="course-card-footer">
+              <div class="course-meta-info">
+                <span class="course-duration">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  ${escapeHTML(duration)}
+                </span>
+              </div>
+              <a href="explore.html?category=${encodeURIComponent(category.id)}&topic=${encodeURIComponent(topic.id)}" class="course-card-arrow-link" aria-label="Explore ${escapeHTML(topic.name)}">
+                <span>Explore</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+};
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderScroll();
@@ -973,6 +1146,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initAuthModals();
   initInterestsCarousel();
   initHowOrbitoWorks();
+  DomainCoursesExplorer.init();
 });
 
 // Expose globals
@@ -983,3 +1157,6 @@ window.openRegistrationModal = openRegistrationModal;
 window.openSuccessModal = openSuccessModal;
 window.initInterestsCarousel = initInterestsCarousel;
 window.initHowOrbitoWorks = initHowOrbitoWorks;
+window.DomainCoursesExplorer = DomainCoursesExplorer;
+window.renderCoursePlaceholder = renderCoursePlaceholder;
+
