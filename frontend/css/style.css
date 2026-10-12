@@ -1904,17 +1904,17 @@ img {
 }
 
 /* ==========================================================================
-   Join Orbito - Call To Action Section
+   Join Orbito - Call To Action Section (Matching Reference Design)
    ========================================================================== */
 .join-orbito-section {
   background-color: #FAFAFC;
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 5rem 1.5rem 5.5rem;
   position: relative;
   overflow: hidden;
 }
 
 .join-orbito-container {
-  max-width: 1240px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
@@ -1922,10 +1922,10 @@ img {
 .join-orbito-panel {
   background-color: #FFFFFF;
   border: 1.5px solid #F0F0F4;
-  border-radius: 56px;
-  box-shadow: 0 20px 60px rgba(36, 36, 40, 0.06), 0 2px 10px rgba(36, 36, 40, 0.03);
-  padding: 5.5rem 2.5rem;
-  min-height: 520px;
+  border-radius: 52px;
+  box-shadow: 0 16px 45px rgba(36, 36, 40, 0.05), 0 2px 8px rgba(36, 36, 40, 0.02);
+  padding: 4.5rem 2.5rem;
+  min-height: 390px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -1933,9 +1933,36 @@ img {
   justify-content: center;
 }
 
+/* Background Corner Accent Blobs */
+.panel-corner-blob {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.corner-blob-coral {
+  top: 15%;
+  left: -32px;
+  width: 95px;
+  height: 220px;
+  background: linear-gradient(135deg, #FF668D 0%, #FF8FA3 100%);
+  border-radius: 0 110px 110px 0;
+  opacity: 0.88;
+}
+
+.corner-blob-purple {
+  top: -20px;
+  right: -20px;
+  width: 160px;
+  height: 130px;
+  background: linear-gradient(135deg, #A987FF 0%, #C4B5FD 100%);
+  border-radius: 0 0 0 100px;
+  opacity: 0.88;
+}
+
 /* Centered Content Area */
 .join-orbito-content {
-  max-width: 780px;
+  max-width: 580px;
   margin: 0 auto;
   text-align: center;
   position: relative;
@@ -1946,8 +1973,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1.15rem;
-  margin-bottom: 1.25rem;
+  gap: 0.95rem;
+  margin-bottom: 0.85rem;
 }
 
 .join-heading-purple-lines {
@@ -1957,24 +1984,25 @@ img {
 
 .join-orbito-heading {
   font-family: var(--font-family);
-  font-size: clamp(2.75rem, 5vw, 3.75rem); /* ~52-60px on desktop */
+  font-size: clamp(1.95rem, 3.4vw, 2.5rem);
   font-weight: 800;
   color: #242428;
   letter-spacing: -0.03em;
-  line-height: 1.12;
+  line-height: 1.15;
   margin: 0;
 }
 
 .join-orbito-description {
   font-family: var(--font-family);
-  font-size: clamp(1.2rem, 2.2vw, 1.55rem); /* ~24-26px on desktop */
+  font-size: 1.02rem;
   font-weight: 400;
   color: #55555D;
   line-height: 1.6;
-  max-width: 760px;
-  margin: 0 auto 2.75rem;
+  max-width: 530px;
+  margin: 0 auto 1.85rem;
 }
 
+/* Reduced Compact Pill CTA Button */
 .btn-join-signup {
   display: inline-flex;
   align-items: center;
@@ -1982,50 +2010,58 @@ img {
   background-color: #242428;
   color: #FFFFFF !important;
   font-family: var(--font-family);
-  font-size: 22px;
+  font-size: 0.95rem;
   font-weight: 700;
-  width: 295px;
-  height: 74px;
+  padding: 0.72rem 2.2rem;
+  width: auto;
+  height: auto;
+  min-height: 46px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(36, 36, 40, 0.16);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(36, 36, 40, 0.16);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
 }
 
 .btn-join-signup:hover {
   background-color: #383840;
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(36, 36, 40, 0.26);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(36, 36, 40, 0.24);
 }
 
 .btn-join-signup:active {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(36, 36, 40, 0.2);
+  transform: translateY(0);
 }
 
-/* Left Decorative Elements */
-.join-deco-left {
+/* Left & Right Decorative Wrappers */
+.join-deco-left,
+.join-deco-right {
   position: absolute;
   top: 0;
-  left: 0;
   bottom: 0;
-  width: 280px;
   pointer-events: none;
-  z-index: 2;
+  z-index: 5;
 }
 
-.deco-blob-coral {
+.join-deco-left {
+  left: 0;
+  width: 320px;
+}
+
+.join-deco-right {
+  right: 0;
+  width: 340px;
+}
+
+.join-photo-wrapper {
   position: absolute;
-  top: -20px;
-  left: -40px;
-  width: 240px;
-  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .join-photo-frame {
-  position: absolute;
   border-radius: 50%;
   overflow: hidden;
   background-color: #FFFFFF;
@@ -2033,11 +2069,13 @@ img {
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.25s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .join-photo-frame:hover {
-  transform: scale(1.06) rotate(-2deg);
+  transform: scale(1.05);
 }
 
 .join-circle-img {
@@ -2048,109 +2086,103 @@ img {
   display: block;
 }
 
-.photo-fallback-svg {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+/* Positioning matching reference image */
+.photo-wrap-coral {
+  top: 16%;
+  left: 17%;
 }
 
 .frame-coral {
-  top: 14%;
-  left: 8%;
-  width: 125px;
-  height: 125px;
-  border: 4.5px solid #FF668D;
-  box-shadow: 0 12px 28px rgba(255, 102, 141, 0.25);
+  width: 86px;
+  height: 86px;
+  border: 4px solid #FF668D;
+  box-shadow: 0 8px 20px rgba(255, 102, 141, 0.22);
+}
+
+.strokes-coral {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  pointer-events: none;
 }
 
 .join-deco-planet {
   position: absolute;
-  bottom: 12%;
-  left: 9%;
-  width: 120px;
-  height: 120px;
-}
-
-.planet-backdrop-blob {
-  position: absolute;
-  top: -15px;
-  left: -20px;
-  width: 150px;
-  height: 140px;
-  z-index: 1;
+  bottom: 15%;
+  left: 13%;
+  width: 110px;
+  height: 90px;
 }
 
 .planet-illustration-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
 }
 
-.join-accent-strokes-left {
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  width: 80px;
-  height: 80px;
-  transform: translateY(-50%);
-}
-
-/* Right Decorative Elements */
-.join-deco-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 290px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.deco-blob-purple {
-  position: absolute;
-  top: -30px;
-  right: -30px;
-  width: 260px;
-  height: 260px;
+.photo-wrap-yellow {
+  top: 16%;
+  right: 22%;
 }
 
 .frame-yellow {
-  top: 14%;
-  right: 9%;
-  width: 125px;
-  height: 125px;
-  border: 4.5px solid #FFB63E;
-  box-shadow: 0 12px 28px rgba(255, 182, 62, 0.25);
+  width: 84px;
+  height: 84px;
+  border: 4px solid #FBBF24;
+  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.22);
 }
 
-.frame-mint {
-  bottom: 13%;
-  right: 12%;
-  width: 135px;
-  height: 135px;
-  border: 4.5px solid #65D6B0;
-  box-shadow: 0 12px 28px rgba(101, 214, 176, 0.25);
+.strokes-yellow {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  pointer-events: none;
 }
 
 .join-deco-lightbulb {
   position: absolute;
-  bottom: 43%;
-  right: 6%;
-  width: 90px;
-  height: 105px;
-  z-index: 3;
+  top: 33%;
+  right: 12%;
+  width: 48px;
+  height: 58px;
 }
 
-.join-accent-strokes-right {
+.photo-wrap-mint {
+  bottom: 13%;
+  right: 18%;
+}
+
+.frame-mint {
+  width: 88px;
+  height: 88px;
+  border: 4px solid #34D399;
+  box-shadow: 0 8px 20px rgba(52, 211, 153, 0.22);
+}
+
+.strokes-mint {
   position: absolute;
-  top: 48%;
-  right: 22%;
-  width: 80px;
-  height: 80px;
-  transform: translateY(-50%);
+  top: -14px;
+  right: -14px;
+  pointer-events: none;
+}
+
+.join-deco-star {
+  position: absolute;
+  bottom: 35%;
+  right: 9%;
+  width: 26px;
+  height: 26px;
+}
+
+/* Responsive CTA */
+@media (max-width: 1080px) {
+  .join-deco-left,
+  .join-deco-right {
+    display: none;
+  }
+  .join-orbito-panel {
+    padding: 3.5rem 1.5rem;
+    min-height: auto;
+  }
 }
 
 /* ==========================================================================
