@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interest Discovery Quiz | Orbito</title>
+  <meta name="description" content="Discover workshops and learning activities matched to your passions, learning style, budget, and availability with our interactive quiz.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Demo Notice Banner -->
+  <aside class="demo-banner" role="complementary">
+    <span class="demo-banner-badge">Smart Matching</span>
+    <span>Takes under 2 minutes. Answers are matched locally or via the FastAPI recommendations endpoint.</span>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+      </a>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
+          <li><a href="index.html#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="quiz.html" class="nav-link active">Discover My Interest</a></li>
+          <li><a href="recommendations.html" class="nav-link">Recommendations</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="explore.html" class="btn btn-secondary btn-sm">
+          <span>Browse All</span>
+        </a>
+
+        <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="section-padding">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 2rem;">
+        <span class="section-badge">Interest Discovery</span>
+        <h1 class="section-title">Discover Your Next Passion</h1>
+        <p class="section-subtitle">
+          Answer a few quick questions about what inspires you, how you learn best, and what fits your schedule. We'll find workshops specifically tailored to you.
+        </p>
+      </div>
+
+      <!-- Interactive Quiz Engine App Container -->
+      <div class="quiz-container" id="quiz-app" aria-live="polite">
+        <!-- Injected and managed by QuizEngine -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Orbito</h3>
+          <p>Personalized discovery engine matching learners to live workshops across 50 topics.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="explore.html">Explore All Workshops</a></li>
+            <li><a href="recommendations.html">View My Recommendations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Privacy</h4>
+          <p style="font-size: 0.85rem; color: #94A3B8;">Your quiz answers are stored locally in your session and are only used to rank matching workshops.</p>
+        </div>
+        <div class="footer-col">
+          <h4>FastAPI Readiness</h4>
+          <p style="font-size: 0.85rem; color: #94A3B8;">Sends <code>POST /api/recommendations</code> JSON payload with fallback computation.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Orbito Platform. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/quiz.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      QuizEngine.init();
+    });
+  </script>
+</body>
+</html>

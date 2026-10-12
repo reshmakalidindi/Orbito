@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop Details | Orbito</title>
+  <meta name="description" content="View workshop syllabus, instructor credentials, date, location, and register for upcoming sessions.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Demo Notice Banner -->
+  <aside class="demo-banner" role="complementary">
+    <span class="demo-banner-badge">Demo Mode Active</span>
+    <span>Demonstration workshop details. In production, real-time seat counts and schedules sync with FastAPI.</span>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+      </a>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
+          <li><a href="index.html#categories-section" class="nav-link">Categories</a></li>
+          <li><a href="quiz.html" class="nav-link">Discover My Interest</a></li>
+          <li><a href="recommendations.html" class="nav-link">Recommendations</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="explore.html" class="btn btn-secondary btn-sm">
+          <span>All Workshops</span>
+        </a>
+
+        <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="section-padding">
+    <div class="container">
+      <!-- Breadcrumb navigation -->
+      <nav aria-label="Breadcrumb" style="margin-bottom: 2rem;">
+        <ol style="list-style: none; display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+          <li><a href="index.html" style="color: var(--text-muted);">Home</a></li>
+          <li>/</li>
+          <li><a href="explore.html" style="color: var(--text-muted);">Workshops</a></li>
+          <li>/</li>
+          <li id="breadcrumb-current-title" style="color: var(--text-primary); font-weight: 600;">Details</li>
+        </ol>
+      </nav>
+
+      <!-- Main Workshop Details View Container -->
+      <div id="details-view-container" aria-live="polite">
+        <!-- Injected via JavaScript -->
+        <div style="text-align: center; padding: 4rem 1rem;">
+          <div style="width: 2.5rem; height: 2.5rem; border: 3px solid var(--border-subtle); border-top-color: var(--primary); border-radius: 50%; margin: 0 auto 1rem; animation: spin 0.8s linear infinite;"></div>
+          <p style="color: var(--text-secondary); font-weight: 500;">Loading workshop details...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Orbito</h3>
+          <p>The modern workshop discovery platform. High-impact learning for curious minds.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore Workshops</a></li>
+            <li><a href="quiz.html">Interest Quiz</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Need Assistance?</h4>
+          <p style="font-size: 0.85rem; color: #94A3B8;">Contact our team at <code>support@orbito.io</code> for venue access inquiries or syllabus questions.</p>
+        </div>
+        <div class="footer-col">
+          <h4>FastAPI Backend</h4>
+          <p style="font-size: 0.85rem; color: #94A3B8;">Configured for <code>GET /api/workshops/{id}</code> and <code>POST /api/registrations</code>.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Orbito Platform. All rights reserved. Demo sample data active.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const container = document.getElementById("details-view-container");
+      const breadcrumbEl = document.getElementById("breadcrumb-current-title");
+
+      // Extract workshop id from URL parameter
+      const params = new URLSearchParams(window.location.search);
+      let workshopId = params.get("id");
+
+      // Default to first workshop if none provided
+      if (!workshopId && window.SAMPLE_WORKSHOPS && window.SAMPLE_WORKSHOPS.length > 0) {
+        workshopId = window.SAMPLE_WORKSHOPS[0].id;
+      }
+
+      try {
+        const response = await window.OrbitoAPI.fetchWorkshopById(workshopId);
+        const workshop = response.workshop;
+
+        if (!workshop) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">${getIcon("search")}</div>
+              <h3>Workshop Not Found</h3>
+              <p>The workshop you are looking for does not exist or may have expired.</p>
+              <a href="explore.html" class="btn btn-primary">Browse All Workshops</a>
+            </div>
+          `;
+          return;
+        }
+
+        if (breadcrumbEl) {
+          breadcrumbEl.textContent = workshop.title;
+        }
+
+        document.title = `${workshop.title} | Orbito`;
+
+        const isFree = workshop.price === 0;
+        const priceLabel = isFree ? "Free" : workshop.priceLabel;
+        const formatBadgeClass = workshop.format === "online" ? "badge-format-online" : "badge-format-offline";
+        const formatIcon = workshop.format === "online" ? "video" : "mapPin";
+
+        container.innerHTML = `
+          <div class="details-layout">
+            <!-- Left Main Column: Syllabus, Description, Outcomes, Instructor -->
+            <div class="details-main">
+              <div style="display: flex; gap: 0.5rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap;">
+                <span class="card-category-tag">${escapeHTML(workshop.categoryName)}</span>
+                <span class="badge ${formatBadgeClass}">${escapeHTML(workshop.format.toUpperCase())}</span>
+                <span class="badge badge-category">${escapeHTML(workshop.levelLabel)}</span>
+                ${workshop.featured ? '<span class="badge badge-primary">Featured Cohort</span>' : ''}
+              </div>
+
+              <h1 class="details-title">${escapeHTML(workshop.title)}</h1>
+
+              <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted); flex-wrap: wrap;">
+                <span style="display: flex; align-items: center; gap: 0.35rem;">
+                  ${getIcon("compass", "icon-sm")}
+                  <strong>${escapeHTML(workshop.topicName)}</strong>
+                </span>
+                ${workshop.rating ? `
+                  <span>•</span>
+                  <span style="display: flex; align-items: center; gap: 0.35rem; color: #D97706; font-weight: 700;">
+                    ${getIcon("star", "icon-sm")}
+                    <span>${workshop.rating}</span>
+                    <span style="color: var(--text-muted); font-weight: normal;">(${workshop.reviewsCount} reviews)</span>
+                  </span>
+                ` : ''}
+              </div>
+
+              <p class="details-subtitle">${escapeHTML(workshop.fullDescription || workshop.shortDescription)}</p>
+
+              <!-- What You Will Learn -->
+              <h2 class="details-section-heading">
+                ${getIcon("award")}
+                <span>What You Will Learn & Master</span>
+              </h2>
+
+              <ul class="details-bullets-list">
+                ${(workshop.learningPoints || []).map(point => `
+                  <li class="details-bullet-item">
+                    ${getIcon("check")}
+                    <span>${escapeHTML(point)}</span>
+                  </li>
+                `).join("")}
+              </ul>
+
+              <!-- Prerequisites -->
+              <h2 class="details-section-heading" style="margin-top: 2.5rem;">
+                ${getIcon("tool")}
+                <span>Prerequisites & Requirements</span>
+              </h2>
+              <div style="background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.95rem; color: var(--text-secondary);">
+                ${escapeHTML(workshop.prerequisites || "No prior background required. Beginners welcome.")}
+              </div>
+
+              <!-- Instructor Profile -->
+              <h2 class="details-section-heading" style="margin-top: 2.5rem;">
+                ${getIcon("user")}
+                <span>Meet Your Instructor</span>
+              </h2>
+
+              <div style="display: flex; gap: 1.25rem; background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; align-items: flex-start; box-shadow: var(--shadow-xs);">
+                <img src="${escapeHTML(workshop.instructor.avatar)}" alt="${escapeHTML(workshop.instructor.name)}" style="width: 4.5rem; height: 4.5rem; border-radius: var(--radius-full); object-fit: cover; border: 2px solid var(--primary-light);">
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">${escapeHTML(workshop.instructor.name)}</h3>
+                  <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">${escapeHTML(workshop.instructor.title)}</div>
+                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">${escapeHTML(workshop.instructor.bio)}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Sidebar: Pricing, Schedule, Location, Registration CTA -->
+            <aside class="details-sidebar-card" aria-label="Workshop Enrollment Details">
+              <div class="sidebar-price-row">
+                <div>
+                  <span style="font-size: 0.85rem; color: var(--text-muted); display: block;">Registration Fee</span>
+                  <div class="sidebar-price-amount" style="color: ${isFree ? 'var(--success)' : 'var(--text-primary)'};">
+                    ${escapeHTML(priceLabel)}
+                  </div>
+                </div>
+                ${isFree ? '<span class="badge badge-free">Sponsored Session</span>' : '<span class="badge badge-primary">Standard Admission</span>'}
+              </div>
+
+              <!-- Available Seats Counter Badge -->
+              ${workshop.seatsLeft !== undefined ? `
+                <div style="background: ${workshop.seatsLeft <= 5 ? 'var(--warning-bg)' : 'var(--primary-light)'}; border: 1px solid ${workshop.seatsLeft <= 5 ? '#FDE68A' : '#C7D2FE'}; border-radius: var(--radius-md); padding: 0.85rem 1rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                  <span style="font-size: 0.85rem; font-weight: 600; color: ${workshop.seatsLeft <= 5 ? '#92400E' : '#3730A3'};">
+                    Only ${workshop.seatsLeft} of ${workshop.seatsTotal} seats remaining!
+                  </span>
+                  <span class="badge" style="background: ${workshop.seatsLeft <= 5 ? '#D97706' : 'var(--primary)'}; color: #FFFFFF;">
+                    Hurry
+                  </span>
+                </div>
+              ` : ''}
+
+              <!-- Meta List -->
+              <div class="sidebar-meta-list">
+                <div class="sidebar-meta-row">
+                  ${getIcon("calendar")}
+                  <div class="sidebar-meta-info">
+                    <span class="label">Date & Time</span>
+                    <span class="value">${escapeHTML(workshop.date)}</span>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);">${escapeHTML(workshop.time)}</span>
+                  </div>
+                </div>
+
+                <div class="sidebar-meta-row">
+                  ${getIcon("clock")}
+                  <div class="sidebar-meta-info">
+                    <span class="label">Duration</span>
+                    <span class="value">${escapeHTML(workshop.duration)}</span>
+                  </div>
+                </div>
+
+                <div class="sidebar-meta-row">
+                  ${getIcon(formatIcon)}
+                  <div class="sidebar-meta-info">
+                    <span class="label">Format & Location</span>
+                    <span class="value" style="text-transform: capitalize;">${escapeHTML(workshop.format)}</span>
+                    <span style="font-size: 0.85rem; color: var(--text-muted);">${escapeHTML(workshop.location)}</span>
+                  </div>
+                </div>
+
+                ${workshop.registrationDeadline ? `
+                  <div class="sidebar-meta-row">
+                    ${getIcon("calendar")}
+                    <div class="sidebar-meta-info">
+                      <span class="label">Registration Closes</span>
+                      <span class="value">${escapeHTML(workshop.registrationDeadline)}</span>
+                    </div>
+                  </div>
+                ` : ''}
+              </div>
+
+              <!-- Registration CTA Button -->
+              <button type="button" class="btn btn-primary btn-lg" style="width: 100%; margin-bottom: 1rem;" onclick="openRegistrationModal('${escapeHTML(workshop.id)}')">
+                <span>Register for Workshop</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-align: center; line-height: 1.4;">
+                Instant confirmation code provided upon submission. Demo registration mode active.
+              </div>
+            </aside>
+          </div>
+        `;
+      } catch (err) {
+        container.innerHTML = `
+          <div class="empty-state" style="border-color: var(--danger);">
+            <div class="empty-state-icon" style="background: var(--danger-bg); color: var(--danger);">${getIcon("x")}</div>
+            <h3>Unable to load workshop</h3>
+            <p>${escapeHTML(err.message)}</p>
+            <a href="explore.html" class="btn btn-secondary">Return to Workshops</a>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

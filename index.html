@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbito | Your Next Passion Is Closer Than You Think</title>
+  <meta name="description" content="Discover workshops, explore new interests, and find learning experiences that match who you are and who you want to become.">
+
+  <!-- Core Google Fonts: Inter & Caveat for authentic handwritten sticker labels -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@400;450;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Demo Notice Banner -->
+  
+
+  <!-- Site Header (Horizontal Across Top with Generous Padding) -->
+  <header class="site-header" role="banner">
+    <div class="header-row">
+      <!-- Top-Left: Logo & Pill Search Bar -->
+      <div class="header-left-group">
+        <a href="index.html" class="brand-logo-link" aria-label="Orbito Home">
+          <img src="assets/images/orbito-logo.png" alt="Orbito - Discover . Learn . Grow" class="brand-logo-img">
+          <!-- Accessible Text Fallback -->
+          <span class="brand-fallback-logo">Orbito</span>
+        </a>
+
+        <!-- Adjacent Pill-Shaped Search Bar -->
+        <div class="header-search-pill" role="search">
+          <div class="header-search-input-group">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="header-search-input" class="header-search-input" placeholder="Search workshops, topics or interests..." aria-label="Search workshops, topics or interests">
+          </div>
+
+          <div class="header-search-divider" aria-hidden="true"></div>
+
+          <!-- Location Field -->
+          <div class="header-location-group" id="header-location-group" role="button" tabindex="0" title="Change Location">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span class="header-location-text" id="header-location-val">Bhimavaram, IN</span>
+          </div>
+
+          <!-- Circular Charcoal Search Button -->
+          <button type="button" id="header-search-btn" class="header-search-submit-btn" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Top-Right: Language Selector, Log In & Sign Up -->
+      <div class="header-right-group">
+        <button type="button" class="header-lang-btn" id="header-lang-btn" aria-label="Change language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span id="current-lang-text">English</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: -2px;">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <a href="#login" class="header-login-link auth-trigger-login">Log in</a>
+
+        <a href="#signup" class="btn-header-signup auth-trigger-signup">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section: Balanced Hero Layout (Left Collage, Centered Middle Content, Right Collage) -->
+    <section class="hero-meetup-section" aria-labelledby="hero-title">
+      <div class="hero-balanced-container">
+
+        <!-- Left Side: Activity Collage 1 (Crochet Club & Painting Class) -->
+        <div class="hero-left-collage-col">
+          <div class="hero-collage-wrapper">
+            <img src="assets/images/activity-collage-1.png?v=3" 
+                 alt="Crochet Club and Painting Class workshops" 
+                 class="hero-flanking-collage-img hero-left-img">
+          </div>
+        </div>
+
+        <!-- Middle Content: Heading, Caption & CTAs -->
+        <div class="hero-middle-content-col">
+          <h1 class="hero-heading" id="hero-title">
+            Your Next Passion<br>
+            Is Closer Than You Think.
+          </h1>
+
+          <p class="hero-caption">
+            Discover workshops, explore new interests, and find learning experiences that match who you are and who you want to become.
+          </p>
+
+          <div class="hero-actions-group">
+            <a href="quiz.html" class="btn-hero-primary" id="btn-discover-interests">
+              Discover My Interests
+            </a>
+            <a href="explore.html" class="btn-hero-secondary" id="btn-explore-workshops">
+              Explore Workshops
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Activity Collage 2 (Cooking Club & Tech Workshop) -->
+        <div class="hero-right-collage-col">
+          <div class="hero-collage-wrapper">
+            <img src="assets/images/activity-collage-2.png?v=3" 
+                 alt="Cooking Club and Tech Workshop" 
+                 class="hero-flanking-collage-img hero-right-img">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Popular Categories Section -->
+    <section class="section-padding" id="categories-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">7 Master Categories</span>
+          <h2 class="section-title">Explore Workshops By Category</h2>
+          <p class="section-subtitle">
+            From coding bootcamps and ceramic arts to public speaking and wilderness skills, explore 50 predefined learning tracks.
+          </p>
+        </div>
+
+        <div class="categories-grid" id="home-categories-grid">
+          <!-- Dynamically populated from ORBITO_CATEGORIES -->
+        </div>
+
+        <!-- All 50 Topics Directory -->
+        <div class="topics-explorer">
+          <div class="topics-explorer-header">
+            <div>
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary);">Complete 50 Topics Directory</h3>
+              <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.25rem;">Filter by category pill to discover all 50 predefined learning tracks.</p>
+            </div>
+            <a href="explore.html" class="btn btn-secondary btn-sm">
+              <span>View in Workshop Directory</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </a>
+          </div>
+
+          <div class="category-pills-filter" id="topics-filter-pills">
+            <button type="button" class="filter-pill active" data-category="all">All (50 Topics)</button>
+            <!-- Pill buttons injected via JS -->
+          </div>
+
+          <div class="topic-tags-grid" id="all-topics-container">
+            <!-- 50 Topics injected via JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Upcoming Workshops Section -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" style="background: var(--accent-coral-light); color: var(--accent-coral);">Verified Cohorts</span>
+          <h2 class="section-title">Featured Upcoming Workshops</h2>
+          <p class="section-subtitle">
+            Live instructor-led cohorts ready for enrollment this month in Bhimavaram and online.
+          </p>
+        </div>
+
+        <div class="workshops-grid" id="home-featured-workshops">
+          <!-- Dynamically populated from SAMPLE_WORKSHOPS -->
+        </div>
+
+        <div style="text-align: center; margin-top: 3.5rem;">
+          <a href="explore.html" class="btn btn-secondary btn-lg">
+            <span>Browse All Available Workshops</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section-padding" id="how-it-works" style="background-color: #FFFFFF; border-top: 1px solid var(--border-subtle);">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge" style="background: var(--accent-yellow-light); color: #B45309;">Simple 3 Steps</span>
+          <h2 class="section-title">How Orbito Works</h2>
+          <p class="section-subtitle">
+            Empowering curious people to bridge the gap between interest and hands-on skill.
+          </p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Explore Topics</h3>
+            <p class="step-desc">
+              Browse 50 structured topics across technology, arts, entrepreneurship, well-being, and practical life skills. Filter by format, budget, or level.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Discover Matches</h3>
+            <p class="step-desc">
+              Take our interactive 2-minute interest quiz. Our recommendation engine matches workshops directly to your schedule and goals.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Participate & Learn</h3>
+            <p class="step-desc">
+              Enroll in live webinars or attend vibrant in-person studios. Walk away with tangible deliverables, skills, and genuine community.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #A987FF;"></span>
+            Orbito
+          </h3>
+          <p>
+            The modern workshop discovery platform. Discover workshops, explore new interests, and connect with expert instructors.
+          </p>
+          <div style="font-size: 0.8rem; color: #8C8C96;">
+            Backend ready for FastAPI integration at <code>http://127.0.0.1:8000</code>.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore Workshops</a></li>
+            <li><a href="quiz.html">Interest Discovery Quiz</a></li>
+            <li><a href="recommendations.html">My Recommendations</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul class="footer-links">
+            <li><a href="explore.html?category=tech-ai">Technology & AI</a></li>
+            <li><a href="explore.html?category=creativity-arts">Creativity & Arts</a></li>
+            <li><a href="explore.html?category=career-professional">Career & Professional</a></li>
+            <li><a href="explore.html?category=entrepreneurship-finance">Entrepreneurship & Finance</a></li>
+            <li><a href="explore.html?category=lifestyle-wellness">Lifestyle & Wellness</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:support@orbito.io">support@orbito.io</a></li>
+            <li><a href="#">Help & FAQs</a></li>
+            <li><a href="#">Teach on Orbito</a></li>
+            <li><a href="#">Terms & Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 Orbito Platform. All rights reserved. Demo sample data active.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#" style="color: #8C8C96;">Privacy Policy</a>
+          <a href="#" style="color: #8C8C96;">Terms of Service</a>
+          <a href="#" style="color: #8C8C96;">Cookie Preferences</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/workshops.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Render Categories on Homepage
+      const catContainer = document.getElementById("home-categories-grid");
+      if (catContainer && window.ORBITO_CATEGORIES) {
+        catContainer.innerHTML = window.ORBITO_CATEGORIES.map(cat => `
+          <a href="explore.html?category=${encodeURIComponent(cat.id)}" class="category-card" aria-label="${escapeHTML(cat.name)} workshops">
+            <div class="category-icon-box" style="background-color: ${cat.color};">
+              ${getIcon(cat.icon)}
+            </div>
+            <h3 class="category-name">${escapeHTML(cat.name)}</h3>
+            <p class="category-desc">${escapeHTML(cat.description)}</p>
+            <div class="category-topics-summary">
+              <span>${cat.topics.length} Predefined Topics</span>
+              ${getIcon("chevronRight", "icon-sm")}
+            </div>
+          </a>
+        `).join("");
+      }
+
+      // 2. Render All 50 Topics Directory
+      const topicsContainer = document.getElementById("all-topics-container");
+      const pillsContainer = document.getElementById("topics-filter-pills");
+
+      if (topicsContainer && window.ALL_TOPICS && pillsContainer && window.ORBITO_CATEGORIES) {
+        window.ORBITO_CATEGORIES.forEach(cat => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "filter-pill";
+          btn.dataset.category = cat.id;
+          btn.textContent = `${cat.name} (${cat.topics.length})`;
+          pillsContainer.appendChild(btn);
+        });
+
+        const renderTopics = (catFilter = "all") => {
+          const filtered = catFilter === "all"
+            ? window.ALL_TOPICS
+            : window.ALL_TOPICS.filter(t => t.categoryId === catFilter);
+
+          topicsContainer.innerHTML = filtered.map(topic => `
+            <a href="explore.html?topic=${encodeURIComponent(topic.name)}" class="topic-tag-item" title="Browse ${escapeHTML(topic.name)} workshops">
+              <span class="topic-tag-number">#${topic.id}</span>
+              <span style="flex: 1;">${escapeHTML(topic.name)}</span>
+              ${topic.popular ? '<span class="badge badge-primary" style="font-size: 0.65rem; padding: 0.1rem 0.4rem; background: var(--accent-yellow-light); color: #B45309;">Hot</span>' : ''}
+            </a>
+          `).join("");
+        };
+
+        renderTopics("all");
+
+        pillsContainer.addEventListener("click", (e) => {
+          const pill = e.target.closest(".filter-pill");
+          if (!pill) return;
+          pillsContainer.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          renderTopics(pill.dataset.category);
+        });
+      }
+
+      // 3. Render Featured Workshops on Homepage
+      const featContainer = document.getElementById("home-featured-workshops");
+      if (featContainer && window.SAMPLE_WORKSHOPS) {
+        const featured = window.SAMPLE_WORKSHOPS.filter(w => w.featured).slice(0, 6);
+        featContainer.innerHTML = featured.map(renderWorkshopCard).join("");
+      }
+    });
+  </script>
+</body>
+</html>
