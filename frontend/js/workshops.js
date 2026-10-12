@@ -157,6 +157,8 @@ const ExploreController = {
   searchKeyword: "",
   activeFilter: "all",
 
+  selectedTopicId: null,
+
   init() {
     this.readUrlParams();
     this.renderDomainTabs();
@@ -167,15 +169,32 @@ const ExploreController = {
   readUrlParams() {
     const params = new URLSearchParams(window.location.search);
     const cat = params.get("category");
+    const topicParam = params.get("topic");
+
     if (cat) {
       if (cat === "career-skills") this.currentCategory = "career-professional";
       else if (cat === "emerging-practical") this.currentCategory = "emerging-practical";
       else this.currentCategory = cat;
+    } else if (topicParam) {
+      const categories = window.ORBITO_CATEGORIES || [];
+      const found = categories.find(c => (c.topics || []).some(t => String(t.id) === String(topicParam) || t.name.toLowerCase() === topicParam.toLowerCase()));
+      if (found) {
+        this.currentCategory = found.id;
+      } else {
+        this.currentCategory = "tech-ai";
+      }
     } else {
       this.currentCategory = "tech-ai";
     }
+
     if (params.has("search")) this.searchKeyword = params.get("search");
     if (params.has("q")) this.searchKeyword = params.get("q");
+
+    if (topicParam) {
+      this.selectedTopicId = parseInt(topicParam, 10) || topicParam;
+    } else {
+      this.selectedTopicId = null;
+    }
   },
 
   bindEvents() {
@@ -198,6 +217,11 @@ const ExploreController = {
         pills.forEach(p => p.classList.remove("active"));
         pill.classList.add("active");
         this.activeFilter = pill.getAttribute("data-filter") || "all";
+        if (this.activeFilter === "all") {
+          this.selectedTopicId = null;
+          this.searchKeyword = "";
+          if (searchInput) searchInput.value = "";
+        }
         this.renderCoursesAndWorkshops();
       });
     });
@@ -208,6 +232,23 @@ const ExploreController = {
       this.updateActiveTabPill();
       this.renderDomain();
     });
+  },
+
+  selectCourse(topicId, event) {
+    if (event) event.preventDefault();
+    this.selectedTopicId = parseInt(topicId, 10) || topicId;
+    window.history.pushState({}, "", `explore.html?category=${encodeURIComponent(this.currentCategory)}&topic=${encodeURIComponent(topicId)}`);
+    this.renderCoursesAndWorkshops();
+    this.scrollToCourse(topicId);
+  },
+
+  scrollToCourse(topicId) {
+    setTimeout(() => {
+      const card = document.querySelector(`.orbito-course-card[data-course-id="${topicId}"]`);
+      if (card) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 60);
   },
 
   renderDomainTabs() {
@@ -246,6 +287,7 @@ const ExploreController = {
 
   switchDomain(categoryId) {
     this.currentCategory = categoryId;
+    this.selectedTopicId = null;
     window.history.pushState({}, "", `explore.html?category=${encodeURIComponent(categoryId)}`);
     this.updateActiveTabPill();
     this.renderDomain();
@@ -351,14 +393,15 @@ const ExploreController = {
           const level = topic.level || "Beginner Friendly";
           const duration = topic.duration || "4 Weeks";
           const description = topic.description || `Practical, hands-on workshop designed to develop real skills in ${topic.name}.`;
+          const isSelected = String(this.selectedTopicId) === String(topic.id);
 
           return `
-            <article class="orbito-course-card" data-course-id="${topic.id}">
+            <article class="orbito-course-card ${isSelected ? 'is-selected-course' : ''}" data-course-id="${topic.id}">
               <div class="course-card-media">
                 ${imgUrl ? `
                   <img src="${escapeHTML(imgUrl)}" alt="${escapeHTML(topic.name)}" class="course-card-img" loading="lazy" onerror="this.parentElement.innerHTML=renderCoursePlaceholder('${escapeHTML(cat.name)}', '${escapeHTML(topic.name)}', '${escapeHTML(cat.id)}')">
                 ` : renderCoursePlaceholder(cat.name, topic.name, cat.id)}
-                ${isPopular ? `<span class="course-badge-overlay">Popular</span>` : ''}
+                ${isSelected ? `<span class="course-badge-overlay course-badge-selected">Selected</span>` : (isPopular ? `<span class="course-badge-overlay">Popular</span>` : '')}
               </div>
 
               <div class="course-card-content">
@@ -368,7 +411,7 @@ const ExploreController = {
                 </div>
 
                 <h4 class="course-card-title">
-                  <a href="workshop-details.html?topic=${encodeURIComponent(topic.id)}">
+                  <a href="explore.html?category=${encodeURIComponent(cat.id)}&topic=${encodeURIComponent(topic.id)}" onclick="ExploreController.selectCourse('${encodeURIComponent(topic.id)}', event)">
                     ${escapeHTML(topic.name)}
                   </a>
                 </h4>

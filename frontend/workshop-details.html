@@ -12,41 +12,25 @@
 </head>
 <body>
 
-  <!-- Demo Notice Banner -->
-  <aside class="demo-banner" role="complementary">
-    <span class="demo-banner-badge">Demo Mode Active</span>
-    <span>Demonstration workshop details. In production, real-time seat counts and schedules sync with FastAPI.</span>
-  </aside>
-
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar (Contains ONLY: Home, Domains, How It Works, Join Now) -->
   <header class="site-header" role="banner">
-    <div class="container nav-container">
-      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
-        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
-      </a>
-
-      <nav role="navigation" aria-label="Main Navigation">
-        <ul class="nav-links">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
-          <li><a href="index.html#categories-section" class="nav-link">Categories</a></li>
-          <li><a href="quiz.html" class="nav-link">Discover My Interest</a></li>
-          <li><a href="recommendations.html" class="nav-link">Recommendations</a></li>
-        </ul>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="explore.html" class="btn btn-secondary btn-sm">
-          <span>All Workshops</span>
+    <div class="container nav-container" style="display: flex; align-items: center; justify-content: space-between;">
+      <div class="header-left-group" style="display: flex; align-items: center; gap: 3rem;">
+        <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+          <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
         </a>
 
-        <button type="button" class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
+        <nav role="navigation" aria-label="Main Navigation">
+          <ul class="nav-links" style="display: flex; align-items: center; gap: 2.25rem; list-style: none; margin: 0; padding: 0;">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="index.html#domains" class="nav-link">Domains</a></li>
+            <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="header-right-group" id="header-right-group" style="display: flex; align-items: center; gap: 1rem;">
+        <a href="index.html#join-orbito" class="btn-header-join" id="btn-header-join-cta">Join Now</a>
       </div>
     </div>
   </header>
@@ -75,33 +59,101 @@
     </div>
   </main>
 
-  <!-- Global Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3>Orbito</h3>
-          <p>The modern workshop discovery platform. High-impact learning for curious minds.</p>
+  <!-- Clean, Modern, Responsive Dark Charcoal Footer (#242428) identical to Main Page -->
+  <footer class="orbito-site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        
+        <!-- Column 1: Brand & Tagline -->
+        <div class="footer-brand-column">
+          <a href="index.html" class="footer-brand-title" aria-label="Orbito Home">
+            Orbito
+          </a>
+          <p class="footer-tagline">Discover · Learn · Grow</p>
+          <p class="footer-brand-desc">
+            The modern workshop discovery platform empowering curious people to explore new interests, attend vibrant cohorts, and connect with inspiring mentors.
+          </p>
         </div>
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="explore.html">Explore Workshops</a></li>
-            <li><a href="quiz.html">Interest Quiz</a></li>
+
+        <!-- Column 2: Explore -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Explore</h3>
+          <ul class="footer-col-links">
+            <li><a href="explore.html" class="footer-link">Browse Workshops</a></li>
+            <li><a href="index.html#domains" class="footer-link">Domains</a></li>
+            <li><a href="quiz.html" class="footer-link">Discover My Interests</a></li>
+            <li><a href="organizer-dashboard.html" class="footer-link">Organizer Dashboard</a></li>
+            <li><a href="create-workshop.html" class="footer-link">Create Workshop</a></li>
           </ul>
         </div>
-        <div class="footer-col">
-          <h4>Need Assistance?</h4>
-          <p style="font-size: 0.85rem; color: #94A3B8;">Contact our team at <code>support@orbito.io</code> for venue access inquiries or syllabus questions.</p>
+
+        <!-- Column 3: About -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">About</h3>
+          <ul class="footer-col-links">
+            <li><a href="index.html#how-it-works" class="footer-link">How Orbito Works</a></li>
+            <li><a href="index.html#about" class="footer-link">Our Mission</a></li>
+            <li><a href="mailto:hello@orbito.io" class="footer-link">Contact Us</a></li>
+          </ul>
         </div>
-        <div class="footer-col">
-          <h4>FastAPI Backend</h4>
-          <p style="font-size: 0.85rem; color: #94A3B8;">Configured for <code>GET /api/workshops/{id}</code> and <code>POST /api/registrations</code>.</p>
+
+        <!-- Column 4: Help & Legal -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Help & Legal</h3>
+          <ul class="footer-col-links">
+            <li><a href="index.html#faqs" class="footer-link">FAQs</a></li>
+            <li><a href="#privacy" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#terms" class="footer-link">Terms of Service</a></li>
+          </ul>
         </div>
+
+        <!-- Column 5: Connect With Us -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Connect With Us</h3>
+          <p class="footer-connect-desc">Follow our community updates and featured workshop cohorts:</p>
+          <div class="footer-social-row">
+            <a href="https://instagram.com" class="social-icon-btn social-ig" aria-label="Follow Orbito on Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="19" height="19">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://x.com" class="social-icon-btn social-x" aria-label="Follow Orbito on X" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+              </svg>
+            </a>
+            <a href="https://linkedin.com" class="social-icon-btn social-li" aria-label="Connect with Orbito on LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href="https://youtube.com" class="social-icon-btn social-yt" aria-label="Subscribe to Orbito on YouTube" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
+              </svg>
+            </a>
+          </div>
+        </div>
+
       </div>
-      <div class="footer-bottom">
-        <div>&copy; 2026 Orbito Platform. All rights reserved. Demo sample data active.</div>
+
+      <!-- Divider and Copyright Row -->
+      <div class="footer-divider-line" aria-hidden="true"></div>
+
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright-text">&copy; 2026 Orbito. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#privacy" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-dot-sep">&bull;</span>
+          <a href="#terms" class="footer-bottom-link">Terms of Service</a>
+          <span class="footer-dot-sep">&bull;</span>
+          <a href="#cookies" class="footer-bottom-link">Cookie Preferences</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -115,13 +167,16 @@
       const container = document.getElementById("details-view-container");
       const breadcrumbEl = document.getElementById("breadcrumb-current-title");
 
-      // Extract workshop id from URL parameter
+      // Extract parameters
       const params = new URLSearchParams(window.location.search);
+      let topic = params.get("topic");
       let workshopId = params.get("id");
 
-      // Default to first workshop if none provided
-      if (!workshopId && window.SAMPLE_WORKSHOPS && window.SAMPLE_WORKSHOPS.length > 0) {
-        workshopId = window.SAMPLE_WORKSHOPS[0].id;
+      // If topic is specified or no specific id, redirect seamlessly to explore.html
+      if (topic || !workshopId) {
+        const cat = params.get("category") || "tech-ai";
+        window.location.replace(`explore.html?category=${encodeURIComponent(cat)}${topic ? `&topic=${encodeURIComponent(topic)}` : ''}`);
+        return;
       }
 
       try {

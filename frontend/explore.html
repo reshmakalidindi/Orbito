@@ -17,29 +17,26 @@
 </head>
 <body class="explore-page-shell">
 
-  <!-- Navigation Bar (Consistent with Main Page, All Links in Horizontal Line with Logo) -->
+  <!-- Navigation Bar (Contains ONLY: Home, Domains, How It Works, Join Now) -->
   <header class="site-header" role="banner">
     <div class="container nav-container" style="display: flex; align-items: center; justify-content: space-between;">
-      <div class="header-left-group" style="display: flex; align-items: center; gap: 2.75rem;">
+      <div class="header-left-group" style="display: flex; align-items: center; gap: 3rem;">
         <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
           <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
         </a>
 
         <nav role="navigation" aria-label="Main Navigation">
-          <ul class="nav-links" style="display: flex; align-items: center; gap: 1.75rem; list-style: none; margin: 0; padding: 0;">
+          <ul class="nav-links" style="display: flex; align-items: center; gap: 2.25rem; list-style: none; margin: 0; padding: 0;">
             <li><a href="index.html" class="nav-link">Home</a></li>
-            <li><a href="explore.html" class="nav-link active">Explore Workshops</a></li>
-            <li><a href="index.html#categories-section" class="nav-link">Categories</a></li>
-            <li><a href="quiz.html" class="nav-link">Discover My Interest</a></li>
-            <li><a href="recommendations.html" class="nav-link">Recommendations</a></li>
-            <li><a href="explore.html" class="nav-link">Browse All</a></li>
+            <li><a href="index.html#domains" class="nav-link">Domains</a></li>
+            <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
+            <li class="mobile-only-item" style="display: none;"><a href="index.html#join-orbito" class="nav-link">Join Now</a></li>
           </ul>
         </nav>
       </div>
 
       <div class="header-right-group" id="header-right-group" style="display: flex; align-items: center; gap: 1rem;">
-        <a href="#login" class="header-login-link auth-trigger-login">Log In</a>
-        <a href="#signup" class="btn-header-signup auth-trigger-signup">Sign Up</a>
+        <a href="index.html#join-orbito" class="btn-header-join" id="btn-header-join-cta">Join Now</a>
       </div>
     </div>
   </header>

@@ -44,15 +44,38 @@ def test_index_html_structure():
     print("✓ index.html contains domain-courses-section and responsive courses grid with images.")
 
 def test_explore_html_header_and_footer():
-    with open("explore.html", "r", encoding="utf-8") as f:
-        content = f.read()
+    for base_path in ["", "frontend/"]:
+        path = os.path.join(base_path, "explore.html")
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
 
-    assert "demo-banner" not in content, "demo-banner should be removed from explore.html"
-    assert 'id="header-right-group"' in content, "header-right-group ID required for account symbol"
-    assert "orbito-site-footer" in content, "explore.html should have the dark charcoal orbito-site-footer"
-    assert "Browse All" in content, "explore.html header should include Browse All link"
-    assert "Discover My Interest" in content
-    print("✓ explore.html header and footer verified (no demo banner, correct horizontal navigation, dark charcoal footer).")
+        assert "demo-banner" not in content, f"demo-banner should be removed from {path}"
+        assert "orbito-site-footer" in content, f"{path} should have the dark charcoal orbito-site-footer"
+        
+        # Header navigation checks: contains ONLY Home, Domains, How It Works, Join Now
+        header_match = re.search(r'<header[^>]*class="site-header"[^>]*>(.*?)</header>', content, re.DOTALL)
+        assert header_match, f"site-header not found in {path}"
+        header_html = header_match.group(1)
+
+        assert "Home" in header_html, f"Home link missing in header of {path}"
+        assert "Domains" in header_html, f"Domains link missing in header of {path}"
+        assert "How It Works" in header_html, f"How It Works link missing in header of {path}"
+        assert "Join Now" in header_html, f"Join Now link missing in header of {path}"
+        assert 'href="index.html#join-orbito"' in header_html, f"Join Now should redirect to index.html#join-orbito in {path}"
+
+        # Must NOT contain extra links in header
+        assert "Explore Workshops" not in header_html, f"Explore Workshops should be removed from header in {path}"
+        assert "Discover My Interest" not in header_html, f"Discover My Interest should be removed from header in {path}"
+        assert "Browse All" not in header_html, f"Browse All should be removed from header in {path}"
+
+        # Filter bar checks: search bar and 4 pills beside it
+        assert "explore-search-input" in content, f"Missing explore-search-input in {path}"
+        assert "All Courses" in content, f"Missing 'All Courses' pill in {path}"
+        assert "Popular" in content, f"Missing 'Popular' pill in {path}"
+        assert "Beginner Friendly" in content, f"Missing 'Beginner Friendly' pill in {path}"
+        assert "Live Online" in content, f"Missing 'Live Online' pill in {path}"
+
+    print("✓ explore.html header (only Home, Domains, How It Works, Join Now) and filter toolbar verified in root and frontend.")
 
 def test_create_workshop_header_and_footer():
     with open("create-workshop.html", "r", encoding="utf-8") as f:

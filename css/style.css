@@ -5403,14 +5403,14 @@ img {
 .explore-filter-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem;
+  justify-content: flex-start;
+  gap: 1.35rem;
   flex-wrap: wrap;
   background: #FFFFFF;
   border: 1px solid #ECECF2;
-  border-radius: 20px;
-  padding: 1rem 1.35rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  border-radius: 9999px;
+  padding: 0.65rem 1.15rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
 }
 
 .explore-search-input-group {
@@ -5522,7 +5522,49 @@ img {
   .explore-hero-art-card {
     display: none;
   }
+/* Header Join Now CTA Button */
+.btn-header-join {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #242428;
+  color: #FFFFFF !important;
+  font-size: 0.885rem;
+  font-weight: 600;
+  padding: 0.55rem 1.35rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(36, 36, 40, 0.12);
+  white-space: nowrap;
 }
 
+.btn-header-join:hover {
+  background: #635BFF;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(99, 91, 255, 0.25);
+}
 
+/* Course Highlight State (when navigated from topic link) */
+.orbito-course-card.is-selected-course {
+  border-color: #635BFF;
+  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.22), 0 16px 36px rgba(99, 91, 255, 0.12);
+  transform: translateY(-4px);
+}
 
+.course-badge-overlay.course-badge-selected {
+  background: #635BFF;
+  color: #FFFFFF;
+}
+
+@media (max-width: 768px) {
+  .explore-filter-bar {
+    border-radius: 20px;
+    padding: 0.85rem;
+  }
+  .explore-search-input-group {
+    max-width: 100%;
+    width: 100%;
+  }
+}
