@@ -1,0 +1,562 @@
+/**
+ * CategoryScroller.css
+ * Styles for the Orbito responsive horizontal scrolling category section.
+ */
+
+:root {
+  /* Layout Dimensions */
+  --orbito-card-width: 395px;
+  --orbito-card-height: 230px;
+  --orbito-card-gap: 24px;
+  --orbito-card-radius: 26px;
+  --orbito-scroller-speed: 46s;
+
+  /* Surfaces & Neutral Colors */
+  --orbito-scroller-bg: #FAFAFC;
+  --orbito-card-bg: #FFFFFF;
+  --orbito-card-border: #E8E8EE;
+  --orbito-card-border-hover: #D8D8E2;
+  --orbito-card-shadow: 0 4px 20px rgba(24, 24, 32, 0.035), 0 1px 3px rgba(24, 24, 32, 0.02);
+  --orbito-card-shadow-hover: 0 12px 32px rgba(24, 24, 32, 0.08), 0 2px 6px rgba(24, 24, 32, 0.03);
+
+  /* Typography Colors */
+  --orbito-text-primary: #1E1E28;
+  --orbito-text-secondary: #5E5E6E;
+
+  /* Orbito Brand Accents */
+  --orbito-brand-indigo: #6366F1;
+  --orbito-brand-purple: #8B5CF6;
+
+  /* Alternating Pastel Accent Strips & Tints */
+  --orbito-pastel-mint: #6EE7B7;
+  --orbito-pastel-mint-subtle: #ECFDF5;
+  --orbito-pastel-mint-dark: #059669;
+
+  --orbito-pastel-coral: #FDBA74;
+  --orbito-pastel-coral-subtle: #FFF7ED;
+  --orbito-pastel-coral-dark: #EA580C;
+
+  --orbito-pastel-sky: #7DD3FC;
+  --orbito-pastel-sky-subtle: #F0F9FF;
+  --orbito-pastel-sky-dark: #0284C7;
+
+  --orbito-pastel-lavender: #C4B5FD;
+  --orbito-pastel-lavender-subtle: #F5F3FF;
+  --orbito-pastel-lavender-dark: #7C3AED;
+}
+
+/* ==========================================================================
+   Section Outer Container
+   ========================================================================== */
+.orbito-category-scroller-section {
+  position: relative;
+  width: 100%;
+  background-color: var(--orbito-scroller-bg);
+  padding: 4.5rem 0 5rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.orbito-category-scroller-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Section Header (Heading at Top-Left, Controls at Right)
+   ========================================================================== */
+.orbito-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.5rem 2.25rem;
+  box-sizing: border-box;
+}
+
+.orbito-category-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.orbito-orbital-icon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.orbito-category-heading {
+  margin: 0;
+  font-size: 2.15rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--orbito-text-primary);
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+/* Nav Controls: Prev / Next Buttons */
+.orbito-category-nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.orbito-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--orbito-card-border);
+  background-color: #FFFFFF;
+  color: var(--orbito-text-primary);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.orbito-nav-btn:hover {
+  background-color: #F8F8FC;
+  border-color: #D2D2DC;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.orbito-nav-btn:active {
+  transform: translateY(0);
+}
+
+.orbito-nav-btn:focus-visible {
+  outline: 2px solid var(--orbito-brand-indigo);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Marquee Viewport & Scrolling Track
+   ========================================================================== */
+.category-scroller-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;               /* Firefox */
+  -ms-overflow-style: none;            /* IE / Edge */
+  -webkit-overflow-scrolling: touch;   /* iOS smooth touch scrolling */
+  cursor: grab;
+  user-select: none;
+  padding: 0.5rem 0 1.25rem;
+}
+
+.category-scroller-viewport::-webkit-scrollbar {
+  display: none;                       /* Chrome, Safari, Opera */
+}
+
+.category-scroller-viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.category-scroller-viewport:focus-visible {
+  outline: 2px solid var(--orbito-brand-purple);
+  outline-offset: -2px;
+}
+
+/* Continuous Horizontal Track */
+.category-marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: orbitoMarqueeTrack var(--orbito-scroller-speed) linear infinite;
+}
+
+/* Pause Marquee on Hover, Keyboard Focus, or Active Drag */
+.category-scroller-viewport:hover .category-marquee-track,
+.category-scroller-viewport:focus-within .category-marquee-track,
+.category-marquee-track.is-paused {
+  animation-play-state: paused !important;
+}
+
+/* Track Groups: Primary (accessible) & Cloned (visual duplicate) */
+.category-track-group {
+  display: flex;
+  align-items: stretch;
+  gap: var(--orbito-card-gap);
+  padding-left: var(--orbito-card-gap);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Category Card Structure
+   ========================================================================== */
+.category-card {
+  position: relative;
+  width: var(--orbito-card-width);
+  min-width: var(--orbito-card-width);
+  max-width: var(--orbito-card-width);
+  height: var(--orbito-card-height);
+  background-color: var(--orbito-card-bg);
+  border: 1px solid var(--orbito-card-border);
+  border-radius: var(--orbito-card-radius);
+  box-shadow: var(--orbito-card-shadow);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease;
+  box-sizing: border-box;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--orbito-card-border-hover);
+  box-shadow: var(--orbito-card-shadow-hover);
+}
+
+/* Interactive Card Link */
+.category-card-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 1.85rem 1.85rem 1.5rem;
+  text-decoration: none;
+  box-sizing: border-box;
+  color: inherit;
+  outline: none;
+}
+
+.category-card-link:focus-visible {
+  outline: 2px solid var(--orbito-brand-indigo);
+  outline-offset: 3px;
+  border-radius: calc(var(--orbito-card-radius) - 2px);
+}
+
+/* Top-Left: Category Title */
+.category-card-header {
+  max-width: 82%;
+  z-index: 2;
+}
+
+.category-card-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 750;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--orbito-text-primary);
+  transition: color 0.2s ease;
+  font-family: inherit;
+}
+
+.category-card:hover .category-card-title {
+  color: #0E0E14;
+}
+
+/* Card Footer: Arrow at bottom-left, Illustration at bottom-right */
+.category-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Small Diagonal Arrow Button at Bottom-Left */
+.category-card-arrow-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #F4F4F8;
+  color: var(--orbito-text-primary);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.card-diagonal-arrow-svg {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover .category-card-arrow-pill {
+  transform: scale(1.06);
+}
+
+.category-card:hover .card-diagonal-arrow-svg {
+  transform: translate(2px, -2px);
+}
+
+/* SVG Illustration Container at Bottom-Right */
+.category-card-illustration-wrap {
+  position: absolute;
+  right: -8px;
+  bottom: -4px;
+  width: 130px;
+  height: 105px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.category-svg-illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover .category-svg-illustration {
+  transform: scale(1.05) rotate(1deg);
+}
+
+/* Bottom Edge Pastel Accent Strip (6px) */
+.category-card-bottom-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-bottom-left-radius: var(--orbito-card-radius);
+  border-bottom-right-radius: var(--orbito-card-radius);
+  z-index: 3;
+}
+
+/* ==========================================================================
+   Alternating Accent Color Themes (Mint, Coral, Sky, Lavender)
+   ========================================================================== */
+
+/* 1. Mint Green Accent */
+.category-card.accent-mint .category-card-bottom-strip {
+  background: linear-gradient(90deg, #A7F3D0, var(--orbito-pastel-mint));
+}
+
+.category-card.accent-mint .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-mint-subtle);
+  color: var(--orbito-pastel-mint-dark);
+}
+
+.category-card.accent-mint:hover .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-mint);
+  color: #064E3B;
+}
+
+/* 2. Coral Orange Accent */
+.category-card.accent-coral .category-card-bottom-strip {
+  background: linear-gradient(90deg, #FED7AA, var(--orbito-pastel-coral));
+}
+
+.category-card.accent-coral .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-coral-subtle);
+  color: var(--orbito-pastel-coral-dark);
+}
+
+.category-card.accent-coral:hover .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-coral);
+  color: #7C2D12;
+}
+
+/* 3. Sky Blue Accent */
+.category-card.accent-sky .category-card-bottom-strip {
+  background: linear-gradient(90deg, #BAE6FD, var(--orbito-pastel-sky));
+}
+
+.category-card.accent-sky .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-sky-subtle);
+  color: var(--orbito-pastel-sky-dark);
+}
+
+.category-card.accent-sky:hover .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-sky);
+  color: #0C4A6E;
+}
+
+/* 4. Lavender Accent */
+.category-card.accent-lavender .category-card-bottom-strip {
+  background: linear-gradient(90deg, #DDD6FE, var(--orbito-pastel-lavender));
+}
+
+.category-card.accent-lavender .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-lavender-subtle);
+  color: var(--orbito-pastel-lavender-dark);
+}
+
+.category-card.accent-lavender:hover .category-card-arrow-pill {
+  background-color: var(--orbito-pastel-lavender);
+  color: #4C1D95;
+}
+
+/* ==========================================================================
+   Smooth Marquee Animation Keyframes
+   Translates exactly -50% to achieve a seamless loop with the cloned set
+   ========================================================================== */
+@keyframes orbitoMarqueeTrack {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ==========================================================================
+   Accessibility: Reduced Motion Preference
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .category-marquee-track {
+    animation: none !important;
+  }
+
+  .category-scroller-viewport {
+    scroll-snap-type: x mandatory;
+  }
+
+  .category-card {
+    scroll-snap-align: start;
+    transition: none !important;
+  }
+
+  .category-card:hover {
+    transform: none !important;
+  }
+
+  .category-card-arrow-pill,
+  .card-diagonal-arrow-svg,
+  .category-svg-illustration {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+/* Large Desktops: 4 full cards visible with next card peek */
+@media (min-width: 1440px) {
+  :root {
+    --orbito-card-width: 395px;
+    --orbito-card-height: 235px;
+    --orbito-card-gap: 24px;
+  }
+
+  .orbito-category-header {
+    padding: 0 4rem 2.25rem;
+  }
+}
+
+/* Medium Desktops: Scaled Card Width */
+@media (max-width: 1439px) and (min-width: 1025px) {
+  :root {
+    --orbito-card-width: 375px;
+    --orbito-card-height: 225px;
+    --orbito-card-gap: 20px;
+  }
+
+  .orbito-category-header {
+    padding: 0 2.5rem 2rem;
+  }
+}
+
+/* Tablets (1024px and below): Exactly 2 full cards visible */
+@media (max-width: 1024px) {
+  :root {
+    --orbito-card-width: 340px;
+    --orbito-card-height: 215px;
+    --orbito-card-gap: 18px;
+    --orbito-card-radius: 24px;
+    --orbito-scroller-speed: 38s;
+  }
+
+  .orbito-category-header {
+    padding: 0 2rem 1.75rem;
+  }
+
+  .orbito-category-heading {
+    font-size: 1.85rem;
+  }
+
+  .category-card-title {
+    font-size: 1.25rem;
+  }
+
+  .category-card-illustration-wrap {
+    width: 115px;
+    height: 95px;
+  }
+}
+
+/* Mobile Screens (768px and below): 1 full card with next card peek */
+@media (max-width: 768px) {
+  :root {
+    --orbito-card-width: 300px;
+    --orbito-card-height: 205px;
+    --orbito-card-gap: 16px;
+    --orbito-card-radius: 22px;
+    --orbito-scroller-speed: 32s;
+  }
+
+  .orbito-category-scroller-section {
+    padding: 3.5rem 0 4rem;
+  }
+
+  .orbito-category-header {
+    padding: 0 1.25rem 1.5rem;
+  }
+
+  .orbito-category-heading {
+    font-size: 1.55rem;
+  }
+
+  .orbito-nav-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .category-card-link {
+    padding: 1.5rem 1.4rem 1.25rem;
+  }
+
+  .category-card-title {
+    font-size: 1.15rem;
+  }
+
+  .category-card-illustration-wrap {
+    width: 100px;
+    height: 85px;
+    right: -4px;
+    bottom: -2px;
+  }
+
+  .category-card-arrow-pill {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Small Mobile Screens (480px and below) */
+@media (max-width: 480px) {
+  :root {
+    --orbito-card-width: 275px;
+    --orbito-card-height: 195px;
+    --orbito-card-gap: 14px;
+  }
+
+  .orbito-category-heading {
+    font-size: 1.4rem;
+  }
+
+  .orbito-orbital-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

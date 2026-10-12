@@ -640,7 +640,364 @@ img {
   color: var(--text-secondary);
 }
 
-/* Categories Grid */
+/* ==========================================================================
+   Explore Your Interests Section (Horizontally Scrollable Carousel)
+   ========================================================================== */
+.explore-interests-section {
+  position: relative;
+  background-color: var(--bg-primary); /* #FAFAFC */
+  padding: 4.5rem 0 5rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.interests-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 4rem;
+  box-sizing: border-box;
+}
+
+/* Header Row: Heading Left, Controls Right */
+.interests-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.75rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.interests-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+/* Decorative Purple Lines on both sides of heading */
+.heading-purple-lines {
+  width: 34px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.interests-heading {
+  font-family: var(--font-family);
+  font-size: clamp(2.35rem, 4.2vw, 3.25rem); /* ~48-52px on desktop */
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-primary); /* #242428 */
+  margin: 0;
+}
+
+/* Circular Previous and Next Carousel Controls */
+.interests-carousel-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.interests-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-light); /* #DADAE0 */
+  background-color: var(--bg-surface);     /* #FFFFFF */
+  color: var(--text-primary);              /* #242428 */
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(36, 36, 40, 0.05);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  user-select: none;
+}
+
+.interests-nav-btn:hover:not(:disabled) {
+  background-color: #F8F8FC;
+  border-color: var(--charcoal);
+  transform: scale(1.04);
+  box-shadow: 0 4px 14px rgba(36, 36, 40, 0.1);
+}
+
+.interests-nav-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.interests-nav-btn:disabled,
+.interests-nav-btn.is-disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  border-color: var(--border-light);
+  box-shadow: none;
+  transform: none;
+}
+
+.interests-nav-btn:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 3px;
+}
+
+/* Cards Viewport & Track Container */
+.interests-cards-viewport {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;               /* Firefox */
+  -ms-overflow-style: none;            /* IE / Edge */
+  -webkit-overflow-scrolling: touch;   /* iOS smooth swipe */
+  padding: 0.75rem 0.25rem 1.5rem;
+  margin: 0 -0.25rem;
+  cursor: grab;
+}
+
+.interests-cards-viewport::-webkit-scrollbar {
+  display: none;                       /* Chrome, Safari */
+}
+
+.interests-cards-viewport.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.interests-cards-viewport:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 4px;
+  border-radius: 20px;
+}
+
+/* Horizontal Track */
+.interests-cards-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+  scroll-behavior: smooth;
+  width: max-content;
+  user-select: none;
+}
+
+/* Category Cards: Large Rounded Rectangular Cards */
+.interest-category-card {
+  position: relative;
+  flex: 0 0 320px;
+  width: 320px;
+  min-width: 320px;
+  height: 275px;
+  background-color: var(--bg-surface); /* #FFFFFF */
+  border: 1px solid #E8E8EE;
+  border-radius: 30px;                /* Large rounded corners ~28-32px */
+  box-shadow: 0 4px 20px rgba(36, 36, 40, 0.04);
+  text-decoration: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease;
+  box-sizing: border-box;
+}
+
+.interest-category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 34px rgba(36, 36, 40, 0.08);
+  border-color: #D6D6DE;
+}
+
+.interest-category-card:focus-visible {
+  outline: 2px solid var(--accent-purple);
+  outline-offset: 4px;
+}
+
+.card-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 2.15rem 1.85rem 1.65rem;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+}
+
+/* Category Title at Top-Left */
+.card-title {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--text-primary); /* #242428 */
+  max-width: 86%;
+  transition: color 0.2s ease;
+}
+
+.interest-category-card:hover .card-title {
+  color: #0E0E12;
+}
+
+/* Card Bottom Row: Arrow Left, Illustration Right */
+.card-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+/* Small Diagonal Arrow Button at Bottom-Left */
+.card-diagonal-arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #F4F4F8;
+  color: #62626B;
+  border: 1px solid rgba(36, 36, 40, 0.05);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+
+.card-diagonal-arrow-btn svg {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interest-category-card:hover .card-diagonal-arrow-btn {
+  transform: scale(1.06);
+  background-color: #ECECF2;
+  color: var(--text-primary);
+}
+
+.interest-category-card:hover .card-diagonal-arrow-btn svg {
+  transform: translate(2.5px, -2.5px);
+}
+
+/* Illustration Container at Bottom-Right */
+.card-illustration-wrap {
+  position: absolute;
+  right: -6px;
+  bottom: -4px;
+  width: 125px;
+  height: 95px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.card-svg-art {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interest-category-card:hover .card-svg-art {
+  transform: scale(1.06) rotate(1deg);
+}
+
+/* Narrow Colored Accent Strip Along Bottom Edge (6px tall) */
+.card-bottom-accent-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  z-index: 3;
+  transition: height 0.24s ease;
+}
+
+.interest-category-card:hover .card-bottom-accent-strip {
+  height: 8px;
+}
+
+/* Accent Color Themes */
+/* 1. Purple Accent (#A987FF) - Technology & AI, Emerging Skills */
+.interest-category-card.accent-purple .card-bottom-accent-strip {
+  background: #A987FF;
+}
+.interest-category-card.accent-purple:hover .card-diagonal-arrow-btn {
+  background-color: #F4EFFF;
+  color: #7C3AED;
+}
+
+/* 2. Coral Pink Accent (#FF668D) - Creativity & Arts */
+.interest-category-card.accent-pink .card-bottom-accent-strip {
+  background: #FF668D;
+}
+.interest-category-card.accent-pink:hover .card-diagonal-arrow-btn {
+  background-color: #FFF0F4;
+  color: #E11D48;
+}
+
+/* 3. Light Blue Accent (#9CCBFF) - Career & Professional Skills */
+.interest-category-card.accent-blue .card-bottom-accent-strip {
+  background: #9CCBFF;
+}
+.interest-category-card.accent-blue:hover .card-diagonal-arrow-btn {
+  background-color: #F0F7FF;
+  color: #2563EB;
+}
+
+/* 4. Warm Yellow Accent (#FFB63E) - Entrepreneurship & Finance */
+.interest-category-card.accent-yellow .card-bottom-accent-strip {
+  background: #FFB63E;
+}
+.interest-category-card.accent-yellow:hover .card-diagonal-arrow-btn {
+  background-color: #FFF9EB;
+  color: #D97706;
+}
+
+/* 5. Mint Green Accent (#65D6B0) - Lifestyle & Wellness */
+.interest-category-card.accent-mint .card-bottom-accent-strip {
+  background: #65D6B0;
+}
+.interest-category-card.accent-mint:hover .card-diagonal-arrow-btn {
+  background-color: #ECFDF5;
+  color: #059669;
+}
+
+/* 6. Peach-Orange Accent (#FFAB83) - Social & Outdoor */
+.interest-category-card.accent-peach .card-bottom-accent-strip {
+  background: #FFAB83;
+}
+.interest-category-card.accent-peach:hover .card-diagonal-arrow-btn {
+  background-color: #FFF7ED;
+  color: #EA580C;
+}
+
+/* Subtle Scroll Progress Indicator Bar */
+.interests-scroll-indicator-bar {
+  width: 100%;
+  max-width: 220px;
+  height: 4px;
+  background-color: #E8E8EE;
+  border-radius: 9999px;
+  margin: 1.25rem auto 3.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.interests-scroll-thumb {
+  height: 100%;
+  width: 32%;
+  background-color: #A987FF;
+  border-radius: 9999px;
+  transition: transform 0.12s ease-out;
+  transform: translateX(0);
+}
+
+/* Legacy categories-grid fallback */
 .categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));

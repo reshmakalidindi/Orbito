@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbito - Explore Top Categories (Live React Component Preview)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CategoryScroller.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #FAFAFC;
+      color: #1E1E28;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .demo-top-bar {
+      background-color: #FFFFFF;
+      border-bottom: 1px solid #EBEBF0;
+      padding: 1rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .demo-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #1E1E28;
+      text-decoration: none;
+    }
+    .demo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #F5F3FF;
+      color: #7C3AED;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid #DDD6FE;
+    }
+    .demo-intro-banner {
+      max-width: 1200px;
+      margin: 2.5rem auto 1rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .demo-intro-banner h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      color: #1E1E28;
+    }
+    .demo-intro-banner p {
+      color: #5E5E6E;
+      font-size: 1.05rem;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .demo-status-pill {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: #059669;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+  </style>
+
+  <!-- React 18 & Babel Standalone for live client-side JSX rendering -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+  <!-- Demo Header Bar -->
+  <header class="demo-top-bar">
+    <a href="index.html" class="demo-brand">
+      <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="7.5" fill="#6366F1" />
+        <path d="M10 11.5A5.5 5.5 0 0 1 16.5 8.5" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" stroke-opacity="0.8" />
+        <path d="M3.2 16.8C2.6 15.7 3.8 14.1 6.4 12.7C9.8 10.8 14.9 9.8 19.5 10.2C21.5 10.4 23.1 10.9 23.9 11.7" stroke="#8B5CF6" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <span>Orbito</span>
+    </a>
+    <span class="demo-badge">React Component Live Preview</span>
+  </header>
+
+  <div class="demo-intro-banner">
+    <h1>Explore Top Categories</h1>
+    <p>
+      Seamless right-to-left marquee animation with hover-pause, touch swiping, 4 large cards per desktop view, and custom pastel accents.
+    </p>
+    <div class="demo-status-pill" id="demo-event-log">
+      Hover or drag over cards to pause • Click any card to select
+    </div>
+  </div>
+
+  <!-- React Root Container -->
+  <div id="react-root"></div>
+
+  <!-- Live React Script -->
+  <script type="text/babel">
+    const { useState, useRef, useCallback } = React;
+
+    const ORBITO_CATEGORIES = [
+      { id: 'tech-ai', title: 'Technology and AI', slug: 'technology-and-ai', accent: 'mint' },
+      { id: 'creativity-arts', title: 'Creativity and arts', slug: 'creativity-and-arts', accent: 'coral' },
+      { id: 'career-skills', title: 'Career and professional skills', slug: 'career-and-professional-skills', accent: 'sky' },
+      { id: 'entrepreneurship-finance', title: 'Entrepreneurship and finance', slug: 'entrepreneurship-and-finance', accent: 'lavender' },
+      { id: 'lifestyle-wellness', title: 'Lifestyle, wellness and personal development', slug: 'lifestyle-wellness-and-personal-development', accent: 'mint' },
+      { id: 'social-outdoor', title: 'Social, outdoor and community activities', slug: 'social-outdoor-and-community-activities', accent: 'coral' },
+      { id: 'emerging-practical', title: 'Emerging skills and practical life skills', slug: 'emerging-skills-and-practical-life-skills', accent: 'sky' }
+    ];
+
+    const OrbitoOrbitalIcon = () => (
+      <svg className="orbito-orbital-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="orbitoGrad" x1="4" y1="4" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#6366F1" />
+            <stop offset="50%" stopColor="#7C3AED" />
+            <stop offset="100%" stopColor="#A855F7" />
+          </linearGradient>
+          <linearGradient id="orbitRingGrad" x1="2" y1="14" x2="26" y2="14" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#818CF8" />
+            <stop offset="100%" stopColor="#C084FC" />
+          </linearGradient>
+        </defs>
+        <path d="M24.8 11.2C25.4 12.3 24.2 13.9 21.6 15.3C18.2 17.2 13.1 18.2 8.5 17.8C6.5 17.6 4.9 17.1 4.1 16.3" stroke="url(#orbitRingGrad)" strokeWidth="1.8" strokeLinecap="round" opacity="0.5" />
+        <circle cx="14" cy="14" r="7.5" fill="url(#orbitoGrad)" />
+        <path d="M10 11.5A5.5 5.5 0 0 1 16.5 8.5" stroke="#FFFFFF" strokeWidth="1.4" strokeLinecap="round" strokeOpacity="0.8" />
+        <path d="M3.2 16.8C2.6 15.7 3.8 14.1 6.4 12.7C9.8 10.8 14.9 9.8 19.5 10.2C21.5 10.4 23.1 10.9 23.9 11.7" stroke="url(#orbitRingGrad)" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="23.5" cy="11.5" r="1.75" fill="#DDD6FE" />
+      </svg>
+    );
+
+    const DiagonalArrowIcon = () => (
+      <svg className="card-diagonal-arrow-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7" />
+        <polyline points="7 7 17 7 17 17" />
+      </svg>
+    );
+
+    const CategoryIllustration = ({ categoryId }) => {
+      switch (categoryId) {
+        case 'tech-ai':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <rect x="25" y="20" width="54" height="54" rx="14" fill="#E6F9F0" stroke="#34D399" strokeWidth="2.2" />
+              <rect x="36" y="31" width="32" height="32" rx="8" fill="#10B981" fillOpacity="0.15" stroke="#059669" strokeWidth="1.8" />
+              <line x1="17" y1="36" x2="25" y2="36" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="17" y1="47" x2="25" y2="47" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="17" y1="58" x2="25" y2="58" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="79" y1="36" x2="87" y2="36" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="79" y1="47" x2="87" y2="47" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="79" y1="58" x2="87" y2="58" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="38" y1="12" x2="38" y2="20" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="52" y1="12" x2="52" y2="20" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <line x1="66" y1="12" x2="66" y2="20" stroke="#059669" strokeWidth="2.2" strokeLinecap="round" />
+              <path d="M94 22L96 16L98 22L104 24L98 26L96 32L94 26L88 24Z" fill="#34D399" />
+              <path d="M30 82L31.5 77L33 82L38 83.5L33 85L31.5 90L30 85L25 83.5Z" fill="#6EE7B7" />
+              <circle cx="52" cy="47" r="5.5" fill="#059669" />
+              <circle cx="52" cy="47" r="10" stroke="#10B981" strokeWidth="1.2" strokeDasharray="2 3" />
+            </svg>
+          );
+        case 'creativity-arts':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <path d="M30 68C18 58 20 34 38 25C54 17 76 20 86 33C94 44 91 58 83 66C76 73 66 76 58 74C52 72 49 75 51 80C52 83 49 85 45 84C38 81 35 73 30 68Z" fill="#FFF1E8" stroke="#FB923C" strokeWidth="2.2" />
+              <ellipse cx="40" cy="45" rx="5" ry="6" fill="#FFFFFF" stroke="#FB923C" strokeWidth="1.8" />
+              <circle cx="55" cy="30" r="4.5" fill="#FB923C" />
+              <circle cx="71" cy="36" r="4.5" fill="#A78BFA" />
+              <circle cx="78" cy="52" r="4.5" fill="#34D399" />
+              <path d="M68 76L98 42C100 40 103 40 105 42C107 44 107 47 105 49L75 83Z" fill="#FED7AA" stroke="#EA580C" strokeWidth="1.8" />
+              <path d="M68 76L64 85C63 87 60 88 58 86C56 84 57 81 59 80L68 76Z" fill="#EA580C" />
+              <path d="M22 28L24 22L26 28L32 30L26 32L24 38L22 32L16 30Z" fill="#FDBA74" />
+            </svg>
+          );
+        case 'career-skills':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <rect x="24" y="38" width="62" height="42" rx="10" fill="#EBF7FE" stroke="#38BDF8" strokeWidth="2.2" />
+              <path d="M44 38V30C44 26.5 47 24 51 24H59C63 24 66 26.5 66 30V38" stroke="#0284C7" strokeWidth="2.4" strokeLinecap="round" />
+              <rect x="50" y="44" width="10" height="7" rx="2" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.8" />
+              <line x1="24" y1="48" x2="86" y2="48" stroke="#38BDF8" strokeWidth="1.8" />
+              <path d="M84 72L96 52L106 38" stroke="#0284C7" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M96 38H106V48" stroke="#0284C7" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+              <polygon points="98,18 101,24 107,25 102,29 104,35 98,32 93,35 95,29 90,25 96,24" fill="#38BDF8" />
+            </svg>
+          );
+        case 'entrepreneurship-finance':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <g transform="rotate(35 62 48)">
+                <path d="M62 18C52 28 48 48 48 58H76C76 48 72 28 62 18Z" fill="#F5F3FF" stroke="#8B5CF6" strokeWidth="2.2" />
+                <circle cx="62" cy="40" r="5" fill="#DDD6FE" stroke="#6D28D9" strokeWidth="1.8" />
+                <path d="M48 50L38 60V64H48" fill="#C4B5FD" stroke="#8B5CF6" strokeWidth="1.8" />
+                <path d="M76 50L86 60V64H76" fill="#C4B5FD" stroke="#8B5CF6" strokeWidth="1.8" />
+                <path d="M54 58C56 68 62 76 62 76C62 76 68 68 70 58H54Z" fill="#F43F5E" />
+              </g>
+              <circle cx="28" cy="70" r="12" fill="#EDE9FE" stroke="#7C3AED" strokeWidth="2" />
+              <path d="M28 63V77M25 66H30.5C31.5 66 32.5 67 32.5 68.5C32.5 70 31.5 71 30 71H26C24.5 71 23.5 72 23.5 73.5C23.5 75 24.5 76 26 76H31" stroke="#6D28D9" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          );
+        case 'lifestyle-wellness':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <path d="M60 28C60 44 48 58 38 64C48 66 60 62 60 62C60 62 72 66 82 64C72 58 60 44 60 28Z" fill="#E6F9F0" stroke="#10B981" strokeWidth="2.2" />
+              <path d="M34 50C38 60 48 66 58 66C44 68 32 62 26 52C28 48 30 48 34 50Z" fill="#A7F3D0" stroke="#059669" strokeWidth="1.8" />
+              <path d="M86 50C82 60 72 66 62 66C76 68 88 62 94 52C92 48 90 48 86 50Z" fill="#A7F3D0" stroke="#059669" strokeWidth="1.8" />
+              <ellipse cx="60" cy="74" rx="24" ry="7" fill="#ECFDF5" stroke="#059669" strokeWidth="2" />
+              <ellipse cx="60" cy="67" rx="15" ry="4.5" fill="#D1FAE5" stroke="#059669" strokeWidth="1.6" />
+              <circle cx="60" cy="22" r="6" fill="#FDE68A" />
+              <line x1="60" y1="10" x2="60" y2="13" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+              <line x1="70" y1="14" x2="68" y2="17" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+              <line x1="50" y1="14" x2="52" y2="17" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          );
+        case 'social-outdoor':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <polygon points="18,74 46,32 68,74" fill="#FFF7ED" stroke="#FB923C" strokeWidth="2" />
+              <polygon points="48,74 74,24 102,74" fill="#FFEDD5" stroke="#EA580C" strokeWidth="2.2" />
+              <polygon points="74,24 67,38 72,36 76,39 81,35" fill="#FFFFFF" />
+              <polygon points="32,74 32,56 26,56 32,46 28,46 34,36 40,46 36,46 42,56 36,56 36,74" fill="#34D399" stroke="#059669" strokeWidth="1.5" />
+              <rect x="74" y="38" width="28" height="18" rx="6" fill="#FFFFFF" stroke="#EA580C" strokeWidth="1.8" />
+              <path d="M80 56L78 61L85 56H80Z" fill="#FFFFFF" stroke="#EA580C" strokeWidth="1.8" />
+              <circle cx="82" cy="47" r="1.5" fill="#EA580C" />
+              <circle cx="88" cy="47" r="1.5" fill="#EA580C" />
+              <circle cx="94" cy="47" r="1.5" fill="#EA580C" />
+            </svg>
+          );
+        case 'emerging-practical':
+          return (
+            <svg className="category-svg-illustration" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+              <path d="M52 24C42 24 35 31 35 40C35 46 38 51 42 55C44 57 45 61 45 64H59C59 61 60 57 62 55C66 51 69 46 69 40C69 31 62 24 52 24Z" fill="#F0F9FF" stroke="#0284C7" strokeWidth="2.2" />
+              <rect x="46" y="64" width="12" height="4" rx="1.5" fill="#BAE6FD" stroke="#0284C7" strokeWidth="1.5" />
+              <rect x="48" y="68" width="8" height="3" rx="1" fill="#7DD3FC" />
+              <path d="M47 43L50 34L54 43L57 34" stroke="#0284C7" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              <g transform="translate(74, 52)">
+                <circle cx="16" cy="16" r="13" fill="#E0F2FE" stroke="#0284C7" strokeWidth="2" />
+                <circle cx="16" cy="16" r="5" fill="#FFFFFF" stroke="#0284C7" strokeWidth="1.8" />
+                <rect x="14" y="0" width="4" height="5" rx="1" fill="#0284C7" />
+                <rect x="14" y="27" width="4" height="5" rx="1" fill="#0284C7" />
+                <rect x="0" y="14" width="5" height="4" rx="1" fill="#0284C7" />
+                <rect x="27" y="14" width="5" height="4" rx="1" fill="#0284C7" />
+              </g>
+              <path d="M24 30L26 25L28 30L33 32L28 34L26 39L24 34L19 32Z" fill="#38BDF8" />
+            </svg>
+          );
+        default:
+          return null;
+      }
+    };
+
+    const CategoryCard = ({ category, isClone = false, onSelect }) => {
+      const handleClick = (e) => {
+        e.preventDefault();
+        if (onSelect) onSelect(category);
+      };
+
+      return (
+        <div className={`category-card accent-${category.accent}`} aria-hidden={isClone ? 'true' : undefined}>
+          <a
+            href={`#${category.slug}`}
+            className="category-card-link"
+            onClick={handleClick}
+            tabIndex={isClone ? -1 : 0}
+            aria-label={`${category.title} workshops`}
+          >
+            <div className="category-card-header">
+              <h3 className="category-card-title">{category.title}</h3>
+            </div>
+            <div className="category-card-footer">
+              <div className="category-card-arrow-pill" aria-hidden="true">
+                <DiagonalArrowIcon />
+              </div>
+              <div className="category-card-illustration-wrap" aria-hidden="true">
+                <CategoryIllustration categoryId={category.id} />
+              </div>
+            </div>
+            <div className="category-card-bottom-strip" aria-hidden="true" />
+          </a>
+        </div>
+      );
+    };
+
+    const CategoryScroller = ({ onSelectCategory }) => {
+      const viewportRef = useRef(null);
+      const [isPaused, setIsPaused] = useState(false);
+      const [isDragging, setIsDragging] = useState(false);
+      const dragStartX = useRef(0);
+      const scrollLeftStart = useRef(0);
+
+      const handleScroll = useCallback((direction) => {
+        if (!viewportRef.current) return;
+        const cardWidth = 390 + 24;
+        const scrollAmount = direction === 'left' ? -cardWidth : cardWidth;
+        viewportRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }, []);
+
+      const handlePointerDown = (e) => {
+        setIsPaused(true);
+        setIsDragging(true);
+        dragStartX.current = e.pageX || (e.touches && e.touches[0].pageX) || 0;
+        if (viewportRef.current) scrollLeftStart.current = viewportRef.current.scrollLeft;
+      };
+
+      const handlePointerMove = (e) => {
+        if (!isDragging || !viewportRef.current) return;
+        const currentX = e.pageX || (e.touches && e.touches[0].pageX) || 0;
+        viewportRef.current.scrollLeft = scrollLeftStart.current - (currentX - dragStartX.current) * 1.5;
+      };
+
+      const handlePointerUp = () => {
+        setIsDragging(false);
+        setIsPaused(false);
+      };
+
+      return (
+        <section
+          className="orbito-category-scroller-section"
+          aria-labelledby="orbito-categories-heading"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setIsPaused(false); }}
+        >
+          <div className="orbito-category-scroller-container">
+            <div className="orbito-category-header">
+              <div className="orbito-category-title-group">
+                <OrbitoOrbitalIcon />
+                <h2 id="orbito-categories-heading" className="orbito-category-heading">
+                  Explore top categories
+                </h2>
+              </div>
+              <div className="orbito-category-nav-controls" aria-label="Category navigation">
+                <button type="button" className="orbito-nav-btn prev" onClick={() => handleScroll('left')} aria-label="Scroll left">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+                </button>
+                <button type="button" className="orbito-nav-btn next" onClick={() => handleScroll('right')} aria-label="Scroll right">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+                </button>
+              </div>
+            </div>
+
+            <div
+              className={`category-scroller-viewport ${isDragging ? 'is-dragging' : ''}`}
+              ref={viewportRef}
+              onMouseDown={handlePointerDown}
+              onMouseMove={handlePointerMove}
+              onMouseUp={handlePointerUp}
+              onTouchStart={handlePointerDown}
+              onTouchMove={handlePointerMove}
+              onTouchEnd={handlePointerUp}
+              tabIndex={0}
+              role="region"
+              aria-label="Categories horizontal marquee"
+            >
+              <div className={`category-marquee-track ${isPaused ? 'is-paused' : ''}`}>
+                <div className="category-track-group">
+                  {ORBITO_CATEGORIES.map((cat) => (
+                    <CategoryCard key={`primary-${cat.id}`} category={cat} onSelect={onSelectCategory} />
+                  ))}
+                </div>
+                <div className="category-track-group is-clone" aria-hidden="true">
+                  {ORBITO_CATEGORIES.map((cat) => (
+                    <CategoryCard key={`clone-${cat.id}`} category={cat} isClone onSelect={onSelectCategory} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    function App() {
+      const handleSelectCategory = (category) => {
+        const log = document.getElementById('demo-event-log');
+        if (log) {
+          log.textContent = `Selected: "${category.title}" (Theme: ${category.accent})`;
+          log.style.borderColor = '#6366F1';
+          log.style.color = '#4338CA';
+        }
+      };
+
+      return (
+        <main>
+          <CategoryScroller onSelectCategory={handleSelectCategory} />
+        </main>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('react-root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

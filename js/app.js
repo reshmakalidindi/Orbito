@@ -526,12 +526,88 @@ function openSuccessModal(registration, workshop) {
   };
 }
 
+// Horizontal Category Carousel Handler
+function initInterestsCarousel() {
+  const viewport = document.getElementById("interests-cards-viewport");
+  const prevBtn = document.getElementById("interests-nav-prev");
+  const nextBtn = document.getElementById("interests-nav-next");
+  const thumb = document.getElementById("interests-scroll-thumb");
+
+  if (!viewport || !prevBtn || !nextBtn) return;
+
+  const updateControls = () => {
+    const scrollLeft = viewport.scrollLeft;
+    const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+    const isAtStart = scrollLeft <= 6;
+    const isAtEnd = scrollLeft >= maxScroll - 6;
+
+    prevBtn.disabled = isAtStart;
+    prevBtn.classList.toggle("is-disabled", isAtStart);
+
+    nextBtn.disabled = isAtEnd;
+    nextBtn.classList.toggle("is-disabled", isAtEnd);
+
+    if (thumb && maxScroll > 0) {
+      const percentage = Math.max(0, Math.min(1, scrollLeft / maxScroll));
+      const thumbMaxTravel = (100 - 32) / 32 * 100;
+      thumb.style.transform = `translateX(${percentage * thumbMaxTravel}%)`;
+    }
+  };
+
+  const getScrollAmount = () => {
+    const card = viewport.querySelector(".interest-category-card");
+    return card ? card.offsetWidth + 24 : 344;
+  };
+
+  prevBtn.addEventListener("click", () => {
+    viewport.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+  });
+
+  nextBtn.addEventListener("click", () => {
+    viewport.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+  });
+
+  viewport.addEventListener("scroll", updateControls, { passive: true });
+  window.addEventListener("resize", updateControls, { passive: true });
+
+  // Mouse drag panning support
+  let isPointerDown = false;
+  let startX = 0;
+  let initialScroll = 0;
+
+  viewport.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
+    isPointerDown = true;
+    viewport.classList.add("is-dragging");
+    startX = e.pageX - viewport.offsetLeft;
+    initialScroll = viewport.scrollLeft;
+  });
+
+  window.addEventListener("mouseup", () => {
+    if (!isPointerDown) return;
+    isPointerDown = false;
+    viewport.classList.remove("is-dragging");
+  });
+
+  viewport.addEventListener("mousemove", (e) => {
+    if (!isPointerDown) return;
+    e.preventDefault();
+    const x = e.pageX - viewport.offsetLeft;
+    const walk = (x - startX) * 1.4;
+    viewport.scrollLeft = initialScroll - walk;
+  });
+
+  // Initial calculation
+  setTimeout(updateControls, 100);
+}
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderScroll();
   initHeaderSearch();
   initLanguageSelector();
   initAuthModals();
+  initInterestsCarousel();
 });
 
 // Expose globals
@@ -540,3 +616,4 @@ window.getIcon = getIcon;
 window.showToast = showToast;
 window.openRegistrationModal = openRegistrationModal;
 window.openSuccessModal = openSuccessModal;
+window.initInterestsCarousel = initInterestsCarousel;

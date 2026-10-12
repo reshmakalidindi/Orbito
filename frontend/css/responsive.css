@@ -119,6 +119,21 @@
     gap: 1.5rem;
   }
 
+  .interests-container {
+    padding: 0 2rem;
+  }
+
+  .interests-heading {
+    font-size: 2.35rem;
+  }
+
+  .interest-category-card {
+    flex: 0 0 295px;
+    width: 295px;
+    min-width: 295px;
+    height: 260px;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
@@ -243,6 +258,53 @@
     object-fit: contain;
   }
 
+  .explore-interests-section {
+    padding: 3.5rem 0 4rem;
+  }
+
+  .interests-container {
+    padding: 0 1.25rem;
+  }
+
+  .interests-header-row {
+    margin-bottom: 1.75rem;
+  }
+
+  .interests-heading {
+    font-size: 1.95rem;
+  }
+
+  .heading-purple-lines {
+    width: 26px;
+    height: 18px;
+  }
+
+  .interests-nav-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .interest-category-card {
+    flex: 0 0 280px;
+    width: 280px;
+    min-width: 280px;
+    height: 250px;
+    border-radius: 26px;
+  }
+
+  .card-inner {
+    padding: 1.65rem 1.4rem 1.35rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-illustration-wrap {
+    width: 105px;
+    height: 80px;
+  }
+
   .workshops-grid {
     grid-template-columns: 1fr;
   }
@@ -289,5 +351,16 @@
 
   .hero-flanking-collage-img {
     max-height: 260px;
+  }
+
+  .interests-heading {
+    font-size: 1.65rem;
+  }
+
+  .interest-category-card {
+    flex: 0 0 260px;
+    width: 260px;
+    min-width: 260px;
+    height: 240px;
   }
 }

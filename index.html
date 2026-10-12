@@ -130,19 +130,295 @@
       </div>
     </section>
 
-    <!-- Popular Categories Section -->
-    <section class="section-padding" id="categories-section">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge">7 Master Categories</span>
-          <h2 class="section-title">Explore Workshops By Category</h2>
-          <p class="section-subtitle">
-            From coding bootcamps and ceramic arts to public speaking and wilderness skills, explore 50 predefined learning tracks.
-          </p>
+    <!-- Explore Your Interests Section (Horizontally Scrollable Category Cards) -->
+    <section class="explore-interests-section" id="categories-section" aria-labelledby="interests-heading">
+      <div class="interests-container">
+        
+        <!-- Section Header Row: Heading Left, Controls Right -->
+        <div class="interests-header-row">
+          <div class="interests-title-wrapper">
+            <!-- Decorative Purple Flourish Left -->
+            <svg class="heading-purple-lines left" width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true">
+              <path d="M3 7C11 4 22 9 31 6" stroke="#A987FF" stroke-width="3" stroke-linecap="round"/>
+              <path d="M7 17C15 14 25 19 31 16" stroke="#A987FF" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+            
+            <h2 class="interests-heading" id="interests-heading">Explore your interests.</h2>
+
+            <!-- Decorative Purple Flourish Right -->
+            <svg class="heading-purple-lines right" width="34" height="24" viewBox="0 0 34 24" fill="none" aria-hidden="true">
+              <path d="M3 6C11 9 22 4 31 7" stroke="#A987FF" stroke-width="3" stroke-linecap="round"/>
+              <path d="M3 16C9 19 19 14 27 17" stroke="#A987FF" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Circular Previous & Next Carousel Arrow Controls -->
+          <div class="interests-carousel-controls" aria-label="Category carousel navigation">
+            <button type="button" class="interests-nav-btn prev" id="interests-nav-prev" aria-label="Previous categories" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button type="button" class="interests-nav-btn next" id="interests-nav-next" aria-label="Next categories">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <div class="categories-grid" id="home-categories-grid">
-          <!-- Dynamically populated from ORBITO_CATEGORIES -->
+        <!-- Horizontal Cards Track Container -->
+        <div class="interests-cards-viewport" id="interests-cards-viewport" tabindex="0" role="region" aria-label="Categories carousel">
+          <div class="interests-cards-track" id="interests-cards-track">
+
+            <!-- Card 1: Technology and AI (Purple #A987FF) -->
+            <a href="explore.html?category=tech-ai" class="interest-category-card accent-purple" data-category="tech-ai" aria-label="Technology and AI workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Technology and AI</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Laptop with code symbols -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Laptop Base -->
+                      <path d="M20 78L28 72H92L100 78C101 79 100 81 98 81H22C20 81 19 79 20 78Z" fill="#E8E8EE" stroke="#A987FF" stroke-width="2" stroke-linecap="round"/>
+                      <!-- Laptop Screen -->
+                      <rect x="28" y="24" width="64" height="48" rx="8" fill="#F4EFFF" stroke="#A987FF" stroke-width="2.2"/>
+                      <rect x="34" y="30" width="52" height="36" rx="4" fill="#FFFFFF"/>
+                      <!-- Code symbols </>, { } -->
+                      <path d="M46 42L41 48L46 54" stroke="#7C3AED" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M54 42L59 48L54 54" stroke="#7C3AED" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <line x1="51" y1="41" x2="49" y2="55" stroke="#A987FF" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M68 43C66 43 65 44 65 46C65 47 64 48 62 48C64 48 65 49 65 50C65 52 66 53 68 53" stroke="#A987FF" stroke-width="1.8" stroke-linecap="round"/>
+                      <path d="M74 43C76 43 77 44 77 46C77 47 78 48 80 48C78 48 77 49 77 50C77 52 76 53 74 53" stroke="#A987FF" stroke-width="1.8" stroke-linecap="round"/>
+                      <!-- Purple Sparkle -->
+                      <path d="M96 18L98 12L100 18L106 20L100 22L98 28L96 22L90 20Z" fill="#A987FF"/>
+                      <circle cx="22" cy="30" r="2.5" fill="#C4B5FD"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 2: Creativity and arts (Coral pink #FF668D) -->
+            <a href="explore.html?category=creativity-arts" class="interest-category-card accent-pink" data-category="creativity-arts" aria-label="Creativity and arts workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Creativity and arts</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Artist palette and paintbrush -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Palette Body -->
+                      <path d="M30 68C18 58 20 34 38 25C54 17 76 20 86 33C94 44 91 58 83 66C76 73 66 76 58 74C52 72 49 75 51 80C52 83 49 85 45 84C38 81 35 73 30 68Z" fill="#FFF0F4" stroke="#FF668D" stroke-width="2.2"/>
+                      <ellipse cx="40" cy="45" rx="5" ry="6" fill="#FFFFFF" stroke="#FF668D" stroke-width="1.8"/>
+                      <!-- Paint Dollops -->
+                      <circle cx="55" cy="30" r="4.5" fill="#FF668D"/>
+                      <circle cx="71" cy="36" r="4.5" fill="#A987FF"/>
+                      <circle cx="78" cy="52" r="4.5" fill="#FFB63E"/>
+                      <!-- Paintbrush -->
+                      <path d="M68 76L98 42C100 40 103 40 105 42C107 44 107 47 105 49L75 83Z" fill="#FED7AA" stroke="#FF668D" stroke-width="1.8"/>
+                      <path d="M68 76L63 85C62 87 59 88 57 86C55 84 56 81 58 80L68 76Z" fill="#FF668D"/>
+                      <!-- Coral Sparkle -->
+                      <path d="M22 28L24 22L26 28L32 30L26 32L24 38L22 32L16 30Z" fill="#FF668D"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 3: Career and professional skills (Light blue #9CCBFF) -->
+            <a href="explore.html?category=career-skills" class="interest-category-card accent-blue" data-category="career-skills" aria-label="Career and professional skills workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Career and professional skills</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Briefcase with upward career growth arrow -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Briefcase -->
+                      <rect x="24" y="38" width="62" height="42" rx="10" fill="#F0F7FF" stroke="#9CCBFF" stroke-width="2.2"/>
+                      <path d="M44 38V30C44 26.5 47 24 51 24H59C63 24 66 26.5 66 30V38" stroke="#3B82F6" stroke-width="2.4" stroke-linecap="round"/>
+                      <rect x="50" y="44" width="10" height="7" rx="2" fill="#9CCBFF" stroke="#3B82F6" stroke-width="1.8"/>
+                      <line x1="24" y1="48" x2="86" y2="48" stroke="#9CCBFF" stroke-width="1.8"/>
+                      <!-- Ascending Growth Arrow -->
+                      <path d="M84 72L96 52L106 38" stroke="#3B82F6" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M96 38H106V48" stroke="#3B82F6" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      <!-- Star -->
+                      <polygon points="98,18 101,24 107,25 102,29 104,35 98,32 93,35 95,29 90,25 96,24" fill="#9CCBFF"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 4: Entrepreneurship and finance (Warm yellow #FFB63E) -->
+            <a href="explore.html?category=entrepreneurship-finance" class="interest-category-card accent-yellow" data-category="entrepreneurship-finance" aria-label="Entrepreneurship and finance workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Entrepreneurship and finance</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Lightbulb with currency symbol -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Lightbulb Outline -->
+                      <path d="M50 20C40 20 32 28 32 38C32 45 36 50 40 54C42 56 43 60 43 63H57C57 60 58 56 60 54C64 50 68 45 68 38C68 28 60 20 50 20Z" fill="#FFF9EB" stroke="#FFB63E" stroke-width="2.2"/>
+                      <rect x="44" y="63" width="12" height="4" rx="1.5" fill="#FFE2A3" stroke="#FFB63E" stroke-width="1.6"/>
+                      <rect x="46" y="67" width="8" height="3" rx="1" fill="#FFB63E"/>
+                      <!-- Coin with Currency Symbol $ -->
+                      <circle cx="78" cy="56" r="16" fill="#FFF4D6" stroke="#FFB63E" stroke-width="2.2"/>
+                      <path d="M78 47V65M74 51H80C82 51 83.5 52.5 83.5 54C83.5 55.5 82 56.5 80 56.5H76C74 56.5 72.5 57.5 72.5 59C72.5 60.5 74 62 76 62H82" stroke="#D97706" stroke-width="2.2" stroke-linecap="round"/>
+                      <!-- Spark Rays -->
+                      <line x1="50" y1="10" x2="50" y2="14" stroke="#FFB63E" stroke-width="2.2" stroke-linecap="round"/>
+                      <line x1="28" y1="20" x2="31" y2="23" stroke="#FFB63E" stroke-width="2.2" stroke-linecap="round"/>
+                      <line x1="20" y1="38" x2="24" y2="38" stroke="#FFB63E" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 5: Lifestyle, wellness and personal development (Mint green #65D6B0) -->
+            <a href="explore.html?category=lifestyle-wellness" class="interest-category-card accent-mint" data-category="lifestyle-wellness" aria-label="Lifestyle, wellness and personal development workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Lifestyle, wellness and personal development</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Meditation Lotus & Wellness Cairn Stones -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Central Lotus Blossom -->
+                      <path d="M60 26C60 42 48 56 38 62C48 64 60 60 60 60C60 60 72 64 82 62C72 56 60 42 60 26Z" fill="#ECFDF5" stroke="#65D6B0" stroke-width="2.2"/>
+                      <path d="M34 48C38 58 48 64 58 64C44 66 32 60 26 50C28 46 30 46 34 48Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.8"/>
+                      <path d="M86 48C82 58 72 64 62 64C76 66 88 60 94 50C92 46 90 46 86 48Z" fill="#A7F3D0" stroke="#059669" stroke-width="1.8"/>
+                      <!-- Zen Stacked Stones -->
+                      <ellipse cx="60" cy="74" rx="24" ry="7" fill="#F0FDF4" stroke="#65D6B0" stroke-width="2"/>
+                      <ellipse cx="60" cy="67" rx="15" ry="4.5" fill="#D1FAE5" stroke="#059669" stroke-width="1.6"/>
+                      <!-- Sun Aura -->
+                      <circle cx="60" cy="20" r="6" fill="#FDE68A"/>
+                      <line x1="60" y1="8" x2="60" y2="12" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                      <line x1="70" y1="12" x2="68" y2="15" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                      <line x1="50" y1="12" x2="52" y2="15" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 6: Social, outdoor and community activities (Peach-orange #FFAB83) -->
+            <a href="explore.html?category=social-outdoor" class="interest-category-card accent-peach" data-category="social-outdoor" aria-label="Social, outdoor and community activities workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Social, outdoor and community activities</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Group of people / Community companions outdoors -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Mountain backdrop -->
+                      <polygon points="18,74 46,36 68,74" fill="#FFF7ED" stroke="#FFAB83" stroke-width="2"/>
+                      <polygon points="48,74 74,26 102,74" fill="#FFEDD5" stroke="#FFAB83" stroke-width="2"/>
+                      <!-- Community Person 1 (Center) -->
+                      <circle cx="60" cy="46" r="6" fill="#FFAB83"/>
+                      <path d="M50 72C50 63 54 60 60 60C66 60 70 63 70 72" fill="#FFAB83"/>
+                      <!-- Person 2 (Left) -->
+                      <circle cx="42" cy="50" r="5" fill="#FED7AA"/>
+                      <path d="M34 72C34 65 37 62 42 62C47 62 50 65 50 72" fill="#FED7AA"/>
+                      <!-- Person 3 (Right) -->
+                      <circle cx="78" cy="50" r="5" fill="#FED7AA"/>
+                      <path d="M70 72C70 65 73 62 78 62C83 62 86 65 86 72" fill="#FED7AA"/>
+                      <!-- Connecting dialogue bubble -->
+                      <path d="M84 32C84 27 89 23 96 23C103 23 108 27 108 32C108 36 104 39 99 40L96 44V40H96C90 40 84 36 84 32Z" fill="#FFFFFF" stroke="#EA580C" stroke-width="1.8"/>
+                      <circle cx="92" cy="32" r="1.5" fill="#EA580C"/>
+                      <circle cx="96" cy="32" r="1.5" fill="#EA580C"/>
+                      <circle cx="100" cy="32" r="1.5" fill="#EA580C"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+            <!-- Card 7: Emerging skills and practical life skills (Purple #A987FF) -->
+            <a href="explore.html?category=emerging-practical" class="interest-category-card accent-purple" data-category="emerging-practical" aria-label="Emerging skills and practical life skills workshops">
+              <div class="card-inner">
+                <h3 class="card-title">Emerging skills and practical life skills</h3>
+                <div class="card-bottom-row">
+                  <span class="card-diagonal-arrow-btn" aria-hidden="true">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                  <div class="card-illustration-wrap" aria-hidden="true">
+                    <!-- Gear and tools (wrench/screwdriver) -->
+                    <svg class="card-svg-art" viewBox="0 0 120 100" fill="none">
+                      <!-- Interlocking Gear Cog -->
+                      <g transform="translate(32, 28)">
+                        <circle cx="22" cy="22" r="18" fill="#F5F3FF" stroke="#A987FF" stroke-width="2.2"/>
+                        <circle cx="22" cy="22" r="8" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                        <!-- Cog teeth -->
+                        <rect x="19" y="0" width="6" height="7" rx="1.5" fill="#A987FF"/>
+                        <rect x="19" y="37" width="6" height="7" rx="1.5" fill="#A987FF"/>
+                        <rect x="0" y="19" width="7" height="6" rx="1.5" fill="#A987FF"/>
+                        <rect x="37" y="19" width="7" height="6" rx="1.5" fill="#A987FF"/>
+                      </g>
+                      <!-- Angled Wrench Tool -->
+                      <g transform="rotate(35 78 54)">
+                        <rect x="74" y="24" width="8" height="38" rx="3" fill="#DDD6FE" stroke="#7C3AED" stroke-width="1.8"/>
+                        <!-- Wrench Head -->
+                        <path d="M70 20C70 14 74 10 78 10C82 10 86 14 86 20C83 22 73 22 70 20Z" fill="#C4B5FD" stroke="#7C3AED" stroke-width="1.8"/>
+                      </g>
+                      <!-- Maker Sparks -->
+                      <path d="M92 24L94 18L96 24L102 26L96 28L94 34L92 28L86 26Z" fill="#A987FF"/>
+                      <circle cx="28" cy="74" r="2.5" fill="#C4B5FD"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="card-bottom-accent-strip" aria-hidden="true"></div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Subtle Scroll Progress Bar Indicator -->
+        <div class="interests-scroll-indicator-bar" aria-hidden="true">
+          <div class="interests-scroll-thumb" id="interests-scroll-thumb"></div>
         </div>
 
         <!-- All 50 Topics Directory -->
