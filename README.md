@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Orbito — Workshop & Passion Discovery Platform
 
 **Orbito** is a modern, responsive website frontend that helps curious learners discover live workshops, webinars, hobbies, and activities tailored directly to their interests.
@@ -177,3 +178,6 @@ uvicorn fastapi_server:app --reload --port 8000
 - All dynamic text insertions utilize `escapeHTML()` to neutralize potential XSS vectors.
 - No API keys, secret credentials, or LLM tokens are bundled in client-side code.
 - Inputs are validated on both single-select and multi-select steps in the quiz interface.
+=======
+# Orbito
+>>>>>>> 7380aeb27bd0983eba429f282589b8d9663ecb54
