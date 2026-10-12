@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your Skills with Orbito | Create Workshop</title>
+  <meta name="description" content="Share your skills and host hands-on workshops with Orbito. Submit your course details, certifications, and schedule for community review.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="create-workshop-shell">
+
+  <!-- Navigation Bar -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+      </a>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
+          <li><a href="organizer-dashboard.html" class="nav-link">Organizer Dashboard</a></li>
+          <li><a href="create-workshop.html" class="nav-link active">Create Workshop</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions header-right-group">
+        <a href="organizer-dashboard.html" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+          <span>Back to Dashboard</span>
+        </a>
+
+        <!-- Account symbol and logout menu inserted here by app.js -->
+        <a href="#" class="btn btn-ghost btn-sm auth-trigger-login">Log In</a>
+        <a href="#" class="btn btn-primary btn-sm auth-trigger-signup">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="create-workshop-container">
+      
+      <!-- Wizard Header -->
+      <div class="wizard-hero-header">
+        <span class="wizard-badge">Organizer Studio</span>
+        <h1 id="page-heading">Share Your Skills with Orbito</h1>
+        <p>
+          Submit your hands-on workshop to reach curious learners across the Orbito community. Workshops are reviewed by our team before public publication.
+        </p>
+      </div>
+
+      <!-- 5-Step Progress Stepper -->
+      <div class="wizard-stepper-bar" role="tablist" aria-label="Creation Steps">
+        <div class="stepper-progress-line">
+          <div class="stepper-progress-fill" id="stepper-fill-bar"></div>
+        </div>
+
+        <div class="wizard-step-node active" data-step="1" role="tab" aria-selected="true" tabindex="0">
+          <div class="step-node-bubble">1</div>
+          <span class="step-node-title">Organizer Details</span>
+        </div>
+
+        <div class="wizard-step-node" data-step="2" role="tab" aria-selected="false" tabindex="0">
+          <div class="step-node-bubble">2</div>
+          <span class="step-node-title">Workshop Info</span>
+        </div>
+
+        <div class="wizard-step-node" data-step="3" role="tab" aria-selected="false" tabindex="0">
+          <div class="step-node-bubble">3</div>
+          <span class="step-node-title">Schedule & Format</span>
+        </div>
+
+        <div class="wizard-step-node" data-step="4" role="tab" aria-selected="false" tabindex="0">
+          <div class="step-node-bubble">4</div>
+          <span class="step-node-title">Certifications</span>
+        </div>
+
+        <div class="wizard-step-node" data-step="5" role="tab" aria-selected="false" tabindex="0">
+          <div class="step-node-bubble">5</div>
+          <span class="step-node-title">Review & Submit</span>
+        </div>
+      </div>
+
+      <!-- Main Form Container -->
+      <div class="wizard-form-card">
+        <form id="create-workshop-form" novalidate>
+
+          <!-- ============================================================
+               STEP 1: Organizer Details
+               ============================================================ -->
+          <div class="wizard-step-pane active" id="pane-step-1">
+            <div class="pane-section-header">
+              <h2>Step 1: Organizer Information</h2>
+              <p>Your authenticated identity ensures authenticity and safety across the Orbito platform.</p>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="org-full-name">Full Name *</label>
+                <input type="text" id="org-full-name" class="form-control" placeholder="e.g. Dr. Elena Rostova" required>
+                <small style="color: var(--text-secondary); font-size: 0.78rem;">Displayed as the primary instructor name.</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="org-email">Email Address *</label>
+                <input type="email" id="org-email" class="form-control" readonly style="background-color: #F8F8FC; cursor: not-allowed;" required>
+                <small style="color: var(--text-secondary); font-size: 0.78rem;">Prefilled from your authenticated account.</small>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1rem;">
+              <label class="form-label" for="org-professional-title">Professional Title / Area of Expertise *</label>
+              <input type="text" id="org-professional-title" class="form-control" placeholder="e.g. Senior AI Researcher & Computer Science Educator" required>
+              <small style="color: var(--text-secondary); font-size: 0.78rem;">Briefly describe your discipline or industry title.</small>
+            </div>
+
+            <div class="wizard-nav-footer">
+              <div></div>
+              <button type="button" class="btn-wizard-nav btn-wizard-next" data-next="2">
+                Continue to Workshop Info →
+              </button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               STEP 2: Workshop Information
+               ============================================================ -->
+          <div class="wizard-step-pane" id="pane-step-2">
+            <div class="pane-section-header">
+              <h2>Step 2: Workshop Information</h2>
+              <p>Provide the core subject, curriculum, category, and target audience.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-title">Workshop Title *</label>
+              <input type="text" id="ws-title" class="form-control" placeholder="e.g. Python Coding for Beginners: Build Your First Interactive Projects" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-skill">Skill or Subject to Teach *</label>
+              <input type="text" id="ws-skill" class="form-control" placeholder="e.g. Python Programming, Generative AI, Wheel Throwing, Pitching" required>
+            </div>
+
+            <!-- Dynamic Category & Topic Selection -->
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ws-category">Category *</label>
+                <select id="ws-category" class="form-control" required>
+                  <option value="" disabled selected>Select an official category...</option>
+                  <option value="tech-ai">1. Technology and AI</option>
+                  <option value="creativity-arts">2. Creativity and Arts</option>
+                  <option value="career-professional">3. Career and Professional Skills</option>
+                  <option value="entrepreneurship-finance">4. Entrepreneurship and Finance</option>
+                  <option value="lifestyle-wellness">5. Lifestyle, Wellness and Personal Development</option>
+                  <option value="social-outdoor">6. Social, Outdoor and Community Activities</option>
+                  <option value="emerging-practical">7. Emerging Skills and Practical Life Skills</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-topic">Topic (Filtered by Category) *</label>
+                <select id="ws-topic" class="form-control" required disabled>
+                  <option value="" disabled selected>Please choose a category first...</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-description">About the Workshop / Course Description *</label>
+              <textarea id="ws-description" class="form-control" rows="4" placeholder="Detail what makes this workshop special, why participants should attend, and what will happen during the session..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-outcomes">What Participants Will Learn (Learning Outcomes)</label>
+              <textarea id="ws-outcomes" class="form-control" rows="3" placeholder="Enter bullet points (one per line):&#10;• Set up your environment seamlessly&#10;• Build a practical portfolio piece&#10;• Receive instructor feedback"></textarea>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="ws-duration-val">Duration Value *</label>
+                <input type="number" id="ws-duration-val" class="form-control" min="0.5" step="0.5" value="2.5" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-duration-unit">Duration Unit *</label>
+                <select id="ws-duration-unit" class="form-control" required>
+                  <option value="hours" selected>Hours</option>
+                  <option value="days">Days</option>
+                  <option value="weeks">Weeks</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-level">Skill Level *</label>
+                <select id="ws-level" class="form-control" required>
+                  <option value="Beginner" selected>Beginner</option>
+                  <option value="Intermediate">Intermediate</option>
+                  <option value="Advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-prerequisites">Suitable Audience or Prerequisites</label>
+              <input type="text" id="ws-prerequisites" class="form-control" placeholder="e.g. Laptop with web browser. No prior technical background required.">
+            </div>
+
+            <div class="wizard-nav-footer">
+              <button type="button" class="btn-wizard-nav btn-wizard-prev" data-prev="1">← Back</button>
+              <button type="button" class="btn-wizard-nav btn-wizard-next" data-next="3">Continue to Schedule & Format →</button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               STEP 3: Schedule, Format and Pricing
+               ============================================================ -->
+          <div class="wizard-step-pane" id="pane-step-3">
+            <div class="pane-section-header">
+              <h2>Step 3: Schedule, Format and Pricing</h2>
+              <p>Configure how, when, and where your cohort will take place.</p>
+            </div>
+
+            <!-- Format Selector -->
+            <label class="form-label">Workshop Format *</label>
+            <div class="segmented-format-selector" id="format-selector">
+              <div class="segmented-pill active" data-format="Online">🌐 Online</div>
+              <div class="segmented-pill" data-format="In person">📍 In person</div>
+              <div class="segmented-pill" data-format="Hybrid">🔄 Hybrid</div>
+            </div>
+
+            <!-- Online Fields -->
+            <div id="format-online-fields">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="ws-platform">Platform / Tool Name</label>
+                  <input type="text" id="ws-platform" class="form-control" placeholder="e.g. Zoom Interactive Lab, Google Meet, Discord">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="ws-meeting-link">Meeting Link / Access Instructions (Private)</label>
+                  <input type="text" id="ws-meeting-link" class="form-control" placeholder="https://zoom.us/j/... (Only revealed after confirmed registration)">
+                </div>
+              </div>
+            </div>
+
+            <!-- In Person Fields -->
+            <div id="format-inperson-fields" style="display: none;">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="ws-venue-name">Venue Name</label>
+                  <input type="text" id="ws-venue-name" class="form-control" placeholder="e.g. Artisan Loft Studio, Room 402">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="ws-venue-address">Street Address / City</label>
+                  <input type="text" id="ws-venue-address" class="form-control" placeholder="e.g. 452 Broadway, New York, NY">
+                </div>
+              </div>
+            </div>
+
+            <!-- Schedule -->
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--charcoal); margin: 1.75rem 0 1rem;">
+              Workshop Schedule
+            </h3>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label class="form-label" for="ws-date">Workshop Date *</label>
+                <input type="date" id="ws-date" class="form-control" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-start-time">Start Time *</label>
+                <input type="time" id="ws-start-time" class="form-control" value="10:00" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-end-time">End Time *</label>
+                <input type="time" id="ws-end-time" class="form-control" value="13:00" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="ws-deadline">Registration Deadline</label>
+                <input type="date" id="ws-deadline" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="ws-max-seats">Maximum Participants</label>
+                <input type="number" id="ws-max-seats" class="form-control" min="1" max="500" value="30">
+              </div>
+            </div>
+
+            <!-- Pricing Configuration -->
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--charcoal); margin: 1.75rem 0 0.85rem;">
+              Pricing Model
+            </h3>
+
+            <div class="segmented-pricing-selector" id="pricing-selector">
+              <div class="segmented-pill active" data-pricing="Free">🎉 Free of Cost</div>
+              <div class="segmented-pill" data-pricing="Paid">💳 Paid Workshop</div>
+            </div>
+
+            <!-- Paid Price Row (Hidden when Free) -->
+            <div id="paid-price-container" style="display: none;">
+              <div class="form-group">
+                <label class="form-label" for="ws-price-val">Registration Fee *</label>
+                <div class="price-input-row">
+                  <select id="ws-currency" class="form-control currency-select">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="INR">INR (₹)</option>
+                  </select>
+                  <input type="number" id="ws-price-val" class="form-control" min="1" step="0.5" placeholder="e.g. 29.00">
+                </div>
+              </div>
+            </div>
+
+            <div class="wizard-nav-footer">
+              <button type="button" class="btn-wizard-nav btn-wizard-prev" data-prev="2">← Back</button>
+              <button type="button" class="btn-wizard-nav btn-wizard-next" data-next="4">Continue to Certifications →</button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               STEP 4: Skills and Certifications ("Verify Your Expertise")
+               ============================================================ -->
+          <div class="wizard-step-pane" id="pane-step-4">
+            <div class="pane-section-header">
+              <h2>Step 4: Verify Your Expertise</h2>
+              <p>Upload supporting credentials and optional cover imagery. Documents are reviewed privately by administrators.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="ws-skills-summary">Relevant Skills and Industry Experience</label>
+              <textarea id="ws-skills-summary" class="form-control" rows="3" placeholder="Briefly summarize your practical track record, years of practice, or notable accomplishments in this subject..."></textarea>
+            </div>
+
+            <!-- Certification Upload Repeater -->
+            <div class="certifications-repeater-box">
+              <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.5rem;">
+                Certification Documents & Credentials
+              </h3>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+                Upload a diploma, course certificate, or verified portfolio document (PDF, PNG, JPG under 10MB).
+              </p>
+
+              <div class="cert-item-card">
+                <div class="form-grid-2">
+                  <div class="form-group">
+                    <label class="form-label" for="cert-name">Certification / Credential Name</label>
+                    <input type="text" id="cert-name" class="form-control" placeholder="e.g. AWS Certified Solutions Architect">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="cert-org">Issuing Organization</label>
+                    <input type="text" id="cert-org" class="form-control" placeholder="e.g. Amazon Web Services, RISD, Coursera">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="cert-year">Year Issued</label>
+                  <input type="number" id="cert-year" class="form-control" style="max-width: 180px;" min="1990" max="2026" value="2024">
+                </div>
+
+                <!-- Dropzone for Cert Document -->
+                <div class="file-upload-dropzone" id="cert-dropzone">
+                  <input type="file" id="cert-file-input" accept=".pdf,.png,.jpg,.jpeg" style="display: none;">
+                  <div class="dropzone-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="17 8 12 3 7 8"></polyline>
+                      <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                  </div>
+                  <div class="dropzone-instructions">
+                    <strong>Click or drag to upload certificate document</strong>
+                    <span>Supports PDF, JPG, or PNG (Max 10MB)</span>
+                  </div>
+                </div>
+
+                <div id="cert-file-preview-wrap" style="display: none;" class="uploaded-preview-file">
+                  <div class="preview-file-meta">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                    <span id="cert-preview-filename">document.pdf</span>
+                  </div>
+                  <button type="button" id="btn-remove-cert" style="background: none; border: none; color: #DC2626; cursor: pointer; font-size: 0.85rem; font-weight: 600;">Remove</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional Workshop Cover Image -->
+            <div class="form-group" style="margin-top: 1.5rem;">
+              <label class="form-label">Optional Workshop Cover Image</label>
+              <div class="file-upload-dropzone" id="cover-dropzone">
+                <input type="file" id="cover-file-input" accept=".png,.jpg,.jpeg" style="display: none;">
+                <div class="dropzone-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                    <polyline points="21 15 16 10 5 21"></polyline>
+                  </svg>
+                </div>
+                <div class="dropzone-instructions">
+                  <strong>Upload a workshop cover photo (16:9 ratio recommended)</strong>
+                  <span>JPG, PNG up to 10MB</span>
+                </div>
+              </div>
+
+              <div class="cover-image-preview-wrapper" id="cover-image-preview-box" style="display: none;">
+                <img id="cover-preview-img" src="" alt="Workshop Cover Preview">
+                <button type="button" class="btn-remove-preview" id="btn-remove-cover">Change Image</button>
+              </div>
+            </div>
+
+            <div class="wizard-nav-footer">
+              <button type="button" class="btn-wizard-nav btn-wizard-prev" data-prev="3">← Back</button>
+              <button type="button" class="btn-wizard-nav btn-wizard-next" data-next="5">Review Summary →</button>
+            </div>
+          </div>
+
+          <!-- ============================================================
+               STEP 5: Review and Submit
+               ============================================================ -->
+          <div class="wizard-step-pane" id="pane-step-5">
+            <div class="pane-section-header">
+              <h2>Step 5: Review and Submit</h2>
+              <p>Verify all details before submitting for official administrator review.</p>
+            </div>
+
+            <div id="review-summary-container" style="background: #FAFAFD; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 2rem;">
+              <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="wizard-nav-footer">
+              <button type="button" class="btn-wizard-nav btn-wizard-prev" data-prev="4">← Back to Edit</button>
+
+              <div class="wizard-submit-actions">
+                <button type="button" class="btn-save-draft" id="btn-action-save-draft">
+                  Save as Draft
+                </button>
+                <button type="button" class="btn-submit-review" id="btn-action-submit-review">
+                  Submit Workshop for Review
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Clean, Modern Dark Charcoal Footer (#242428) without Logo -->
+  <footer class="orbito-site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        <div class="footer-brand-column">
+          <a href="index.html" class="footer-brand-title" aria-label="Orbito Home">
+            Orbito
+          </a>
+          <p class="footer-tagline">Discover · Learn · Grow</p>
+          <p class="footer-brand-desc">
+            The modern workshop discovery platform empowering curious people to explore new interests, attend vibrant cohorts, and connect with inspiring mentors.
+          </p>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Explore</h3>
+          <ul class="footer-col-links">
+            <li><a href="explore.html" class="footer-link">Browse Workshops</a></li>
+            <li><a href="index.html#categories-section" class="footer-link">Categories</a></li>
+            <li><a href="quiz.html" class="footer-link">Discover My Interests</a></li>
+            <li><a href="recommendations.html" class="footer-link">Personalized Recommendations</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">For Organizers</h3>
+          <ul class="footer-col-links">
+            <li><a href="organizer-dashboard.html" class="footer-link">Organizer Dashboard</a></li>
+            <li><a href="create-workshop.html" class="footer-link">Create New Workshop</a></li>
+            <li><a href="admin-review.html" class="footer-link">Admin Review Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Help & Legal</h3>
+          <ul class="footer-col-links">
+            <li><a href="#" class="footer-link">Support Center</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Connect</h3>
+          <p style="font-size: 0.88rem; color: #DADAE0; margin-bottom: 1rem;">
+            Join our global network of creative mentors and passionate learners.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright">© 2026 Orbito. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Create Workshop Multi-Step Wizard Controller
+    document.addEventListener("DOMContentLoaded", async () => {
+      // 1. Authenticate Guard
+      const user = (typeof getSavedUser === "function" && getSavedUser()) || null;
+      if (!user || !user.loggedIn) {
+        showToast("Please sign in as a Workshop Organizer to create or submit workshops.", "info");
+        setTimeout(() => {
+          const loginBtn = document.querySelector(".auth-trigger-login");
+          if (loginBtn) loginBtn.click();
+        }, 300);
+      }
+
+      // Prefill authenticated organizer identity
+      const orgNameInput = document.getElementById("org-full-name");
+      const orgEmailInput = document.getElementById("org-email");
+      const orgTitleInput = document.getElementById("org-professional-title");
+      if (user) {
+        if (orgNameInput) orgNameInput.value = user.name || "";
+        if (orgEmailInput) orgEmailInput.value = user.email || "";
+        if (orgTitleInput && user.professionalTitle) orgTitleInput.value = user.professionalTitle;
+      }
+
+      // Minimum date: tomorrow or today
+      const todayStr = new Date().toISOString().split("T")[0];
+      const dateInput = document.getElementById("ws-date");
+      if (dateInput) {
+        dateInput.min = todayStr;
+        // Default to 14 days in future
+        const futureDate = new Date();
+        futureDate.setDate(futureDate.getDate() + 14);
+        dateInput.value = futureDate.toISOString().split("T")[0];
+      }
+
+      // State
+      let currentStep = 1;
+      let selectedFormat = "Online";
+      let selectedPricing = "Free";
+      let uploadedCertUrl = "";
+      let uploadedCertName = "";
+      let uploadedCoverUrl = "";
+      let editWorkshopId = new URLSearchParams(window.location.search).get("id");
+
+      // 2. Load Categories and Topics Dynamically from API
+      let categoriesData = [];
+      try {
+        const catRes = await window.OrbitoAPI.fetchCategories();
+        categoriesData = catRes.categories || [];
+      } catch (e) {
+        categoriesData = window.ORBITO_CATEGORIES || [];
+      }
+
+      const categorySelect = document.getElementById("ws-category");
+      const topicSelect = document.getElementById("ws-topic");
+
+      function populateCategoryTopics(categoryId) {
+        topicSelect.innerHTML = '<option value="" disabled selected>Select a topic...</option>';
+        const foundCat = categoriesData.find(c => c.id === categoryId);
+        if (foundCat && foundCat.topics && foundCat.topics.length > 0) {
+          foundCat.topics.forEach(t => {
+            const opt = document.createElement("option");
+            opt.value = t.id;
+            opt.textContent = t.name;
+            topicSelect.appendChild(opt);
+          });
+          topicSelect.disabled = false;
+        } else {
+          topicSelect.disabled = true;
+        }
+      }
+
+      categorySelect.addEventListener("change", (e) => {
+        populateCategoryTopics(e.target.value);
+      });
+
+      // 3. Format Selector Handling
+      const formatPills = document.querySelectorAll("#format-selector .segmented-pill");
+      const onlineFields = document.getElementById("format-online-fields");
+      const inPersonFields = document.getElementById("format-inperson-fields");
+
+      formatPills.forEach(pill => {
+        pill.addEventListener("click", () => {
+          formatPills.forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          selectedFormat = pill.getAttribute("data-format");
+
+          if (selectedFormat === "Online") {
+            onlineFields.style.display = "block";
+            inPersonFields.style.display = "none";
+          } else if (selectedFormat === "In person") {
+            onlineFields.style.display = "none";
+            inPersonFields.style.display = "block";
+          } else { // Hybrid
+            onlineFields.style.display = "block";
+            inPersonFields.style.display = "block";
+          }
+        });
+      });
+
+      // 4. Pricing Selector Handling
+      const pricingPills = document.querySelectorAll("#pricing-selector .segmented-pill");
+      const paidPriceContainer = document.getElementById("paid-price-container");
+      const priceValInput = document.getElementById("ws-price-val");
+
+      pricingPills.forEach(pill => {
+        pill.addEventListener("click", () => {
+          pricingPills.forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          selectedPricing = pill.getAttribute("data-pricing");
+
+          if (selectedPricing === "Paid") {
+            paidPriceContainer.style.display = "block";
+            if (priceValInput && !priceValInput.value) priceValInput.value = "29";
+          } else {
+            paidPriceContainer.style.display = "none";
+            if (priceValInput) priceValInput.value = "0";
+          }
+        });
+      });
+
+      // 5. File Uploads (Certification & Cover Image)
+      const certDropzone = document.getElementById("cert-dropzone");
+      const certFileInput = document.getElementById("cert-file-input");
+      const certPreviewWrap = document.getElementById("cert-file-preview-wrap");
+      const certPreviewFilename = document.getElementById("cert-preview-filename");
+      const btnRemoveCert = document.getElementById("btn-remove-cert");
+
+      certDropzone.addEventListener("click", () => certFileInput.click());
+      certFileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        if (file.size > 10 * 1024 * 1024) {
+          showToast("File exceeds the 10MB limit.", "error");
+          return;
+        }
+
+        try {
+          showToast("Uploading certification document...", "info");
+          const uploadRes = await window.OrbitoAPI.apiUploadFile(file);
+          uploadedCertUrl = uploadRes.fileUrl;
+          uploadedCertName = uploadRes.fileName;
+          certPreviewFilename.textContent = uploadRes.fileName;
+          certDropzone.style.display = "none";
+          certPreviewWrap.style.display = "flex";
+          showToast("Certification uploaded successfully!", "success");
+        } catch (err) {
+          showToast("Upload failed: " + err.message, "error");
+        }
+      });
+
+      btnRemoveCert.addEventListener("click", () => {
+        uploadedCertUrl = "";
+        uploadedCertName = "";
+        certFileInput.value = "";
+        certDropzone.style.display = "block";
+        certPreviewWrap.style.display = "none";
+      });
+
+      // Cover image upload
+      const coverDropzone = document.getElementById("cover-dropzone");
+      const coverFileInput = document.getElementById("cover-file-input");
+      const coverPreviewBox = document.getElementById("cover-image-preview-box");
+      const coverPreviewImg = document.getElementById("cover-preview-img");
+      const btnRemoveCover = document.getElementById("btn-remove-cover");
+
+      coverDropzone.addEventListener("click", () => coverFileInput.click());
+      coverFileInput.addEventListener("change", async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+          showToast("Uploading cover image...", "info");
+          const uploadRes = await window.OrbitoAPI.apiUploadFile(file);
+          uploadedCoverUrl = uploadRes.fileUrl;
+          coverPreviewImg.src = uploadRes.fileUrl;
+          coverDropzone.style.display = "none";
+          coverPreviewBox.style.display = "block";
+          showToast("Cover image uploaded!", "success");
+        } catch (err) {
+          showToast("Upload failed: " + err.message, "error");
+        }
+      });
+
+      btnRemoveCover.addEventListener("click", () => {
+        uploadedCoverUrl = "";
+        coverFileInput.value = "";
+        coverDropzone.style.display = "block";
+        coverPreviewBox.style.display = "none";
+      });
+
+      // 6. Stepper Navigation
+      function goToStep(step) {
+        if (step > currentStep && !validateCurrentStep(currentStep)) {
+          return;
+        }
+
+        currentStep = step;
+        document.querySelectorAll(".wizard-step-node").forEach((node, idx) => {
+          const nodeStep = idx + 1;
+          node.classList.remove("active", "completed");
+          if (nodeStep === currentStep) node.classList.add("active");
+          else if (nodeStep < currentStep) node.classList.add("completed");
+        });
+
+        // Update progress bar
+        const fillBar = document.getElementById("stepper-fill-bar");
+        if (fillBar) {
+          const percent = ((currentStep - 1) / 4) * 100;
+          fillBar.style.width = percent + "%";
+        }
+
+        // Show pane
+        document.querySelectorAll(".wizard-step-pane").forEach(pane => pane.classList.remove("active"));
+        const targetPane = document.getElementById(`pane-step-${currentStep}`);
+        if (targetPane) targetPane.classList.add("active");
+
+        if (currentStep === 5) {
+          renderSummary();
+        }
+
+        window.scrollTo({ top: 120, behavior: "smooth" });
+      }
+
+      function validateCurrentStep(step) {
+        if (step === 1) {
+          const name = document.getElementById("org-full-name").value.trim();
+          const title = document.getElementById("org-professional-title").value.trim();
+          if (!name || !title) {
+            showToast("Please enter your full name and professional title.", "error");
+            return false;
+          }
+        } else if (step === 2) {
+          const title = document.getElementById("ws-title").value.trim();
+          const skill = document.getElementById("ws-skill").value.trim();
+          const cat = categorySelect.value;
+          const topic = topicSelect.value;
+          const desc = document.getElementById("ws-description").value.trim();
+          if (!title || !skill || !cat || !topic || !desc) {
+            showToast("Please complete all required workshop information fields.", "error");
+            return false;
+          }
+        } else if (step === 3) {
+          const dateVal = document.getElementById("ws-date").value;
+          const startTime = document.getElementById("ws-start-time").value;
+          const endTime = document.getElementById("ws-end-time").value;
+
+          if (!dateVal || !startTime || !endTime) {
+            showToast("Please enter date, start time, and end time.", "error");
+            return false;
+          }
+
+          if (startTime >= endTime) {
+            showToast("End time must be later than start time.", "error");
+            return false;
+          }
+
+          if (selectedPricing === "Paid") {
+            const pVal = parseFloat(priceValInput.value);
+            if (isNaN(pVal) || pVal <= 0) {
+              showToast("Please enter a valid price for a paid workshop.", "error");
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+
+      // Next & Prev button bindings
+      document.querySelectorAll(".btn-wizard-next").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const next = parseInt(btn.getAttribute("data-next"), 10);
+          goToStep(next);
+        });
+      });
+
+      document.querySelectorAll(".btn-wizard-prev").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const prev = parseInt(btn.getAttribute("data-prev"), 10);
+          goToStep(prev);
+        });
+      });
+
+      // Stepper click jump
+      document.querySelectorAll(".wizard-step-node").forEach(node => {
+        node.addEventListener("click", () => {
+          const target = parseInt(node.getAttribute("data-step"), 10);
+          if (target < currentStep || validateCurrentStep(currentStep)) {
+            goToStep(target);
+          }
+        });
+      });
+
+      // 7. Render Summary on Step 5
+      function renderSummary() {
+        const catName = categorySelect.options[categorySelect.selectedIndex]?.text || "Category";
+        const topicName = topicSelect.options[topicSelect.selectedIndex]?.text || "Topic";
+        const title = document.getElementById("ws-title").value.trim();
+        const skill = document.getElementById("ws-skill").value.trim();
+        const desc = document.getElementById("ws-description").value.trim();
+        const durationVal = document.getElementById("ws-duration-val").value;
+        const durationUnit = document.getElementById("ws-duration-unit").value;
+        const level = document.getElementById("ws-level").value;
+        const dateVal = document.getElementById("ws-date").value;
+        const startTime = document.getElementById("ws-start-time").value;
+        const endTime = document.getElementById("ws-end-time").value;
+        const currency = document.getElementById("ws-currency").value;
+        const priceVal = priceValInput ? priceValInput.value : "0";
+
+        const summaryBox = document.getElementById("review-summary-container");
+        summaryBox.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem;">
+            <div>
+              <span style="display: inline-block; background: #EDE9FE; color: #6D28D9; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.65rem; border-radius: 9999px; margin-bottom: 0.4rem;">
+                ${escapeHTML(catName)}
+              </span>
+              <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--charcoal); margin: 0;">${escapeHTML(title)}</h3>
+              <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.2rem;">Topic: <strong>${escapeHTML(topicName)}</strong> • Skill: <strong>${escapeHTML(skill)}</strong></p>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 1.35rem; font-weight: 800; color: #059669;">
+                ${selectedPricing === "Free" ? "Free" : `${currency} ${priceVal}`}
+              </span>
+              <span style="display: block; font-size: 0.8rem; color: var(--text-secondary);">${selectedFormat}</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; background: #FFFFFF; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-bottom: 1.25rem; font-size: 0.88rem;">
+            <div>
+              <span style="color: var(--text-secondary); display: block;">Date & Time</span>
+              <strong>${dateVal} • ${startTime} - ${endTime}</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-secondary); display: block;">Duration & Level</span>
+              <strong>${durationVal} ${durationUnit} • ${level}</strong>
+            </div>
+            <div>
+              <span style="color: var(--text-secondary); display: block;">Credentials</span>
+              <strong>${uploadedCertName || "Unattached / Prior Record"}</strong>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--charcoal); margin-bottom: 0.35rem;">Description Preview</h4>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; margin: 0;">
+              ${escapeHTML(desc)}
+            </p>
+          </div>
+        `;
+      }
+
+      // 8. Submit Handler (Draft or Pending Review)
+      async function handleWorkshopSubmit(isDraft = false) {
+        if (!validateCurrentStep(1) || !validateCurrentStep(2) || !validateCurrentStep(3)) {
+          return;
+        }
+
+        const submitBtn = document.getElementById("btn-action-submit-review");
+        const draftBtn = document.getElementById("btn-action-save-draft");
+        submitBtn.disabled = true;
+        draftBtn.disabled = true;
+
+        const payload = {
+          title: document.getElementById("ws-title").value.trim(),
+          skillToTeach: document.getElementById("ws-skill").value.trim(),
+          categoryId: categorySelect.value,
+          topicId: parseInt(topicSelect.value, 10),
+          description: document.getElementById("ws-description").value.trim(),
+          learningOutcomes: document.getElementById("ws-outcomes").value.trim(),
+          durationValue: parseFloat(document.getElementById("ws-duration-val").value),
+          durationUnit: document.getElementById("ws-duration-unit").value,
+          skillLevel: document.getElementById("ws-level").value,
+          prerequisites: document.getElementById("ws-prerequisites").value.trim(),
+          pricingType: selectedPricing,
+          price: selectedPricing === "Free" ? 0.0 : parseFloat(priceValInput.value || 0),
+          currency: document.getElementById("ws-currency").value,
+          format: selectedFormat,
+          onlinePlatform: document.getElementById("ws-platform").value.trim(),
+          onlineMeetingLink: document.getElementById("ws-meeting-link").value.trim(),
+          venueName: document.getElementById("ws-venue-name").value.trim(),
+          venueAddress: document.getElementById("ws-venue-address").value.trim(),
+          workshopDate: document.getElementById("ws-date").value,
+          startTime: document.getElementById("ws-start-time").value,
+          endTime: document.getElementById("ws-end-time").value,
+          registrationDeadline: document.getElementById("ws-deadline").value,
+          maxParticipants: parseInt(document.getElementById("ws-max-seats").value, 10) || 30,
+          coverImageUrl: uploadedCoverUrl || null,
+          status: isDraft ? "Draft" : "Pending Review",
+          // Certification
+          skillsSummary: document.getElementById("ws-skills-summary").value.trim(),
+          certificationName: document.getElementById("cert-name").value.trim(),
+          issuingOrganization: document.getElementById("cert-org").value.trim(),
+          yearIssued: document.getElementById("cert-year").value,
+          certificationFileUrl: uploadedCertUrl || null,
+          certificationFileName: uploadedCertName || null
+        };
+
+        try {
+          showToast(isDraft ? "Saving draft..." : "Submitting workshop for review...", "info");
+
+          let result;
+          if (editWorkshopId) {
+            result = await window.OrbitoAPI.apiUpdateWorkshop(editWorkshopId, payload);
+          } else {
+            result = await window.OrbitoAPI.apiCreateWorkshop(payload);
+          }
+
+          // Show confirmation modal
+          showSuccessConfirmation(isDraft, result.workshopId || editWorkshopId);
+        } catch (err) {
+          showToast("Submission failed: " + (err.detail || err.message), "error");
+          submitBtn.disabled = false;
+          draftBtn.disabled = false;
+        }
+      }
+
+      function showSuccessConfirmation(isDraft, wsId) {
+        let modalOverlay = document.getElementById("submission-modal");
+        if (!modalOverlay) {
+          modalOverlay = document.createElement("div");
+          modalOverlay.id = "submission-modal";
+          modalOverlay.className = "modal-overlay";
+          document.body.appendChild(modalOverlay);
+        }
+
+        modalOverlay.innerHTML = `
+          <div class="modal-content submission-success-modal" style="max-width: 520px;">
+            <div class="success-check-circle">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h3>${isDraft ? "Draft Saved Successfully!" : "Your workshop has been submitted successfully!"}</h3>
+            <p>
+              ${isDraft 
+                ? "Your workshop has been saved to your drafts. You can edit and submit it anytime from your dashboard."
+                : "Its status is now <strong>Pending Review</strong>. Our team will verify your details and certification. It will automatically appear in public category listings, topic views, and recommendations once approved and published."}
+            </p>
+            <div style="display: flex; justify-content: center; gap: 0.85rem;">
+              <a href="organizer-dashboard.html" class="btn btn-primary btn-md">Go to Organizer Dashboard</a>
+              <a href="index.html" class="btn btn-ghost btn-md">Return Home</a>
+            </div>
+          </div>
+        `;
+        modalOverlay.classList.add("open");
+      }
+
+      document.getElementById("btn-action-submit-review").addEventListener("click", () => handleWorkshopSubmit(false));
+      document.getElementById("btn-action-save-draft").addEventListener("click", () => handleWorkshopSubmit(true));
+
+      // 9. Edit Mode Initialization if ?id=WS_ID is present
+      if (editWorkshopId) {
+        document.getElementById("page-heading").textContent = "Edit Workshop Submission";
+        try {
+          const ws = await window.OrbitoAPI.apiGetWorkshopForEdit(editWorkshopId);
+          if (ws) {
+            document.getElementById("ws-title").value = ws.title || "";
+            document.getElementById("ws-skill").value = ws.skillToTeach || "";
+            categorySelect.value = ws.categoryId || "";
+            populateCategoryTopics(ws.categoryId);
+            topicSelect.value = ws.topicId || "";
+            document.getElementById("ws-description").value = ws.description || "";
+            document.getElementById("ws-outcomes").value = ws.learningOutcomes || "";
+            document.getElementById("ws-duration-val").value = ws.durationValue || 2;
+            document.getElementById("ws-duration-unit").value = ws.durationUnit || "hours";
+            document.getElementById("ws-level").value = ws.skillLevel || "Beginner";
+            document.getElementById("ws-prerequisites").value = ws.prerequisites || "";
+            document.getElementById("ws-date").value = ws.workshopDate || "";
+            document.getElementById("ws-start-time").value = ws.startTime || "";
+            document.getElementById("ws-end-time").value = ws.endTime || "";
+            
+            // Format
+            const matchedPill = Array.from(formatPills).find(p => p.getAttribute("data-format").toLowerCase() === (ws.format || "").toLowerCase());
+            if (matchedPill) matchedPill.click();
+
+            // Pricing
+            if (ws.pricingType === "Paid" || ws.price > 0) {
+              const paidPill = Array.from(pricingPills).find(p => p.getAttribute("data-pricing") === "Paid");
+              if (paidPill) paidPill.click();
+              if (priceValInput) priceValInput.value = ws.price;
+            }
+
+            if (ws.coverImageUrl) {
+              uploadedCoverUrl = ws.coverImageUrl;
+              coverPreviewImg.src = ws.coverImageUrl;
+              coverDropzone.style.display = "none";
+              coverPreviewBox.style.display = "block";
+            }
+          }
+        } catch (err) {
+          console.warn("Could not preload workshop details for editing:", err);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

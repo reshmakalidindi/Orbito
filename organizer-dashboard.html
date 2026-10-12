@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organizer Dashboard | Orbito</title>
+  <meta name="description" content="Manage your workshops, review submission statuses, track registrations, and submit new learning experiences on Orbito.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="organizer-dashboard-shell">
+
+  <!-- Navigation Bar -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+      </a>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
+          <li><a href="organizer-dashboard.html" class="nav-link active">Organizer Dashboard</a></li>
+          <li><a href="create-workshop.html" class="nav-link">Create Workshop</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions header-right-group">
+        <a href="create-workshop.html" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>New Workshop</span>
+        </a>
+
+        <!-- Account symbol and logout menu inserted here by app.js -->
+        <a href="#" class="btn btn-ghost btn-sm auth-trigger-login">Log In</a>
+        <a href="#" class="btn btn-primary btn-sm auth-trigger-signup">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Organizer Hero Banner -->
+    <section class="dashboard-hero-banner">
+      <div class="container dashboard-hero-inner">
+        <div class="dashboard-hero-content">
+          <h1 id="organizer-welcome-title">Welcome, Organizer 👋</h1>
+          <p id="organizer-profile-subtitle">
+            Manage your submitted workshops, track review statuses, and share your expertise with curious minds.
+          </p>
+          <div class="organizer-meta-pill" id="organizer-badge-info">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            <span id="organizer-role-label">Verified Workshop Organizer</span>
+          </div>
+        </div>
+
+        <div class="dashboard-hero-actions">
+          <a href="create-workshop.html" class="btn-create-workshop-hero">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Create New Workshop</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPI Summary Grid -->
+    <section class="organizer-kpi-grid" aria-label="Workshop Statistics">
+      <div class="kpi-card">
+        <div class="kpi-icon-box purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </div>
+        <div class="kpi-details">
+          <span class="kpi-number" id="kpi-total-workshops">0</span>
+          <span class="kpi-label">Total Workshops</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-box green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <div class="kpi-details">
+          <span class="kpi-number" id="kpi-published-workshops">0</span>
+          <span class="kpi-label">Published (Live)</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-box yellow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="kpi-details">
+          <span class="kpi-number" id="kpi-pending-workshops">0</span>
+          <span class="kpi-label">Pending Review</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-icon-box grey">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+        </div>
+        <div class="kpi-details">
+          <span class="kpi-number" id="kpi-draft-workshops">0</span>
+          <span class="kpi-label">Drafts & Corrections</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Workshops Section -->
+    <section class="organizer-board-container">
+      <div class="board-header-row">
+        <div class="board-title-group">
+          <h2>My Workshops</h2>
+          <p>Track status labels: Published, Pending Review, Draft, or Rejected.</p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="board-filter-tabs" role="tablist">
+          <button type="button" class="board-tab-btn active" data-filter="all">All (<span id="count-tab-all">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Published">Published (<span id="count-tab-published">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Pending Review">Pending Review (<span id="count-tab-pending">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Draft">Drafts (<span id="count-tab-draft">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Rejected">Rejected (<span id="count-tab-rejected">0</span>)</button>
+        </div>
+      </div>
+
+      <!-- Workshop List Container -->
+      <div class="organizer-workshops-list" id="organizer-workshops-list">
+        <!-- Rendered dynamically by JavaScript -->
+        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+          Loading your workshops...
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Clean, Modern Dark Charcoal Footer (#242428) without Logo -->
+  <footer class="orbito-site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        <div class="footer-brand-column">
+          <a href="index.html" class="footer-brand-title" aria-label="Orbito Home">
+            Orbito
+          </a>
+          <p class="footer-tagline">Discover · Learn · Grow</p>
+          <p class="footer-brand-desc">
+            The modern workshop discovery platform empowering curious people to explore new interests, attend vibrant cohorts, and connect with inspiring mentors.
+          </p>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Explore</h3>
+          <ul class="footer-col-links">
+            <li><a href="explore.html" class="footer-link">Browse Workshops</a></li>
+            <li><a href="index.html#categories-section" class="footer-link">Categories</a></li>
+            <li><a href="quiz.html" class="footer-link">Discover My Interests</a></li>
+            <li><a href="recommendations.html" class="footer-link">Personalized Recommendations</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">For Organizers</h3>
+          <ul class="footer-col-links">
+            <li><a href="organizer-dashboard.html" class="footer-link">Organizer Dashboard</a></li>
+            <li><a href="create-workshop.html" class="footer-link">Create New Workshop</a></li>
+            <li><a href="admin-review.html" class="footer-link">Admin Review Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Help & Legal</h3>
+          <ul class="footer-col-links">
+            <li><a href="#" class="footer-link">Support Center</a></li>
+            <li><a href="#" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Connect</h3>
+          <p style="font-size: 0.88rem; color: #DADAE0; margin-bottom: 1rem;">
+            Join our global network of creative mentors and passionate learners.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright">© 2026 Orbito. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    // Organizer Dashboard Logic
+    document.addEventListener("DOMContentLoaded", async () => {
+      // 1. Check Authentication Guard
+      const user = (typeof getSavedUser === "function" && getSavedUser()) || null;
+      if (!user || !user.loggedIn) {
+        showToast("Please log in as a Workshop Organizer to access your dashboard.", "info");
+        setTimeout(() => {
+          if (typeof initAuthModals === "function") {
+            const loginBtn = document.querySelector(".auth-trigger-login");
+            if (loginBtn) loginBtn.click();
+          }
+        }, 300);
+      }
+
+      // Update Organizer profile details
+      if (user) {
+        const welcomeTitle = document.getElementById("organizer-welcome-title");
+        const profileSub = document.getElementById("organizer-profile-subtitle");
+        const roleLabel = document.getElementById("organizer-role-label");
+        
+        if (welcomeTitle) welcomeTitle.textContent = `Welcome, ${user.name || "Organizer"} 👋`;
+        if (profileSub && user.professionalTitle) {
+          profileSub.textContent = `${user.professionalTitle} • ${user.email}`;
+        }
+        if (roleLabel) {
+          roleLabel.textContent = user.role === "admin" ? "Platform Administrator" : "Verified Workshop Organizer";
+        }
+      }
+
+      let allWorkshops = [];
+      let activeFilter = "all";
+
+      // 2. Fetch Organizer Workshops from API
+      async function loadWorkshops() {
+        const listEl = document.getElementById("organizer-workshops-list");
+        try {
+          if (window.OrbitoAPI && window.OrbitoAPI.apiFetchOrganizerWorkshops) {
+            allWorkshops = await window.OrbitoAPI.apiFetchOrganizerWorkshops();
+          }
+        } catch (err) {
+          console.warn("Could not fetch organizer workshops from backend:", err);
+          // Fallback to sample workshops matching organizer email or defaults
+          allWorkshops = (window.SAMPLE_WORKSHOPS || []).map(w => ({
+            id: w.id,
+            title: w.title,
+            skillToTeach: w.title.split(":")[0],
+            categoryId: w.categoryId,
+            categoryName: w.categoryName,
+            topicId: w.topicId,
+            topicName: w.topicName,
+            format: w.formatLabel || w.format,
+            workshopDate: w.date,
+            startTime: w.time.split("-")[0] || "10:00 AM",
+            endTime: w.time.split("-")[1] || "1:00 PM",
+            price: w.price,
+            priceLabel: w.priceLabel,
+            status: "Published",
+            adminNotes: null,
+            coverImageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80",
+            certificationsCount: 1
+          }));
+        }
+
+        updateKPIs(allWorkshops);
+        renderFilteredList();
+      }
+
+      function updateKPIs(workshops) {
+        const total = workshops.length;
+        const published = workshops.filter(w => w.status === "Published").length;
+        const pending = workshops.filter(w => w.status === "Pending Review").length;
+        const drafts = workshops.filter(w => w.status === "Draft" || w.status === "Rejected").length;
+        const rejected = workshops.filter(w => w.status === "Rejected").length;
+
+        document.getElementById("kpi-total-workshops").textContent = total;
+        document.getElementById("kpi-published-workshops").textContent = published;
+        document.getElementById("kpi-pending-workshops").textContent = pending;
+        document.getElementById("kpi-draft-workshops").textContent = drafts;
+
+        document.getElementById("count-tab-all").textContent = total;
+        document.getElementById("count-tab-published").textContent = published;
+        document.getElementById("count-tab-pending").textContent = pending;
+        document.getElementById("count-tab-draft").textContent = workshops.filter(w => w.status === "Draft").length;
+        document.getElementById("count-tab-rejected").textContent = rejected;
+      }
+
+      function renderFilteredList() {
+        const listEl = document.getElementById("organizer-workshops-list");
+        const filtered = activeFilter === "all" 
+          ? allWorkshops 
+          : allWorkshops.filter(w => w.status === activeFilter);
+
+        if (!filtered || filtered.length === 0) {
+          listEl.innerHTML = `
+            <div class="organizer-empty-state">
+              <div class="empty-icon-circle">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <h3>No Workshops Found</h3>
+              <p>You have no workshops matching "${activeFilter}". Ready to share your expertise with curious learners?</p>
+              <a href="create-workshop.html" class="btn btn-primary btn-md">Create New Workshop</a>
+            </div>
+          `;
+          return;
+        }
+
+        listEl.innerHTML = filtered.map(w => {
+          const statusClass = w.status === "Published" ? "published"
+            : w.status === "Pending Review" ? "pending-review"
+            : w.status === "Rejected" ? "rejected" : "draft";
+
+          const coverImg = w.coverImageUrl || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80";
+
+          return `
+            <div class="organizer-ws-card" data-id="${w.id}">
+              <div class="ws-thumbnail-cell">
+                <img src="${coverImg}" alt="${escapeHTML(w.title)}" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80'">
+              </div>
+
+              <div class="ws-main-cell">
+                <h3>${escapeHTML(w.title)}</h3>
+                <div class="ws-meta-tags">
+                  <span style="font-weight: 600; color: #7C3AED;">🏷️ ${escapeHTML(w.categoryName || "Category")}</span>
+                  <span>•</span>
+                  <span>📌 ${escapeHTML(w.topicName || "Topic")}</span>
+                  <span>•</span>
+                  <span>🌐 ${escapeHTML(w.format || "Online")}</span>
+                  <span>•</span>
+                  <span>💰 ${escapeHTML(w.priceLabel || "Free")}</span>
+                </div>
+              </div>
+
+              <div class="ws-schedule-cell">
+                <strong>🗓️ ${escapeHTML(w.workshopDate || "TBD")}</strong>
+                <span>⏰ ${escapeHTML(w.startTime || "")} - ${escapeHTML(w.endTime || "")}</span>
+              </div>
+
+              <div class="ws-status-cell">
+                <span class="badge-status ${statusClass}">
+                  ${w.status === "Published" ? "● Published" : w.status === "Pending Review" ? "⏳ Pending Review" : w.status === "Rejected" ? "✕ Rejected" : "✎ Draft"}
+                </span>
+              </div>
+
+              <div class="ws-actions-cell">
+                <a href="create-workshop.html?id=${w.id}" class="btn-ws-action" title="Edit this workshop">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                  <span>Edit</span>
+                </a>
+
+                ${w.status === "Published" ? `
+                  <a href="workshop-details.html?id=${w.id}" class="btn-ws-action primary" target="_blank" title="View live page">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <span>View Live</span>
+                  </a>
+                ` : ''}
+
+                ${w.status === "Draft" ? `
+                  <button type="button" class="btn-ws-action danger btn-delete-workshop" data-id="${w.id}" title="Delete draft">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span>Delete</span>
+                  </button>
+                ` : ''}
+              </div>
+
+              ${w.status === "Rejected" && w.adminNotes ? `
+                <div class="ws-rejection-reason-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  <div>
+                    <strong>Correction Required by Administrator:</strong>
+                    <p style="margin-top: 0.2rem;">${escapeHTML(w.adminNotes)}</p>
+                    <p style="font-size: 0.8rem; margin-top: 0.4rem; color: #742A2A;">Click "Edit" to address the notes above and resubmit for review.</p>
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join("");
+
+        // Attach delete draft listeners
+        listEl.querySelectorAll(".btn-delete-workshop").forEach(btn => {
+          btn.addEventListener("click", async (e) => {
+            const wsId = btn.getAttribute("data-id");
+            if (confirm("Are you sure you want to delete this draft workshop?")) {
+              try {
+                if (window.OrbitoAPI && window.OrbitoAPI.apiDeleteWorkshop) {
+                  await window.OrbitoAPI.apiDeleteWorkshop(wsId);
+                }
+                showToast("Workshop draft deleted.", "success");
+                loadWorkshops();
+              } catch (err) {
+                showToast("Failed to delete workshop: " + err.message, "error");
+              }
+            }
+          });
+        });
+      }
+
+      // Filter Tab Click handlers
+      document.querySelectorAll(".board-tab-btn").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".board-tab-btn").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          activeFilter = tab.getAttribute("data-filter");
+          renderFilteredList();
+        });
+      });
+
+      // Initial Load
+      loadWorkshops();
+    });
+  </script>
+</body>
+</html>

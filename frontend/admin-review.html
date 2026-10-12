@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Review Portal | Orbito</title>
+  <meta name="description" content="Administrator dashboard for reviewing, approving, publishing, and rejecting workshop submissions on Orbito.">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="admin-review-shell">
+
+  <!-- Navigation Bar -->
+  <header class="site-header" role="banner">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo-link" aria-label="Orbito Home" style="display: inline-flex; align-items: center; text-decoration: none;">
+        <img src="assets/images/orbito-logo.png" alt="Orbito" style="height: 38px; width: auto; object-fit: contain; mix-blend-mode: multiply;">
+      </a>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="explore.html" class="nav-link">Explore Workshops</a></li>
+          <li><a href="organizer-dashboard.html" class="nav-link">Organizer Dashboard</a></li>
+          <li><a href="admin-review.html" class="nav-link active">Admin Portal</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions header-right-group">
+        <span class="badge" style="background: #FEF3C7; color: #92400E; font-weight: 700; padding: 0.35rem 0.75rem; border-radius: 9999px; font-size: 0.8rem;">
+          🛡️ Admin Mode
+        </span>
+        <!-- Account symbol and logout menu inserted here by app.js -->
+        <a href="#" class="btn btn-ghost btn-sm auth-trigger-login">Log In</a>
+        <a href="#" class="btn btn-primary btn-sm auth-trigger-signup">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Header Banner -->
+    <section class="dashboard-hero-banner" style="background: linear-gradient(135deg, #FFFFFF 0%, #FEF3C7 100%);">
+      <div class="container dashboard-hero-inner">
+        <div class="dashboard-hero-content">
+          <h1>Workshop Submissions Review</h1>
+          <p>
+            Verify instructor credentials, inspect certifications, approve workshops to publish them publicly, or reject submissions with actionable feedback.
+          </p>
+        </div>
+        <div class="dashboard-hero-actions">
+          <a href="explore.html" class="btn btn-ghost btn-md" target="_blank">
+            <span>View Public Catalog ↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Review Table Section -->
+    <div class="admin-table-container">
+      <!-- Status Tabs -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+        <div class="board-filter-tabs" role="tablist">
+          <button type="button" class="board-tab-btn active" data-filter="all">All Submissions (<span id="admin-count-all">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Pending Review">Pending Review (<span id="admin-count-pending">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Published">Published (<span id="admin-count-published">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Draft">Drafts (<span id="admin-count-draft">0</span>)</button>
+          <button type="button" class="board-tab-btn" data-filter="Rejected">Rejected (<span id="admin-count-rejected">0</span>)</button>
+        </div>
+
+        <button type="button" id="btn-refresh-admin" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 0.35rem;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      <!-- Submissions Table Card -->
+      <div class="admin-card-table">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Workshop Title & Topic</th>
+              <th>Organizer & Title</th>
+              <th>Format & Date</th>
+              <th>Price</th>
+              <th>Credentials Evidence</th>
+              <th>Current Status</th>
+              <th style="text-align: right;">Review Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-submissions-tbody">
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                Loading submissions...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Rejection Modal -->
+  <div id="admin-rejection-modal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 480px;">
+      <button class="modal-close-btn" id="rejection-modal-close">✕</button>
+      <h3 style="font-size: 1.45rem; font-weight: 800; color: #DC2626; margin-bottom: 0.5rem;">
+        Reject Workshop Submission
+      </h3>
+      <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+        Please provide a specific reason or corrections needed. The organizer will see this message in their dashboard.
+      </p>
+
+      <form id="rejection-form">
+        <input type="hidden" id="reject-ws-id">
+        <div class="form-group">
+          <label class="form-label" for="rejection-reason-text">Reason for Rejection / Required Corrections *</label>
+          <textarea id="rejection-reason-text" class="form-control" rows="4" placeholder="e.g. Please provide a clearer syllabus outline and upload a valid teaching/industry credential document." required></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-ghost btn-md" id="btn-cancel-rejection">Cancel</button>
+          <button type="submit" class="btn btn-danger btn-md" style="background: #DC2626; color: #FFFFFF;">Confirm Rejection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Clean, Modern Dark Charcoal Footer (#242428) without Logo -->
+  <footer class="orbito-site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        <div class="footer-brand-column">
+          <a href="index.html" class="footer-brand-title" aria-label="Orbito Home">
+            Orbito
+          </a>
+          <p class="footer-tagline">Discover · Learn · Grow</p>
+        </div>
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Explore</h3>
+          <ul class="footer-col-links">
+            <li><a href="explore.html" class="footer-link">Browse Workshops</a></li>
+            <li><a href="organizer-dashboard.html" class="footer-link">Organizer Dashboard</a></li>
+            <li><a href="create-workshop.html" class="footer-link">Create Workshop</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright">© 2026 Orbito. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      let allSubmissions = [];
+      let activeFilter = "all";
+
+      const tbody = document.getElementById("admin-submissions-tbody");
+      const rejectionModal = document.getElementById("admin-rejection-modal");
+      const rejectionForm = document.getElementById("rejection-form");
+      const rejectWsIdInput = document.getElementById("reject-ws-id");
+      const rejectionReasonText = document.getElementById("rejection-reason-text");
+
+      async function loadSubmissions() {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 3rem;">Loading submissions...</td></tr>`;
+        try {
+          if (window.OrbitoAPI && window.OrbitoAPI.apiFetchAdminWorkshops) {
+            allSubmissions = await window.OrbitoAPI.apiFetchAdminWorkshops();
+          }
+        } catch (err) {
+          console.warn("Could not fetch admin workshops from backend:", err);
+          allSubmissions = (window.SAMPLE_WORKSHOPS || []).map(w => ({
+            id: w.id,
+            title: w.title,
+            organizerName: (w.instructor && w.instructor.name) || "Instructor",
+            organizerTitle: (w.instructor && w.instructor.title) || "Mentor",
+            organizerEmail: "mentor@orbito.io",
+            categoryName: w.categoryName,
+            topicName: w.topicName,
+            format: w.formatLabel || w.format,
+            date: w.date,
+            time: w.time,
+            price: w.priceLabel,
+            status: "Published",
+            adminNotes: null,
+            certifications: [
+              { id: 1, name: "Verified Credential", fileUrl: "#", isVerified: true }
+            ]
+          }));
+        }
+
+        updateCounts();
+        renderSubmissionsTable();
+      }
+
+      function updateCounts() {
+        const total = allSubmissions.length;
+        const pending = allSubmissions.filter(w => w.status === "Pending Review").length;
+        const published = allSubmissions.filter(w => w.status === "Published").length;
+        const drafts = allSubmissions.filter(w => w.status === "Draft").length;
+        const rejected = allSubmissions.filter(w => w.status === "Rejected").length;
+
+        document.getElementById("admin-count-all").textContent = total;
+        document.getElementById("admin-count-pending").textContent = pending;
+        document.getElementById("admin-count-published").textContent = published;
+        document.getElementById("admin-count-draft").textContent = drafts;
+        document.getElementById("admin-count-rejected").textContent = rejected;
+      }
+
+      function renderSubmissionsTable() {
+        const filtered = activeFilter === "all"
+          ? allSubmissions
+          : allSubmissions.filter(w => w.status === activeFilter);
+
+        if (!filtered || filtered.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+                No submissions matching "${activeFilter}".
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        tbody.innerHTML = filtered.map(w => {
+          const statusClass = w.status === "Published" ? "published"
+            : w.status === "Pending Review" ? "pending-review"
+            : w.status === "Rejected" ? "rejected" : "draft";
+
+          const certsHtml = (w.certifications && w.certifications.length > 0)
+            ? w.certifications.map(c => `
+                <a href="${c.fileUrl}" target="_blank" style="display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: #7C3AED; font-weight: 600; text-decoration: underline;">
+                  📄 ${escapeHTML(c.name || "Evidence Doc")} ↗
+                </a>
+              `).join("<br>")
+            : `<span style="color: var(--text-muted); font-size: 0.8rem;">None attached</span>`;
+
+          return `
+            <tr data-id="${w.id}">
+              <td>
+                <strong style="color: var(--charcoal); font-size: 0.95rem;">${escapeHTML(w.title)}</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                  <span style="color: #6D28D9; font-weight: 600;">${escapeHTML(w.categoryName || "")}</span> • ${escapeHTML(w.topicName || "")}
+                </div>
+              </td>
+              <td>
+                <strong style="color: var(--charcoal);">${escapeHTML(w.organizerName || "")}</strong>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">${escapeHTML(w.organizerEmail || "")}</div>
+              </td>
+              <td>
+                <div>🗓️ ${escapeHTML(w.date || "")}</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">${escapeHTML(w.format || "")} • ${escapeHTML(w.time || "")}</div>
+              </td>
+              <td>
+                <strong style="color: #059669;">${escapeHTML(w.price || "Free")}</strong>
+              </td>
+              <td>
+                ${certsHtml}
+              </td>
+              <td>
+                <span class="badge-status ${statusClass}">
+                  ${w.status}
+                </span>
+                ${w.adminNotes ? `<div style="font-size: 0.72rem; color: #DC2626; margin-top: 0.25rem;">Note: ${escapeHTML(w.adminNotes)}</div>` : ''}
+              </td>
+              <td style="text-align: right;">
+                <div class="admin-actions-cell" style="justify-content: flex-end;">
+                  ${w.status !== "Published" ? `
+                    <button type="button" class="btn-admin-action approve btn-action-approve" data-id="${w.id}" title="Approve and Publish publicly">
+                      ✓ Approve
+                    </button>
+                  ` : ''}
+
+                  ${w.status !== "Rejected" ? `
+                    <button type="button" class="btn-admin-action reject btn-action-reject" data-id="${w.id}" title="Reject with feedback">
+                      ✕ Reject
+                    </button>
+                  ` : ''}
+
+                  ${w.status === "Published" ? `
+                    <button type="button" class="btn-admin-action correct btn-action-correct" data-id="${w.id}" title="Unpublish & request changes">
+                      ✎ Request Edit
+                    </button>
+                  ` : ''}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join("");
+
+        // Attach action handlers
+        tbody.querySelectorAll(".btn-action-approve").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const wsId = btn.getAttribute("data-id");
+            if (confirm("Approve this workshop? It will be published immediately and visible in public category listings.")) {
+              try {
+                await window.OrbitoAPI.apiUpdateWorkshopStatus(wsId, "approve");
+                showToast("Workshop approved and published successfully!", "success");
+                loadSubmissions();
+              } catch (err) {
+                showToast("Approval failed: " + err.message, "error");
+              }
+            }
+          });
+        });
+
+        tbody.querySelectorAll(".btn-action-reject").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const wsId = btn.getAttribute("data-id");
+            rejectWsIdInput.value = wsId;
+            rejectionReasonText.value = "";
+            rejectionModal.classList.add("open");
+          });
+        });
+
+        tbody.querySelectorAll(".btn-action-correct").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const wsId = btn.getAttribute("data-id");
+            const reason = prompt("Enter notes for requested corrections:", "Please update the schedule or description.");
+            if (reason) {
+              try {
+                await window.OrbitoAPI.apiUpdateWorkshopStatus(wsId, "request_corrections", reason);
+                showToast("Workshop moved to Draft for organizer corrections.", "info");
+                loadSubmissions();
+              } catch (err) {
+                showToast("Action failed: " + err.message, "error");
+              }
+            }
+          });
+        });
+      }
+
+      // Rejection modal handlers
+      document.getElementById("rejection-modal-close").onclick = () => rejectionModal.classList.remove("open");
+      document.getElementById("btn-cancel-rejection").onclick = () => rejectionModal.classList.remove("open");
+      rejectionForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const wsId = rejectWsIdInput.value;
+        const reason = rejectionReasonText.value.trim();
+        if (!reason) return;
+
+        try {
+          await window.OrbitoAPI.apiUpdateWorkshopStatus(wsId, "reject", reason);
+          rejectionModal.classList.remove("open");
+          showToast("Workshop rejected. Reason recorded for organizer.", "info");
+          loadSubmissions();
+        } catch (err) {
+          showToast("Action failed: " + err.message, "error");
+        }
+      };
+
+      // Filter tabs
+      document.querySelectorAll(".board-filter-tabs .board-tab-btn").forEach(tab => {
+        tab.addEventListener("click", () => {
+          document.querySelectorAll(".board-filter-tabs .board-tab-btn").forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          activeFilter = tab.getAttribute("data-filter");
+          renderSubmissionsTable();
+        });
+      });
+
+      document.getElementById("btn-refresh-admin").addEventListener("click", loadSubmissions);
+
+      loadSubmissions();
+    });
+  </script>
+</body>
+</html>

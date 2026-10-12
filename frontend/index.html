@@ -62,8 +62,12 @@
         </div>
       </div>
 
-      <!-- Top-Right: Language Selector, Log In & Sign Up -->
+      <!-- Top-Right: Language Selector, Host a Workshop, Log In & Sign Up -->
       <div class="header-right-group">
+        <a href="organizer-dashboard.html" class="header-organizer-pill-link" style="display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; font-weight: 700; color: #6D28D9; text-decoration: none; padding: 0.4rem 0.85rem; border-radius: 9999px; background: #F5F3FF; border: 1px solid #DDD6FE; transition: all 0.2s ease;">
+          <span>Host a Workshop</span>
+        </a>
+
         <button type="button" class="header-lang-btn" id="header-lang-btn" aria-label="Change language">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="10"></circle>
@@ -420,156 +424,574 @@
         <div class="interests-scroll-indicator-bar" aria-hidden="true">
           <div class="interests-scroll-thumb" id="interests-scroll-thumb"></div>
         </div>
-
-        <!-- All 50 Topics Directory -->
-        <div class="topics-explorer">
-          <div class="topics-explorer-header">
-            <div>
-              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-primary);">Complete 50 Topics Directory</h3>
-              <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.25rem;">Filter by category pill to discover all 50 predefined learning tracks.</p>
-            </div>
-            <a href="explore.html" class="btn btn-secondary btn-sm">
-              <span>View in Workshop Directory</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </a>
-          </div>
-
-          <div class="category-pills-filter" id="topics-filter-pills">
-            <button type="button" class="filter-pill active" data-category="all">All (50 Topics)</button>
-            <!-- Pill buttons injected via JS -->
-          </div>
-
-          <div class="topic-tags-grid" id="all-topics-container">
-            <!-- 50 Topics injected via JS -->
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Featured Upcoming Workshops Section -->
-    <section class="section-padding">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge" style="background: var(--accent-coral-light); color: var(--accent-coral);">Verified Cohorts</span>
-          <h2 class="section-title">Featured Upcoming Workshops</h2>
-          <p class="section-subtitle">
-            Live instructor-led cohorts ready for enrollment this month in Bhimavaram and online.
-          </p>
-        </div>
-
-        <div class="workshops-grid" id="home-featured-workshops">
-          <!-- Dynamically populated from SAMPLE_WORKSHOPS -->
-        </div>
-
-        <div style="text-align: center; margin-top: 3.5rem;">
-          <a href="explore.html" class="btn btn-secondary btn-lg">
-            <span>Browse All Available Workshops</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
+    <!-- How Orbito Works Section (4-Step Connected Visual Roadmap with Branching Paths) -->
+    <section class="how-orbito-works-section" id="how-it-works" aria-labelledby="how-it-works-title">
+      <div class="how-works-container">
+        
+        <!-- Section Header -->
+        <div class="how-works-header">
+          <span class="how-works-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="section-padding" id="how-it-works">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge" style="background: var(--accent-yellow-light); color: #B45309;">Simple 3 Steps</span>
-          <h2 class="section-title">How Orbito Works</h2>
-          <p class="section-subtitle">
-            Empowering curious people to bridge the gap between interest and hands-on skill.
+            How Orbito Works
+          </span>
+          <h2 class="how-works-title" id="how-it-works-title">How Orbito Works</h2>
+          <p class="how-works-subtitle">
+            From discovering your interests to finding your next passion, we make it simple.
           </p>
         </div>
 
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <h3 class="step-title">Explore Topics</h3>
-            <p class="step-desc">
-              Browse 50 structured topics across technology, arts, entrepreneurship, well-being, and practical life skills. Filter by format, budget, or level.
-            </p>
+        <!-- 4-Step Connected Visual Roadmap -->
+        <div class="how-roadmap-wrapper">
+
+          <!-- Desktop Flow Connectors SVG (Shows smooth progression 1 -> 2 -> 3 -> 4) -->
+          <svg class="roadmap-connectors-svg" viewBox="0 0 1280 60" fill="none" preserveAspectRatio="none" aria-hidden="true">
+            <!-- Connector Line 1 to 2 -->
+            <path d="M 285 24 C 310 24, 320 24, 345 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
+            <polygon points="352,24 340,18 340,30" fill="#94A3B8"/>
+
+            <!-- Connector Line 2 to 3 -->
+            <path d="M 830 24 C 855 24, 865 24, 890 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
+            <polygon points="897,24 885,18 885,30" fill="#94A3B8"/>
+
+            <!-- Connector Line 3 to 4 -->
+            <path d="M 1045 24 C 1065 24, 1075 24, 1095 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
+            <polygon points="1102,24 1090,18 1090,30" fill="#94A3B8"/>
+          </svg>
+
+          <div class="how-roadmap-grid">
+
+            <!-- STEP 1: Sign In to Orbito -->
+            <div class="roadmap-step-card step-card-signin">
+              <div class="step-card-main-content">
+                <div class="step-top-meta">
+                  <span class="step-num-badge badge-purple" aria-label="Step 1">1</span>
+                  <span class="step-phase-tag tag-purple-soft">Step 1 · Start</span>
+                </div>
+
+                <h3 class="roadmap-step-title">Start Your Journey</h3>
+                <div class="roadmap-step-subtitle">Sign In to Orbito</div>
+
+                <!-- Playful User Profile / Login SVG Illustration -->
+                <div class="step-visual-box visual-box-purple" aria-hidden="true">
+                  <svg viewBox="0 0 240 120" fill="none" style="width: 100%; height: 100%;">
+                    <!-- Soft background orbital rings -->
+                    <ellipse cx="120" cy="62" rx="90" ry="32" stroke="#DDD6FE" stroke-width="2" stroke-dasharray="5 5"/>
+                    <circle cx="120" cy="55" r="38" fill="#EDE9FE"/>
+
+                    <!-- Avatar Character -->
+                    <circle cx="120" cy="42" r="16" fill="#A987FF"/>
+                    <path d="M98 78 C98 62, 142 62, 142 78" fill="#7C3AED"/>
+                    <circle cx="120" cy="38" r="4" fill="#FFFFFF"/>
+
+                    <!-- Floating Verified Badge / Key -->
+                    <g transform="translate(148, 22)">
+                      <rect x="0" y="0" width="34" height="24" rx="6" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                      <circle cx="10" cy="12" r="4" fill="#10B981"/>
+                      <line x1="18" y1="9" x2="28" y2="9" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"/>
+                      <line x1="18" y1="15" x2="25" y2="15" stroke="#C4B5FD" stroke-width="1.8" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Orbiting Sparkles -->
+                    <polygon points="56,38 58,32 60,38 66,40 60,42 58,48 56,42 50,40" fill="#A987FF"/>
+                    <circle cx="186" cy="74" r="3" fill="#C4B5FD"/>
+                  </svg>
+                </div>
+
+                <p class="roadmap-step-desc">
+                  Create your free account or sign in to save your preferences, track your workshop bookings, and receive personalized recommendations.
+                </p>
+              </div>
+
+              <a href="#signup" class="roadmap-action-link link-purple auth-trigger-signup" id="how-step1-link">
+                <span>Sign In / Join Free</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <!-- STEP 2: Choose Your Path (Visually Branches into Path A and Path B) -->
+            <div class="roadmap-step-card step-card-branching">
+              <div class="step-card-main-content">
+                <div class="step-top-meta">
+                  <span class="step-num-badge badge-branch" aria-label="Step 2">2</span>
+                  <span class="step-phase-tag tag-branch-soft">Step 2 · Choose Your Path</span>
+                </div>
+
+                <h3 class="roadmap-step-title">Two Ways to Explore</h3>
+                <div class="roadmap-step-subtitle" style="color: #475569;">Select the path that fits you best</div>
+
+                <p class="roadmap-step-desc" style="margin-bottom: 0.85rem;">
+                  Whether you already know what you'd like to learn or need guidance discovering your passion, Orbito has you covered:
+                </p>
+
+                <!-- Branching Split Container -->
+                <div class="step2-branch-wrapper">
+                  <div class="step2-branch-grid">
+                    
+                    <!-- PATH A: I know what I want to learn (Mint Green #65D6B0) -->
+                    <div class="branch-path-subcard path-subcard-mint">
+                      <div>
+                        <div class="branch-sub-badge sub-badge-mint">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                          </svg>
+                          <span>Path A</span>
+                        </div>
+                        <h4 class="branch-sub-heading">I know what I want to learn</h4>
+                        <p class="branch-sub-desc">
+                          Browse workshops by category, search by topic, and find exactly what you're looking for.
+                        </p>
+
+                        <!-- Mini Flow Indicator -->
+                        <div class="mini-flow-sequence">
+                          <div class="mini-flow-label">Path A Journey</div>
+                          <div class="mini-flow-nodes">
+                            <span class="mini-node-pill pill-mint">Browse Categories</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-mint">Select Workshop</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-mint">Choose Date &amp; Slot</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-mint">Book &amp; Attend</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a href="#categories-section" class="roadmap-action-link link-mint" id="how-step2-path-a">
+                        <span>Browse Categories</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+
+                    <!-- PATH B: Help me discover my interests (Coral Pink #FF668D) -->
+                    <div class="branch-path-subcard path-subcard-coral">
+                      <div>
+                        <div class="branch-sub-badge sub-badge-coral">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                            <path d="M2 12h20"></path>
+                          </svg>
+                          <span>Path B</span>
+                        </div>
+                        <h4 class="branch-sub-heading">Help me discover my interests</h4>
+                        <p class="branch-sub-desc">
+                          Take our interactive AI-powered interest discovery quiz to find activities matching your personality and curiosity.
+                        </p>
+
+                        <!-- Mini Flow Indicator -->
+                        <div class="mini-flow-sequence">
+                          <div class="mini-flow-label">Path B Journey</div>
+                          <div class="mini-flow-nodes">
+                            <span class="mini-node-pill pill-coral">Take Quiz</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-coral">AI Recommendations</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-coral">View Matching Workshops</span>
+                            <span class="mini-flow-arrow">&rarr;</span>
+                            <span class="mini-node-pill pill-coral">Book &amp; Attend</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a href="quiz.html" class="roadmap-action-link link-coral" id="how-step2-path-b">
+                        <span>Take the Quiz</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: Discover Your Interests with AI -->
+            <div class="roadmap-step-card step-card-ai">
+              <div class="step-card-main-content">
+                <div class="step-top-meta">
+                  <span class="step-num-badge badge-purple" aria-label="Step 3">3</span>
+                  <span class="step-phase-tag tag-purple-soft">Step 3 · AI Engine</span>
+                </div>
+
+                <h3 class="roadmap-step-title">Answer a Few Fun Questions</h3>
+                <div class="roadmap-step-subtitle">Discover Your Interests with AI</div>
+
+                <!-- Playful AI Brain / Sparkles SVG Illustration -->
+                <div class="step-visual-box visual-box-ai" aria-hidden="true">
+                  <svg viewBox="0 0 220 110" fill="none" style="width: 100%; height: 100%;">
+                    <!-- Central Neural Core -->
+                    <circle cx="110" cy="55" r="32" fill="#EDE9FE" stroke="#A987FF" stroke-width="2"/>
+                    <circle cx="110" cy="55" r="18" fill="#7C3AED"/>
+                    
+                    <!-- Synapse nodes & connecting arcs -->
+                    <circle cx="68" cy="38" r="8" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                    <line x1="76" y1="42" x2="94" y2="50" stroke="#C4B5FD" stroke-width="2"/>
+                    
+                    <circle cx="64" cy="74" r="7" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                    <line x1="71" y1="71" x2="93" y2="60" stroke="#C4B5FD" stroke-width="2"/>
+
+                    <circle cx="152" cy="38" r="8" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                    <line x1="144" y1="42" x2="126" y2="50" stroke="#C4B5FD" stroke-width="2"/>
+
+                    <circle cx="156" cy="74" r="7" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
+                    <line x1="149" y1="71" x2="127" y2="60" stroke="#C4B5FD" stroke-width="2"/>
+
+                    <!-- Center Sparkle in Brain -->
+                    <polygon points="110,48 112,53 117,55 112,57 110,62 108,57 103,55 108,53" fill="#FFFFFF"/>
+                    
+                    <!-- Radiating sparks -->
+                    <polygon points="36,28 38,22 40,28 46,30 40,32 38,38 36,32 30,30" fill="#A987FF"/>
+                    <polygon points="184,26 185.5,21 187,26 192,27.5 187,29 185.5,34 184,29 179,27.5" fill="#C4B5FD"/>
+                  </svg>
+                </div>
+
+                <p class="roadmap-step-desc">
+                  Our smart quiz asks a few questions about your personality, hobbies, work style, and what brings you joy. It analyzes your answers across 8 interest disciplines to uncover your hidden passions.
+                </p>
+
+                <!-- 8 Discipline Visual Chips -->
+                <div class="roadmap-chips-grid">
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Hands-On Making</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Tech &amp; Coding</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Movement &amp; Outdoor</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Art &amp; Design</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Music &amp; Sound</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Cooking &amp; Food</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Science &amp; Nature</span>
+                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Mind &amp; Wellness</span>
+                </div>
+              </div>
+
+              <a href="quiz.html" class="roadmap-action-link link-purple" id="how-step3-link">
+                <span>Try the Quiz</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+            <!-- STEP 4: Get Recommendations and Book -->
+            <div class="roadmap-step-card step-card-booking">
+              <div class="step-card-main-content">
+                <div class="step-top-meta">
+                  <span class="step-num-badge badge-orange" aria-label="Step 4">4</span>
+                  <span class="step-phase-tag tag-orange-soft">Step 4 · Match &amp; Book</span>
+                </div>
+
+                <h3 class="roadmap-step-title">Find Your Next Passion</h3>
+                <div class="roadmap-step-subtitle" style="color: #EA580C;">Get Recommendations and Book</div>
+
+                <!-- Mini Mock Recommendation Card Visual Detail -->
+                <div class="mock-rec-card" aria-label="Mock workshop recommendation preview">
+                  <div class="mock-rec-top">
+                    <span class="mock-match-pill">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                      </svg>
+                      98% Match
+                    </span>
+                    <span class="mock-cat-tag">Technology &amp; AI</span>
+                  </div>
+                  
+                  <div class="mock-rec-title">Python for Beginners</div>
+                  
+                  <div class="mock-rec-meta">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span>Oct 24 · Online Interactive Lab</span>
+                  </div>
+
+                  <a href="explore.html" class="mock-book-btn">
+                    <span>Book Now</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </a>
+                </div>
+
+                <p class="roadmap-step-desc">
+                  Instantly receive personalized workshop suggestions scored by match percentage. Explore workshop details, meet instructors, choose an upcoming date and time slot, and confirm your booking in seconds.
+                </p>
+              </div>
+
+              <a href="recommendations.html" class="roadmap-action-link link-orange" id="how-step4-link">
+                <span>See Sample Recommendations</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <!-- Join Orbito Call-To-Action Promotional Section -->
+    <section class="join-orbito-section" aria-labelledby="join-orbito-title">
+      <div class="join-orbito-container">
+        <div class="join-orbito-panel">
+
+          <!-- Left Side Decorative Elements -->
+          <div class="join-deco-left" aria-hidden="true">
+            <!-- Circular Photo of Two Friends near upper-left with Coral Ring -->
+            <div class="join-photo-frame frame-coral">
+              <img
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=400&q=80"
+                alt="Two smiling friends sharing a learning activity"
+                class="join-circle-img"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <!-- SVG Fallback Avatar -->
+              <svg class="photo-fallback-svg" viewBox="0 0 100 100" fill="none" style="display: none;">
+                <circle cx="50" cy="50" r="48" fill="#FFF0F5"/>
+                <circle cx="36" cy="40" r="14" fill="#FF668D"/>
+                <path d="M18 78C18 64 26 58 36 58C46 58 54 64 54 78" fill="#FF668D"/>
+                <circle cx="64" cy="44" r="13" fill="#FDA4AF"/>
+                <path d="M48 78C48 66 55 60 64 60C73 60 80 66 80 78" fill="#FDA4AF"/>
+              </svg>
+            </div>
+
+            <!-- Playful Planet Illustration near lower-left (clean white background, no colored blob) -->
+            <div class="join-deco-planet">
+              <!-- Purple planet with dark orbital ring -->
+              <svg class="planet-illustration-svg" viewBox="0 0 120 120" fill="none">
+                <!-- Planet Body -->
+                <circle cx="60" cy="60" r="32" fill="#A987FF"/>
+                <circle cx="68" cy="52" r="8" fill="#C4B5FD" opacity="0.6"/>
+                <!-- Dark Orbital Ring -->
+                <ellipse cx="60" cy="60" rx="52" ry="16" stroke="#242428" stroke-width="4.5" transform="rotate(-25 60 60)"/>
+                <!-- Orbital star sparkle -->
+                <polygon points="102,32 104,26 106,32 112,34 106,36 104,42 102,36 96,34" fill="#A987FF"/>
+              </svg>
+            </div>
+
+            <!-- Small hand-drawn purple and pink accent strokes -->
+            <svg class="join-accent-strokes-left" viewBox="0 0 90 90" fill="none">
+              <path d="M20,30 C35,20 50,35 65,25" stroke="#FF668D" stroke-width="3" stroke-linecap="round"/>
+              <path d="M30,55 C42,48 56,58 70,50" stroke="#A987FF" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="15" cy="65" r="3" fill="#A987FF"/>
+              <circle cx="78" cy="35" r="3" fill="#FF668D"/>
+            </svg>
           </div>
 
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <h3 class="step-title">Discover Matches</h3>
-            <p class="step-desc">
-              Take our interactive 2-minute interest quiz. Our recommendation engine matches workshops directly to your schedule and goals.
+          <!-- Centered Content Area -->
+          <div class="join-orbito-content">
+            <!-- Heading with Hand-Drawn Purple Accent Strokes on Both Sides -->
+            <div class="join-heading-wrapper">
+              <!-- Left Decorative Purple Strokes -->
+              <svg class="join-heading-purple-lines left" width="46" height="32" viewBox="0 0 46 32" fill="none" aria-hidden="true">
+                <path d="M4 10C16 5 30 12 42 8" stroke="#A987FF" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M10 22C22 17 34 24 42 20" stroke="#A987FF" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+
+              <h2 class="join-orbito-heading" id="join-orbito-title">Join Orbito</h2>
+
+              <!-- Right Decorative Purple Strokes -->
+              <svg class="join-heading-purple-lines right" width="46" height="32" viewBox="0 0 46 32" fill="none" aria-hidden="true">
+                <path d="M4 8C16 12 30 5 42 10" stroke="#A987FF" stroke-width="3.5" stroke-linecap="round"/>
+                <path d="M4 20C12 24 24 17 36 22" stroke="#A987FF" stroke-width="3.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- Supporting Paragraph -->
+            <p class="join-orbito-description">
+              Join a community of curious learners, explore new interests, attend workshops, and take the first step towards your next passion.
             </p>
+
+            <!-- Pill-Shaped CTA Button -->
+            <button type="button" class="btn-join-signup auth-trigger-signup" id="btn-join-orbito-cta" aria-label="Sign up for free on Orbito">
+              Sign up for free
+            </button>
           </div>
 
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <h3 class="step-title">Participate & Learn</h3>
-            <p class="step-desc">
-              Enroll in live webinars or attend vibrant in-person studios. Walk away with tangible deliverables, skills, and genuine community.
-            </p>
+          <!-- Right Side Decorative Elements -->
+          <div class="join-deco-right" aria-hidden="true">
+            <!-- Circular Photo of Learner with Laptop (Upper-Right) framed with Yellow-Orange Ring -->
+            <div class="join-photo-frame frame-yellow">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80"
+                alt="Person learning on a laptop"
+                class="join-circle-img"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <!-- SVG Fallback Avatar -->
+              <svg class="photo-fallback-svg" viewBox="0 0 100 100" fill="none" style="display: none;">
+                <circle cx="50" cy="50" r="48" fill="#FFFBEB"/>
+                <circle cx="50" cy="38" r="16" fill="#FFB63E"/>
+                <path d="M26 80C26 64 36 58 50 58C64 58 74 64 74 80" fill="#FFB63E"/>
+                <rect x="34" y="68" width="32" height="18" rx="3" fill="#242428"/>
+              </svg>
+            </div>
+
+            <!-- Hand-Drawn Yellow Lightbulb & Small Yellow Star with Black Outlines -->
+            <div class="join-deco-lightbulb">
+              <svg viewBox="0 0 100 120" fill="none" style="width: 100%; height: 100%;">
+                <!-- Yellow Lightbulb Body -->
+                <path d="M45,22 C32,22 22,32 22,46 C22,55 28,62 33,68 C36,71 38,76 38,80 L52,80 C52,76 54,71 57,68 C62,62 68,55 68,46 C68,32 58,22 45,22 Z" fill="#FFB63E" stroke="#242428" stroke-width="3.2"/>
+                <rect x="37" y="80" width="16" height="5" rx="1.5" fill="#FFFFFF" stroke="#242428" stroke-width="2.5"/>
+                <rect x="40" y="85" width="10" height="4" rx="1" fill="#242428"/>
+                <!-- Glow Rays -->
+                <line x1="45" y1="10" x2="45" y2="15" stroke="#242428" stroke-width="3" stroke-linecap="round"/>
+                <line x1="20" y1="26" x2="24" y2="30" stroke="#242428" stroke-width="3" stroke-linecap="round"/>
+                <line x1="70" y1="26" x2="66" y2="30" stroke="#242428" stroke-width="3" stroke-linecap="round"/>
+                <!-- Small Yellow Star with Black Outline -->
+                <polygon points="80,68 83,75 91,76 85,82 87,90 80,85 73,90 75,82 69,76 77,75" fill="#FFB63E" stroke="#242428" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+
+            <!-- Circular Photo of Diverse Friends (Lower-Right) framed with Mint-Green Ring -->
+            <div class="join-photo-frame frame-mint">
+              <img
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80"
+                alt="Diverse group of friends learning together"
+                class="join-circle-img"
+                loading="lazy"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <!-- SVG Fallback Avatar -->
+              <svg class="photo-fallback-svg" viewBox="0 0 100 100" fill="none" style="display: none;">
+                <circle cx="50" cy="50" r="48" fill="#ECFDF5"/>
+                <circle cx="35" cy="42" r="12" fill="#65D6B0"/>
+                <path d="M20 78C20 66 26 60 35 60C44 60 50 66 50 78" fill="#65D6B0"/>
+                <circle cx="65" cy="42" r="12" fill="#059669"/>
+                <path d="M50 78C50 66 56 60 65 60C74 60 80 66 80 78" fill="#059669"/>
+              </svg>
+            </div>
+
+            <!-- Small decorative strokes in yellow, mint green, and purple -->
+            <svg class="join-accent-strokes-right" viewBox="0 0 90 90" fill="none">
+              <path d="M15,25 C30,18 45,30 60,20" stroke="#FFB63E" stroke-width="3" stroke-linecap="round"/>
+              <path d="M25,50 C40,42 55,54 70,45" stroke="#65D6B0" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="75" cy="65" r="3.5" fill="#A987FF"/>
+            </svg>
           </div>
+
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Global Footer -->
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem;">
-            <span style="display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #A987FF;"></span>
+  <!-- Clean, Modern, Responsive Dark Charcoal Footer (#242428) -->
+  <footer class="orbito-site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-main-grid">
+        
+        <!-- Column 1: Brand & Tagline (No logo image or icon, clean typographic wordmark) -->
+        <div class="footer-brand-column">
+          <a href="index.html" class="footer-brand-title" aria-label="Orbito Home">
             Orbito
-          </h3>
-          <p>
-            The modern workshop discovery platform. Discover workshops, explore new interests, and connect with expert instructors.
+          </a>
+          <p class="footer-tagline">Discover · Learn · Grow</p>
+          <p class="footer-brand-desc">
+            The modern workshop discovery platform empowering curious people to explore new interests, attend vibrant cohorts, and connect with inspiring mentors.
           </p>
-          <div style="font-size: 0.8rem; color: #8C8C96;">
-            Backend ready for FastAPI integration at <code>http://127.0.0.1:8000</code>.
+        </div>
+
+        <!-- Column 2: Explore -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Explore</h3>
+          <ul class="footer-col-links">
+            <li><a href="explore.html" class="footer-link">Browse Workshops</a></li>
+            <li><a href="#categories-section" class="footer-link">Categories</a></li>
+            <li><a href="quiz.html" class="footer-link">Discover My Interests</a></li>
+            <li><a href="organizer-dashboard.html" class="footer-link">Organizer Dashboard</a></li>
+            <li><a href="create-workshop.html" class="footer-link">Host a Workshop</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: About -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">About</h3>
+          <ul class="footer-col-links">
+            <li><a href="#how-it-works" class="footer-link">How Orbito Works</a></li>
+            <li><a href="#about" class="footer-link">Our Mission</a></li>
+            <li><a href="mailto:hello@orbito.io" class="footer-link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Help & Legal -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Help & Legal</h3>
+          <ul class="footer-col-links">
+            <li><a href="#faqs" class="footer-link">FAQs</a></li>
+            <li><a href="#privacy" class="footer-link">Privacy Policy</a></li>
+            <li><a href="#terms" class="footer-link">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 5: Connect With Us -->
+        <div class="footer-nav-column">
+          <h3 class="footer-col-heading">Connect With Us</h3>
+          <p class="footer-connect-desc">Follow our community updates and featured workshop cohorts:</p>
+          <div class="footer-social-row">
+            <a href="https://instagram.com" class="social-icon-btn social-ig" aria-label="Follow Orbito on Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="19" height="19">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://x.com" class="social-icon-btn social-x" aria-label="Follow Orbito on X" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+              </svg>
+            </a>
+            <a href="https://linkedin.com" class="social-icon-btn social-li" aria-label="Connect with Orbito on LinkedIn" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href="https://youtube.com" class="social-icon-btn social-yt" aria-label="Subscribe to Orbito on YouTube" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon>
+              </svg>
+            </a>
           </div>
         </div>
 
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="explore.html">Explore Workshops</a></li>
-            <li><a href="quiz.html">Interest Discovery Quiz</a></li>
-            <li><a href="recommendations.html">My Recommendations</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Categories</h4>
-          <ul class="footer-links">
-            <li><a href="explore.html?category=tech-ai">Technology & AI</a></li>
-            <li><a href="explore.html?category=creativity-arts">Creativity & Arts</a></li>
-            <li><a href="explore.html?category=career-professional">Career & Professional</a></li>
-            <li><a href="explore.html?category=entrepreneurship-finance">Entrepreneurship & Finance</a></li>
-            <li><a href="explore.html?category=lifestyle-wellness">Lifestyle & Wellness</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Connect</h4>
-          <ul class="footer-links">
-            <li><a href="mailto:support@orbito.io">support@orbito.io</a></li>
-            <li><a href="#">Help & FAQs</a></li>
-            <li><a href="#">Teach on Orbito</a></li>
-            <li><a href="#">Terms & Privacy</a></li>
-          </ul>
-        </div>
       </div>
 
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 Orbito Platform. All rights reserved. Demo sample data active.
-        </div>
-        <div style="display: flex; gap: 1.5rem;">
-          <a href="#" style="color: #8C8C96;">Privacy Policy</a>
-          <a href="#" style="color: #8C8C96;">Terms of Service</a>
-          <a href="#" style="color: #8C8C96;">Cookie Preferences</a>
+      <!-- Divider and Copyright Row -->
+      <div class="footer-divider-line" aria-hidden="true"></div>
+
+      <div class="footer-bottom-bar">
+        <p class="footer-copyright-text">&copy; 2026 Orbito. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#privacy" class="footer-bottom-link">Privacy Policy</a>
+          <span class="footer-dot-sep">&bull;</span>
+          <a href="#terms" class="footer-bottom-link">Terms of Service</a>
+          <span class="footer-dot-sep">&bull;</span>
+          <a href="#cookies" class="footer-bottom-link">Cookie Preferences</a>
         </div>
       </div>
     </div>
@@ -598,52 +1020,6 @@
             </div>
           </a>
         `).join("");
-      }
-
-      // 2. Render All 50 Topics Directory
-      const topicsContainer = document.getElementById("all-topics-container");
-      const pillsContainer = document.getElementById("topics-filter-pills");
-
-      if (topicsContainer && window.ALL_TOPICS && pillsContainer && window.ORBITO_CATEGORIES) {
-        window.ORBITO_CATEGORIES.forEach(cat => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "filter-pill";
-          btn.dataset.category = cat.id;
-          btn.textContent = `${cat.name} (${cat.topics.length})`;
-          pillsContainer.appendChild(btn);
-        });
-
-        const renderTopics = (catFilter = "all") => {
-          const filtered = catFilter === "all"
-            ? window.ALL_TOPICS
-            : window.ALL_TOPICS.filter(t => t.categoryId === catFilter);
-
-          topicsContainer.innerHTML = filtered.map(topic => `
-            <a href="explore.html?topic=${encodeURIComponent(topic.name)}" class="topic-tag-item" title="Browse ${escapeHTML(topic.name)} workshops">
-              <span class="topic-tag-number">#${topic.id}</span>
-              <span style="flex: 1;">${escapeHTML(topic.name)}</span>
-              ${topic.popular ? '<span class="badge badge-primary" style="font-size: 0.65rem; padding: 0.1rem 0.4rem; background: var(--accent-yellow-light); color: #B45309;">Hot</span>' : ''}
-            </a>
-          `).join("");
-        };
-
-        renderTopics("all");
-
-        pillsContainer.addEventListener("click", (e) => {
-          const pill = e.target.closest(".filter-pill");
-          if (!pill) return;
-          pillsContainer.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
-          pill.classList.add("active");
-          renderTopics(pill.dataset.category);
-        });
-      }
-
-      // 3. Render Featured Workshops on Homepage
-      const featContainer = document.getElementById("home-featured-workshops");
-      if (featContainer && window.SAMPLE_WORKSHOPS) {
-        const featured = window.SAMPLE_WORKSHOPS.filter(w => w.featured).slice(0, 6);
-        featContainer.innerHTML = featured.map(renderWorkshopCard).join("");
       }
     });
   </script>

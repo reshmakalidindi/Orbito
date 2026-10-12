@@ -56,10 +56,10 @@ function renderWorkshopCard(workshop) {
         </div>
 
         <div class="card-instructor">
-          <img class="card-instructor-img" src="${escapeHTML(workshop.instructor.avatar)}" alt="${escapeHTML(workshop.instructor.name)}" loading="lazy">
+          <img class="card-instructor-img" src="${escapeHTML((workshop.instructor && workshop.instructor.avatar) || workshop.coverImageUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80')}" alt="${escapeHTML((workshop.instructor && workshop.instructor.name) || workshop.organizerName || 'Instructor')}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'">
           <div class="card-instructor-info">
-            <span class="card-instructor-name">${escapeHTML(workshop.instructor.name)}</span>
-            <span class="card-instructor-title">${escapeHTML(workshop.instructor.title)}</span>
+            <span class="card-instructor-name">${escapeHTML((workshop.instructor && workshop.instructor.name) || workshop.organizerName || 'Orbito Instructor')}</span>
+            <span class="card-instructor-title">${escapeHTML((workshop.instructor && workshop.instructor.title) || workshop.organizerTitle || 'Workshop Mentor')}</span>
           </div>
         </div>
 

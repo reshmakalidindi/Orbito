@@ -212,11 +212,11 @@
               </h2>
 
               <div style="display: flex; gap: 1.25rem; background: #FFFFFF; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 1.5rem; align-items: flex-start; box-shadow: var(--shadow-xs);">
-                <img src="${escapeHTML(workshop.instructor.avatar)}" alt="${escapeHTML(workshop.instructor.name)}" style="width: 4.5rem; height: 4.5rem; border-radius: var(--radius-full); object-fit: cover; border: 2px solid var(--primary-light);">
+                <img src="${escapeHTML((workshop.instructor && workshop.instructor.avatar) || workshop.coverImageUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80')}" alt="${escapeHTML((workshop.instructor && workshop.instructor.name) || 'Instructor')}" style="width: 4.5rem; height: 4.5rem; border-radius: var(--radius-full); object-fit: cover; border: 2px solid var(--primary-light);" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=256&q=80'">
                 <div>
-                  <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">${escapeHTML(workshop.instructor.name)}</h3>
-                  <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">${escapeHTML(workshop.instructor.title)}</div>
-                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">${escapeHTML(workshop.instructor.bio)}</p>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-primary);">${escapeHTML((workshop.instructor && workshop.instructor.name) || 'Workshop Organizer')}</h3>
+                  <div style="font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-bottom: 0.5rem;">${escapeHTML((workshop.instructor && workshop.instructor.title) || 'Mentor')}</div>
+                  <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5;">${escapeHTML((workshop.instructor && workshop.instructor.bio) || workshop.shortDescription || 'Dedicated workshop instructor sharing real-world industry expertise.')}</p>
                 </div>
               </div>
             </div>

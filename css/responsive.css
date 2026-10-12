@@ -124,7 +124,7 @@
   }
 
   .interests-heading {
-    font-size: 2.35rem;
+    font-size: 2.05rem;
   }
 
   .interest-category-card {
@@ -271,7 +271,7 @@
   }
 
   .interests-heading {
-    font-size: 1.95rem;
+    font-size: 1.75rem;
   }
 
   .heading-purple-lines {
@@ -354,7 +354,7 @@
   }
 
   .interests-heading {
-    font-size: 1.65rem;
+    font-size: 1.45rem;
   }
 
   .interest-category-card {
@@ -362,5 +362,97 @@
     width: 260px;
     min-width: 260px;
     height: 240px;
+  }
+}
+
+/* ==========================================================================
+   Join Orbito & Modern Footer Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1080px) {
+  .join-orbito-panel {
+    border-radius: 46px;
+    padding: 4.5rem 2rem;
+  }
+  .frame-coral, .frame-yellow {
+    width: 105px;
+    height: 105px;
+  }
+  .frame-mint {
+    width: 110px;
+    height: 110px;
+  }
+  .join-deco-lightbulb {
+    width: 75px;
+    height: 90px;
+  }
+  .footer-main-grid {
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .join-orbito-section {
+    padding: 4rem 1.25rem 4.5rem;
+  }
+  .join-orbito-panel {
+    border-radius: 36px;
+    padding: 3.5rem 1.5rem;
+  }
+  .join-orbito-heading {
+    font-size: 2.45rem;
+  }
+  .join-orbito-description {
+    font-size: 1.15rem;
+    margin-bottom: 2rem;
+  }
+  .btn-join-signup {
+    width: 260px;
+    height: 64px;
+    font-size: 19px;
+  }
+  .join-deco-left, .join-deco-right {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .footer-main-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .join-orbito-panel {
+    border-radius: 28px;
+    padding: 3rem 1.25rem;
+  }
+  .join-heading-purple-lines {
+    width: 32px;
+    height: 22px;
+  }
+  .join-orbito-heading {
+    font-size: 1.95rem;
+  }
+  .join-orbito-description {
+    font-size: 1.02rem;
+    margin-bottom: 1.75rem;
+  }
+  .btn-join-signup {
+    width: 100%;
+    max-width: 280px;
+    height: 60px;
+    font-size: 18px;
+  }
+  .join-photo-frame {
+    display: none;
+  }
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-bottom-bar {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
   }
 }

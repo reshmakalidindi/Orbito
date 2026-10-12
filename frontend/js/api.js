@@ -18,45 +18,136 @@ const ApiState = {
   statusMessage: "Checking API connection..."
 };
 
+function getAuthToken() {
+  try {
+    return localStorage.getItem("orbito_token") || "";
+  } catch (e) {
+    return "";
+  }
+}
+
+function setAuthToken(token) {
+  try {
+    if (token) localStorage.setItem("orbito_token", token);
+    else localStorage.removeItem("orbito_token");
+  } catch (e) {}
+}
+
 /**
  * Generic request helper with timeout and graceful fallback
  */
 async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE_URL}${endpoint}`;
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 3500); // 3.5s timeout for fast fallback
+  const timeoutMs = options.timeout || (options.body instanceof FormData ? 15000 : 5000);
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  const headers = {
+    Accept: "application/json",
+    ...(options.headers || {})
+  };
+
+  const token = getAuthToken();
+  if (token && !headers["Authorization"]) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  // Only set application/json if not sending FormData
+  if (!(options.body instanceof FormData) && !headers["Content-Type"]) {
+    headers["Content-Type"] = "application/json";
+  }
 
   try {
     const response = await fetch(url, {
       ...options,
       signal: controller.signal,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        ...(options.headers || {})
-      }
+      headers
     });
 
     clearTimeout(timeoutId);
 
+    const data = await response.json().catch(() => null);
+
     if (!response.ok) {
-      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+      const errorMsg = (data && data.detail) || `API Error: ${response.status} ${response.statusText}`;
+      const err = new Error(errorMsg);
+      err.status = response.status;
+      err.detail = errorMsg;
+      throw err;
     }
 
-    const data = await response.json();
     ApiState.isLive = true;
     ApiState.statusMessage = "Connected to Live FastAPI Backend";
     return { data, isLive: true };
   } catch (err) {
     clearTimeout(timeoutId);
+
+    // If it's an explicit 4xx error from the backend, don't mask it as "backend offline"
+    if (err.status && err.status >= 400 && err.status < 500) {
+      ApiState.isLive = true;
+      throw err;
+    }
+
     ApiState.isLive = false;
     ApiState.statusMessage = `Demo Mode (Backend offline: ${err.message || "Connection refused"})`;
 
-    if (!ALLOW_MOCK_FALLBACK) {
+    if (!ALLOW_MOCK_FALLBACK || options.strictLive) {
       throw err;
     }
     return { data: null, isLive: false, error: err };
   }
+}
+
+/**
+ * Auth API: Sign Up
+ * POST /api/auth/signup
+ */
+async function apiSignup(fullName, email, password, accountType = "participant", professionalTitle = "") {
+  const payload = {
+    fullName,
+    email,
+    password,
+    accountType,
+    professionalTitle: professionalTitle || null
+  };
+
+  const result = await apiRequest("/api/auth/signup", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    strictLive: true
+  });
+
+  if (result.data && result.data.token) {
+    setAuthToken(result.data.token);
+  }
+  return result.data;
+}
+
+/**
+ * Auth API: Log In
+ * POST /api/auth/login
+ */
+async function apiLogin(email, password) {
+  const payload = { email, password };
+  const result = await apiRequest("/api/auth/login", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    strictLive: true
+  });
+
+  if (result.data && result.data.token) {
+    setAuthToken(result.data.token);
+  }
+  return result.data;
+}
+
+/**
+ * Auth API: Get Current Profile
+ * GET /api/auth/me
+ */
+async function apiGetMe() {
+  const result = await apiRequest("/api/auth/me", { method: "GET" });
+  return result.data;
 }
 
 /**
@@ -70,6 +161,19 @@ async function fetchCategories() {
   }
   // Fallback to local master data
   return { categories: window.ORBITO_CATEGORIES || [], isLive: false };
+}
+
+/**
+ * Fetch topics for category
+ * GET /api/categories/{id}/topics
+ */
+async function fetchCategoryTopics(categoryId) {
+  const result = await apiRequest(`/api/categories/${categoryId}/topics`, { method: "GET" });
+  if (result.isLive && result.data) {
+    return { topics: result.data, isLive: true };
+  }
+  const cat = (window.ORBITO_CATEGORIES || []).find(c => c.id === categoryId);
+  return { topics: (cat && cat.topics) || [], isLive: false };
 }
 
 /**
@@ -104,8 +208,7 @@ async function fetchWorkshops(filters = {}) {
         w.topicName.toLowerCase().includes(q) ||
         w.categoryName.toLowerCase().includes(q) ||
         w.shortDescription.toLowerCase().includes(q) ||
-        w.instructor.name.toLowerCase().includes(q) ||
-        (w.tags && w.tags.some(t => t.toLowerCase().includes(q)))
+        (w.instructor && w.instructor.name && w.instructor.name.toLowerCase().includes(q))
     );
   }
 
@@ -138,25 +241,6 @@ async function fetchWorkshops(filters = {}) {
     }
   }
 
-  if (filters.dateRange && filters.dateRange !== "all") {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    workshops = workshops.filter(w => {
-      const wDate = new Date(w.date);
-      const diffDays = Math.ceil((wDate - today) / (1000 * 60 * 60 * 24));
-
-      if (filters.dateRange === "today") return diffDays === 0;
-      if (filters.dateRange === "weekend") {
-        const dayOfWeek = wDate.getDay();
-        return (dayOfWeek === 0 || dayOfWeek === 6) && diffDays >= 0 && diffDays <= 7;
-      }
-      if (filters.dateRange === "7days") return diffDays >= 0 && diffDays <= 7;
-      if (filters.dateRange === "30days") return diffDays >= 0 && diffDays <= 30;
-      return true;
-    });
-  }
-
   // Sorting
   if (filters.sort === "price-low") {
     workshops.sort((a, b) => a.price - b.price);
@@ -165,7 +249,6 @@ async function fetchWorkshops(filters = {}) {
   } else if (filters.sort === "rating") {
     workshops.sort((a, b) => (b.rating || 0) - (a.rating || 0));
   } else {
-    // Default: upcoming by date
     workshops.sort((a, b) => new Date(a.date) - new Date(b.date));
   }
 
@@ -182,7 +265,6 @@ async function fetchWorkshopById(id) {
     return { workshop: result.data, isLive: true };
   }
 
-  // Fallback to local
   const workshop = (window.SAMPLE_WORKSHOPS || []).find(w => w.id === id);
   return { workshop: workshop || null, isLive: false };
 }
@@ -190,141 +272,206 @@ async function fetchWorkshopById(id) {
 /**
  * Submit quiz answers and get personalized recommendations
  * POST /api/recommendations
- *
- * Payload: {
- *   interests: string[],
- *   goals: string[],
- *   learningStyle: string,
- *   skillLevel: string,
- *   format: string,
- *   budget: string,
- *   availability: string
- * }
  */
-async function fetchRecommendations(quizPayload) {
+async function fetchRecommendations(payload) {
   const result = await apiRequest("/api/recommendations", {
     method: "POST",
-    body: JSON.stringify(quizPayload)
+    body: JSON.stringify(payload)
   });
 
   if (result.isLive && result.data) {
-    return { recommendations: result.data, isLive: true };
+    return { ...result.data, isLive: true };
   }
 
-  // High-fidelity local recommendation algorithm
-  const allWorkshops = window.SAMPLE_WORKSHOPS || [];
-  const scored = allWorkshops.map(workshop => {
-    let score = 50; // base score
-    const rationales = [];
-
-    // Category match (+25 pts)
-    const interests = quizPayload.interests || [];
-    const categoryMatches = interests.some(interestCat => {
-      return (
-        workshop.categoryId.toLowerCase().includes(interestCat.toLowerCase()) ||
-        workshop.categoryName.toLowerCase().includes(interestCat.toLowerCase())
-      );
-    });
-
-    if (categoryMatches) {
-      score += 25;
-      rationales.push(`Directly matches your interest in ${workshop.categoryName}`);
-    }
-
-    // Format preference (+15 pts)
-    const prefFormat = (quizPayload.format || "either").toLowerCase();
-    if (prefFormat === "either" || prefFormat.includes("either")) {
-      score += 10;
-    } else if (workshop.format === prefFormat) {
-      score += 15;
-      rationales.push(`Offered in your preferred ${workshop.format === "online" ? "Online" : "In-Person"} format`);
-    } else {
-      score -= 10;
-    }
-
-    // Skill level (+15 pts)
-    const prefLevel = (quizPayload.skillLevel || "").toLowerCase();
-    if (prefLevel.includes(workshop.level) || (prefLevel.includes("beginner") && workshop.level === "beginner")) {
-      score += 15;
-      rationales.push(`Tailored for your current experience level (${workshop.levelLabel})`);
-    }
-
-    // Budget preference (+10 pts)
-    const prefBudget = (quizPayload.budget || "").toLowerCase();
-    if (prefBudget.includes("free") && workshop.price === 0) {
-      score += 15;
-      rationales.push("Free of cost, matching your budget preference");
-    } else if (prefBudget.includes("low-cost") && workshop.price <= 35) {
-      score += 12;
-      rationales.push(`Affordable access at ${workshop.priceLabel}`);
-    } else if (prefBudget.includes("flexible")) {
-      score += 10;
-    }
-
-    // Goals alignment (+10 pts)
-    const goals = quizPayload.goals || [];
-    if (goals.some(g => g.toLowerCase().includes("career")) && workshop.categoryId === "career-professional") {
-      score += 10;
-      rationales.push("Accelerates your professional and career advancement goals");
-    }
-    if (goals.some(g => g.toLowerCase().includes("hobby") || g.toLowerCase().includes("relax")) &&
-       (workshop.categoryId === "creativity-arts" || workshop.categoryId === "lifestyle-wellness")) {
-      score += 10;
-      rationales.push("Perfect for exploring creative hobbies and mindful well-being");
-    }
-    if (goals.some(g => g.toLowerCase().includes("build")) &&
-       (workshop.categoryId === "tech-ai" || workshop.categoryId === "emerging-practical" || workshop.categoryId === "entrepreneurship-finance")) {
-      score += 10;
-      rationales.push("Empowers you to build tangible projects and launch your ideas");
-    }
-
-    // Clamp score between 65 and 99
-    score = Math.min(99, Math.max(65, Math.round(score)));
-
-    // Fallback rationale if empty
-    if (rationales.length === 0) {
-      rationales.push(`Top-rated discovery in ${workshop.categoryName} with practical hands-on exercises`);
-    }
-
-    return {
-      ...workshop,
-      matchScore: score,
-      matchRationale: rationales.slice(0, 2).join(". ") + "."
-    };
-  });
-
-  // Sort by score descending
-  scored.sort((a, b) => b.matchScore - a.matchScore);
-
   return {
-    recommendations: scored.slice(0, 6),
-    isLive: false,
-    userProfileSummary: generateProfileSummary(quizPayload)
+    recommendations: (window.SAMPLE_WORKSHOPS || []).slice(0, 4).map(w => ({
+      ...w,
+      matchScore: 92,
+      matchRationale: `Matches your chosen focus on ${w.categoryName}.`
+    })),
+    userProfileSummary: "Analyzed your interests across selected workshop disciplines.",
+    isLive: false
   };
 }
 
 /**
- * Generate human-friendly profile explanation based on quiz selections
+ * Fetch AI curiosity quiz questions for users discovering latent interests
+ * GET /api/ai/quiz/questions
  */
-function generateProfileSummary(answers) {
-  const interestList = (answers.interests || []).join(", ") || "Diverse Disciplines";
-  const goalList = (answers.goals || []).join(" and ") || "broad learning";
-  const formatText = answers.format || "flexible format";
+async function fetchAIQuizQuestions() {
+  const result = await apiRequest("/api/ai/quiz/questions", { method: "GET" });
+  if (result.isLive && result.data && result.data.questions) {
+    return { ...result.data, isLive: true };
+  }
 
-  return `We analyzed your profile: interested in ${interestList}, aiming to ${goalList.toLowerCase()}, with a preference for ${formatText.toLowerCase()} learning. Here are your top personalized workshop matches.`;
+  // Graceful local fallback questions
+  return {
+    title: "Orbito AI Curiosity Engine",
+    subtitle: "Discover your latent passions through adaptive curiosity questions",
+    totalQuestions: 5,
+    questions: [
+      {
+        id: "q1_weekend",
+        stepNumber: 1,
+        title: "When you have an unstructured morning with zero obligations, what naturally pulls your attention?",
+        hint: "Pick the choices that feel effortless or energizing, or type your own thoughts below.",
+        options: [
+          { id: "tactile_craft", label: "Working with my hands", desc: "Cooking, pottery, building, fixing, or organizing physical items" },
+          { id: "digital_creation", label: "Behind a screen exploring", desc: "Coding, gaming, tinkering with software, digital tools, AI" },
+          { id: "nature_body", label: "Being outdoors & moving", desc: "Walking in nature, park strolls, sports, breathing fresh air" },
+          { id: "social_talk", label: "Conversations & community", desc: "Meeting people, sharing stories, discussing new ideas" },
+          { id: "inner_calm", label: "Unwinding & quiet focus", desc: "Stretching, mindfulness, reading, calming music, journaling" }
+        ]
+      },
+      {
+        id: "q2_childhood",
+        stepNumber: 2,
+        title: "Think back to when you lost track of time. What kind of activity were you immersed in?",
+        hint: "Natural flow states hold the truest clues to our genuine, hidden interests.",
+        options: [
+          { id: "making_art", label: "Drawing, sketching, sculpting, or coloring", desc: "Creating visual compositions, admiring shapes & colors" },
+          { id: "puzzles_systems", label: "Solving riddles, puzzles & building systems", desc: "Legos, logic challenges, video game mechanics, curiosity about how things work" },
+          { id: "exploring_outside", label: "Exploring neighborhoods & collecting things", desc: "Observing animals, discovering hidden spots, outdoor adventures" },
+          { id: "acting_speaking", label: "Expressing ideas & performing", desc: "Putting on plays, public sharing, persuading others, storytelling" },
+          { id: "baking_sensory", label: "Baking, tasting, & sensory kitchen fun", desc: "Baking treats, mixing recipes, smelling fresh spices" }
+        ]
+      },
+      {
+        id: "q3_tangible_outcome",
+        stepNumber: 3,
+        title: "At the end of a 3-hour learning experience, what reward would make you smile brightest?",
+        hint: "What feels most deeply satisfying to take away with you?",
+        options: [
+          { id: "physical_item", label: "Holding a physical handcrafted object", desc: "A ceramic cup, sculpted bowl, or handcrafted keepsake to display on your desk" },
+          { id: "digital_superpower", label: "A working automated program or app", desc: "A working Python script or AI workflow that solves real problems" },
+          { id: "calm_body", label: "A relaxed body & crystal-clear mind", desc: "Feeling tension melt away with breathwork and postural rejuvenation" },
+          { id: "speaking_charisma", label: "Confidence to speak and pitch anywhere", desc: "Never fearing public speaking again and knowing how to captivate people" },
+          { id: "nature_photos", label: "A gallery of stunning outdoor photography", desc: "Visual memories capturing light, nature, and community perspective" }
+        ]
+      },
+      {
+        id: "q4_vibe",
+        stepNumber: 4,
+        title: "What setting and social vibe gives you the greatest learning energy?",
+        hint: "There are no wrong answers — this helps Orbito match your learning temperament.",
+        options: [
+          { id: "hands_on_cozy", label: "Warm, hands-on studio with tactile materials", desc: "Getting hands messy with clay, aprons, tools, and a friendly cohort" },
+          { id: "interactive_lab", label: "Live virtual interactive lab with screen sharing", desc: "Comfort of your desk with live instructor guidance and shared code sandbox" },
+          { id: "outdoor_walk", label: "Fresh air outdoor expedition", desc: "Moving together through green parks or urban architectural streets" },
+          { id: "supportive_cohort", label: "Supportive small group sharing presentations", desc: "Safe space to practice voice, body language, and constructive feedback" }
+        ]
+      },
+      {
+        id: "q5_superpower",
+        stepNumber: 5,
+        title: "If you could wake up tomorrow with one brand new skill, which would you pick?",
+        hint: "Your intuitive impulse reveals what your brain is most eager to master right now.",
+        options: [
+          { id: "ai_coding", label: "Building smart AI tools & writing code effortlessly", desc: "Turning ideas into running software in minutes" },
+          { id: "ceramic_craft", label: "Mastering wheel pottery & sculpting with clay", desc: "Translating pure imagination into tangible ceramic art" },
+          { id: "charismatic_speech", label: "Commanding any room with magnetic storytelling", desc: "Inspiring audiences, nailing pitches, and speaking with zero anxiety" },
+          { id: "inner_zen", label: "Deep nervous system mastery, breath control & vitality", desc: "Turning stress off on command and maintaining calm energy all day" },
+          { id: "visual_lens", label: "Eye of an artist: capturing breathtaking street & nature photography", desc: "Seeing hidden beauty everywhere through light and composition" },
+          { id: "nocode_apps", label: "Building real web apps without code", desc: "Launching functional interactive digital products overnight" }
+        ]
+      }
+    ],
+    isLive: false
+  };
 }
 
 /**
- * Register for a workshop
+ * Provide real-time AI micro-reflection for a single answer step
+ * POST /api/ai/quiz/evaluate-step
+ */
+async function evaluateAIQuizStep(payload) {
+  const result = await apiRequest("/api/ai/quiz/evaluate-step", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+
+  if (result.isLive && result.data && result.data.aiFeedback) {
+    return { aiFeedback: result.data.aiFeedback, isLive: true };
+  }
+
+  // Local fallback micro-reflection
+  const combined = (payload.selectedOptions || []).join(" ") + " " + (payload.customText || "");
+  const lower = combined.toLowerCase();
+
+  let feedback = "Noted! Your answer adds key coordinates to your emerging curiosity map.";
+  if (lower.includes("tactile") || lower.includes("hands") || lower.includes("ceramic") || lower.includes("pottery") || lower.includes("clay")) {
+    feedback = "Fascinating choice! A strong tactile pull is a classic marker of tangible craftsmanship. Stepping away from digital screens to shape physical materials will deeply refresh your mental state.";
+  } else if (lower.includes("digital") || lower.includes("code") || lower.includes("ai") || lower.includes("puzzles")) {
+    feedback = "Great instinct! Your curiosity leans toward digital architecture and leverage. Learning Python or Generative AI gives you immediate creative power to build automated solutions.";
+  } else if (lower.includes("nature") || lower.includes("outdoor") || lower.includes("walk") || lower.includes("photo")) {
+    feedback = "Inspiring signal! You recharge through open horizons, natural light, and physical movement. Outdoor labs combining exploration with photography will be a natural match.";
+  } else if (lower.includes("speaking") || lower.includes("speech") || lower.includes("social") || lower.includes("story")) {
+    feedback = "Powerful revelation! Developing vocal confidence and storytelling structure unlocks tremendous personal magnetism and professional influence.";
+  } else if (lower.includes("calm") || lower.includes("zen") || lower.includes("breath") || lower.includes("yoga") || lower.includes("wellness")) {
+    feedback = "Deeply insightful! In our hyper-stimulated world, cultivating nervous system regulation and restorative mindfulness provides the vital foundation for all learning.";
+  }
+
+  return { aiFeedback: feedback, isLive: false };
+}
+
+/**
+ * Send full AI quiz session to AI matching engine
+ * POST /api/ai/quiz/recommend
+ */
+async function fetchAIQuizRecommendations(payload) {
+  const result = await apiRequest("/api/ai/quiz/recommend", {
+    method: "POST",
+    body: JSON.stringify(payload)
+  });
+
+  if (result.isLive && result.data && result.data.recommendations) {
+    return { ...result.data, isLive: true };
+  }
+
+  // Local fallback recommendation generation
+  const allChoices = (payload.answers || []).flatMap(a => a.selectedOptions || []);
+  let archetype = "The Tactile Artisan & Visual Creator";
+  let tagline = "Thrives in sensory flow states, hands-on crafting, and bringing visual imagination to physical reality.";
+  let primaryCat = "Creativity and Arts";
+
+  if (allChoices.some(c => c.includes("ai") || c.includes("digital") || c.includes("puzzles"))) {
+    archetype = "The Curious Systems Builder & AI Pioneer";
+    tagline = "Driven by logic, puzzle-solving, scalable automation, and crafting intelligent digital tools.";
+    primaryCat = "Technology and AI";
+  } else if (allChoices.some(c => c.includes("nature") || c.includes("outdoor") || c.includes("photo"))) {
+    archetype = "The Naturalist & Community Chronicler";
+    tagline = "Recharged by open air, nature immersion, urban exploration, and visual storytelling.";
+    primaryCat = "Social and Outdoor Activities";
+  } else if (allChoices.some(c => c.includes("speaking") || c.includes("speech") || c.includes("social"))) {
+    archetype = "The Expressive Leader & Persuasive Storyteller";
+    tagline = "Passionate about human connection, vocal magnetism, confident presentation, and inspiring cohorts.";
+    primaryCat = "Career and Professional Skills";
+  } else if (allChoices.some(c => c.includes("calm") || c.includes("zen") || c.includes("body"))) {
+    archetype = "The Mindful Vitality & Restorative Explorer";
+    tagline = "Seeks balance, somatic mindfulness, stress relief, and holistic mind-body vitality.";
+    primaryCat = "Lifestyle and Wellness";
+  }
+
+  const sampleWorkshops = window.SAMPLE_WORKSHOPS || [];
+  const scored = sampleWorkshops.map((w, idx) => ({
+    ...w,
+    matchScore: 98 - (idx * 4),
+    matchRationale: `Recommended based on your discovered archetype '${archetype}' and affinity for ${w.categoryName}.`
+  }));
+
+  return {
+    archetype,
+    archetypeTagline: tagline,
+    primaryCategoryName: primaryCat,
+    userProfileSummary: `Our AI Curiosity Engine identified your profile as '${archetype}'. ${tagline}`,
+    recommendations: scored.slice(0, 6),
+    isLive: false
+  };
+}
+
+/**
+ * Register for workshop
  * POST /api/registrations
- *
- * Payload: {
- *   workshopId: string,
- *   fullName: string,
- *   email: string,
- *   phone?: string,
- *   learningGoal?: string
- * }
  */
 async function submitRegistration(payload) {
   const result = await apiRequest("/api/registrations", {
@@ -336,23 +483,96 @@ async function submitRegistration(payload) {
     return { success: true, registration: result.data, isLive: true };
   }
 
-  // Graceful demo confirmation
   const confirmationNumber = "ORB-" + Math.floor(100000 + Math.random() * 900000);
-  const demoRecord = {
-    registrationId: confirmationNumber,
-    workshopId: payload.workshopId,
-    fullName: payload.fullName,
-    email: payload.email,
-    registeredAt: new Date().toISOString(),
-    status: "Confirmed (Demo Mode)",
-    notes: "Demo registration recorded locally. In production, this syncs with the FastAPI backend."
-  };
-
   return {
     success: true,
-    registration: demoRecord,
+    registration: {
+      registrationId: confirmationNumber,
+      workshopId: payload.workshopId,
+      fullName: payload.fullName,
+      email: payload.email,
+      registeredAt: new Date().toISOString(),
+      status: "Confirmed (Demo Mode)"
+    },
     isLive: false
   };
+}
+
+// ---------------------------------------------------------------------------
+// Organizer API Methods
+// ---------------------------------------------------------------------------
+async function apiFetchOrganizerWorkshops() {
+  const result = await apiRequest("/api/organizer/workshops", {
+    method: "GET",
+    strictLive: true
+  });
+  return result.data || [];
+}
+
+async function apiCreateWorkshop(workshopData) {
+  const result = await apiRequest("/api/organizer/workshops", {
+    method: "POST",
+    body: JSON.stringify(workshopData),
+    strictLive: true
+  });
+  return result.data;
+}
+
+async function apiGetWorkshopForEdit(workshopId) {
+  const result = await apiRequest(`/api/organizer/workshops/${workshopId}`, {
+    method: "GET",
+    strictLive: true
+  });
+  return result.data;
+}
+
+async function apiUpdateWorkshop(workshopId, workshopData) {
+  const result = await apiRequest(`/api/organizer/workshops/${workshopId}`, {
+    method: "PUT",
+    body: JSON.stringify(workshopData),
+    strictLive: true
+  });
+  return result.data;
+}
+
+async function apiDeleteWorkshop(workshopId) {
+  const result = await apiRequest(`/api/organizer/workshops/${workshopId}`, {
+    method: "DELETE",
+    strictLive: true
+  });
+  return result.data;
+}
+
+async function apiUploadFile(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const result = await apiRequest("/api/organizer/upload", {
+    method: "POST",
+    body: formData,
+    strictLive: true
+  });
+  return result.data;
+}
+
+// ---------------------------------------------------------------------------
+// Admin API Methods
+// ---------------------------------------------------------------------------
+async function apiFetchAdminWorkshops() {
+  const result = await apiRequest("/api/admin/workshops", {
+    method: "GET",
+    strictLive: true
+  });
+  return result.data || [];
+}
+
+async function apiUpdateWorkshopStatus(workshopId, action, reason = "") {
+  const result = await apiRequest(`/api/admin/workshops/${workshopId}/status`, {
+    method: "PUT",
+    body: JSON.stringify({ action, reason }),
+    strictLive: true
+  });
+  return result.data;
 }
 
 // Global export
@@ -360,10 +580,27 @@ if (typeof window !== "undefined") {
   window.OrbitoAPI = {
     API_BASE_URL,
     ApiState,
+    getAuthToken,
+    setAuthToken,
+    apiSignup,
+    apiLogin,
+    apiGetMe,
     fetchCategories,
+    fetchCategoryTopics,
     fetchWorkshops,
     fetchWorkshopById,
     fetchRecommendations,
-    submitRegistration
+    fetchAIQuizQuestions,
+    evaluateAIQuizStep,
+    fetchAIQuizRecommendations,
+    submitRegistration,
+    apiFetchOrganizerWorkshops,
+    apiCreateWorkshop,
+    apiGetWorkshopForEdit,
+    apiUpdateWorkshop,
+    apiDeleteWorkshop,
+    apiUploadFile,
+    apiFetchAdminWorkshops,
+    apiUpdateWorkshopStatus
   };
 }

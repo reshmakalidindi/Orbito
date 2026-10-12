@@ -56,7 +56,11 @@ const RecommendationsController = {
     const workshops = (recData && recData.recommendations) || [];
 
     if (summaryTextEl && recData && recData.userProfileSummary) {
-      summaryTextEl.textContent = recData.userProfileSummary;
+      if (recData.archetype) {
+        summaryTextEl.innerHTML = `<span style="display: inline-block; font-weight: 800; color: #7C3AED; background: #F5F3FF; padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.5rem; border: 1px solid #DDD6FE;">★ AI Persona: ${escapeHTML(recData.archetype)}</span><br>${escapeHTML(recData.userProfileSummary)}`;
+      } else {
+        summaryTextEl.textContent = recData.userProfileSummary;
+      }
     }
 
     if (workshops.length === 0) {

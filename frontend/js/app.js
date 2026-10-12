@@ -274,7 +274,172 @@ function initLanguageSelector() {
   });
 }
 
-// Authentication Modal (Log In & Sign Up)
+// Authentication State & Modals (Log In, Sign Up, Account Symbol & Log Out)
+function getSavedUser() {
+  try {
+    const raw = localStorage.getItem("orbito_user");
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveUser(user) {
+  try {
+    localStorage.setItem("orbito_user", JSON.stringify(user));
+  } catch (e) {}
+}
+
+function clearUser() {
+  try {
+    localStorage.removeItem("orbito_user");
+  } catch (e) {}
+}
+
+function renderAuthState() {
+  const headerRight = document.querySelector(".header-right-group");
+  if (!headerRight) return;
+
+  const loginLinks = document.querySelectorAll(".auth-trigger-login");
+  const signupButtons = document.querySelectorAll(".auth-trigger-signup");
+  const existingMenu = document.getElementById("header-account-menu");
+
+  const user = getSavedUser();
+
+  if (user && user.loggedIn) {
+    // Hide standard login/signup triggers
+    loginLinks.forEach(el => el.style.display = "none");
+    signupButtons.forEach(el => el.style.display = "none");
+
+    const firstName = (user.name || "Learner").trim().split(" ")[0];
+    const initials = (user.name || "Alex Morgan")
+      .split(" ")
+      .map(n => n[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
+
+    const roleBadgeHtml = user.role === "organizer"
+      ? `<span class="dropdown-user-badge" style="background:#EDE9FE; color:#7C3AED;">Workshop Organizer</span>`
+      : user.role === "admin"
+      ? `<span class="dropdown-user-badge" style="background:#FEF3C7; color:#D97706;">Administrator</span>`
+      : `<span class="dropdown-user-badge">Active Learner</span>`;
+
+    const organizerLinksHtml = (user.role === "organizer" || user.role === "admin") ? `
+      <a href="organizer-dashboard.html" class="dropdown-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Organizer Dashboard</span>
+      </a>
+      <a href="create-workshop.html" class="dropdown-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+        <span>Create New Workshop</span>
+      </a>
+    ` : '';
+
+    const adminLinksHtml = user.role === "admin" ? `
+      <a href="admin-review.html" class="dropdown-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Admin Review Portal</span>
+      </a>
+    ` : '';
+
+    if (!existingMenu) {
+      const menuEl = document.createElement("div");
+      menuEl.className = "header-account-menu";
+      menuEl.id = "header-account-menu";
+      menuEl.innerHTML = `
+        <button type="button" class="header-account-btn" id="header-account-btn" aria-haspopup="true" aria-expanded="false" aria-label="Open account menu for ${escapeHTML(user.name)}">
+          <span class="account-avatar-circle" title="${escapeHTML(user.name)}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="account-icon-svg" width="16" height="16" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="account-name-label">${escapeHTML(firstName)}</span>
+          <svg class="account-chevron-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+
+        <div class="header-account-dropdown" id="header-account-dropdown" role="menu" aria-label="Account options">
+          <div class="dropdown-user-header">
+            <div class="dropdown-user-avatar">${escapeHTML(initials)}</div>
+            <div class="dropdown-user-info">
+              <strong class="dropdown-user-name">${escapeHTML(user.name || "Learner")}</strong>
+              <span class="dropdown-user-email">${escapeHTML(user.email || "learner@orbito.io")}</span>
+              ${roleBadgeHtml}
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          ${organizerLinksHtml}
+          ${adminLinksHtml}
+          <a href="recommendations.html" class="dropdown-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <span>My Recommendations</span>
+          </a>
+          <a href="quiz.html" class="dropdown-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+            <span>Retake Interest Quiz</span>
+          </a>
+          <a href="explore.html" class="dropdown-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Browse All Topics</span>
+          </a>
+          <div class="dropdown-divider"></div>
+          <button type="button" class="dropdown-item dropdown-logout-btn" id="dropdown-logout-btn" role="menuitem">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Log out</span>
+          </button>
+        </div>
+      `;
+
+      headerRight.appendChild(menuEl);
+
+      const triggerBtn = menuEl.querySelector("#header-account-btn");
+      const dropdown = menuEl.querySelector("#header-account-dropdown");
+      const logoutBtn = menuEl.querySelector("#dropdown-logout-btn");
+
+      triggerBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.toggle("open");
+        triggerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      logoutBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        dropdown.classList.remove("open");
+        triggerBtn.setAttribute("aria-expanded", "false");
+        clearUser();
+        if (window.OrbitoAPI && window.OrbitoAPI.setAuthToken) {
+          window.OrbitoAPI.setAuthToken("");
+        }
+        renderAuthState();
+        showToast("You have been logged out successfully.", "success");
+        if (window.location.pathname.includes("organizer-dashboard.html") || 
+            window.location.pathname.includes("create-workshop.html") ||
+            window.location.pathname.includes("admin-review.html")) {
+          setTimeout(() => { window.location.href = "index.html"; }, 500);
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!menuEl.contains(e.target)) {
+          dropdown.classList.remove("open");
+          triggerBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+  } else {
+    // Show standard login/signup buttons
+    loginLinks.forEach(el => el.style.display = "");
+    signupButtons.forEach(el => el.style.display = "");
+
+    if (existingMenu) {
+      existingMenu.remove();
+    }
+  }
+}
+
 function initAuthModals() {
   const loginBtns = document.querySelectorAll(".auth-trigger-login");
   const signupBtns = document.querySelectorAll(".auth-trigger-signup");
@@ -289,48 +454,82 @@ function initAuthModals() {
     }
 
     modalOverlay.innerHTML = `
-      <div class="modal-content" style="max-width: 440px;">
-        <button class="modal-close-btn" id="auth-modal-close">
+      <div class="modal-content" style="max-width: 480px;">
+        <button class="modal-close-btn" id="auth-modal-close" aria-label="Close dialog">
           ${getIcon("x")}
         </button>
 
-        <div style="text-align: center; margin-bottom: 1.75rem;">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
           <h3 id="auth-title" style="font-size: 1.6rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.35rem;">
             ${isSignUp ? "Join Orbito" : "Welcome Back"}
           </h3>
           <p style="font-size: 0.9rem; color: var(--text-secondary);">
-            ${isSignUp ? "Discover and register for inspiring learning cohorts." : "Log in to view saved workshops and cohorts."}
+            ${isSignUp ? "Choose your role and get started with the Orbito community." : "Log in to access your workshops, cohort recommendations, or dashboard."}
           </p>
         </div>
 
+        <div id="auth-error-banner" style="display: none; background-color: #FEF2F2; border: 1px solid #FECACA; color: #DC2626; padding: 0.75rem 1rem; border-radius: var(--radius-md); font-size: 0.88rem; margin-bottom: 1.25rem;"></div>
+
         <form id="auth-form">
           ${isSignUp ? `
+            <!-- Account Type Choice: Participant vs Organizer -->
+            <div class="auth-account-type-group">
+              <label class="auth-account-type-label">Select Account Type</label>
+              <div class="account-type-selector-pills">
+                <label class="account-type-option active" id="opt-type-participant">
+                  <input type="radio" name="auth-account-type" value="participant" checked>
+                  <span class="option-title">🎓 Participant</span>
+                  <span class="option-subtitle">Explore & attend workshops</span>
+                </label>
+                <label class="account-type-option" id="opt-type-organizer">
+                  <input type="radio" name="auth-account-type" value="organizer">
+                  <span class="option-title">🎙️ Workshop Organizer</span>
+                  <span class="option-subtitle">Teach & host workshops</span>
+                </label>
+              </div>
+            </div>
+
             <div class="form-group">
-              <label class="form-label">Full Name</label>
-              <input type="text" class="form-control" placeholder="Alex Morgan" required>
+              <label class="form-label" for="auth-input-name">Full Name *</label>
+              <input type="text" id="auth-input-name" class="form-control" placeholder="e.g. Dr. Elena Rostova" required>
+            </div>
+
+            <!-- Organizer title field (revealed when Organizer selected) -->
+            <div class="form-group" id="organizer-title-field" style="display: none;">
+              <label class="form-label" for="auth-input-title">Professional Title / Area of Expertise</label>
+              <input type="text" id="auth-input-title" class="form-control" placeholder="e.g. Senior AI Researcher & Educator">
             </div>
           ` : ''}
 
           <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-control" placeholder="alex@example.com" value="learner@orbito.io" required>
+            <label class="form-label" for="auth-input-email">Email Address *</label>
+            <input type="email" id="auth-input-email" class="form-control" placeholder="name@example.com" value="${isSignUp ? '' : 'organizer@orbito.com'}" required>
           </div>
 
           <div class="form-group">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" value="••••••••" required>
+            <label class="form-label" for="auth-input-password">Password *</label>
+            <input type="password" id="auth-input-password" class="form-control" placeholder="At least 6 characters" value="${isSignUp ? '' : 'organizer123'}" required>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.75rem;">
+          ${!isSignUp ? `
+            <div style="background-color: #F8F8FC; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 0.6rem 0.85rem; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;">
+              <strong>Demo Logins:</strong><br>
+              • Organizer: <code>organizer@orbito.com</code> / <code>organizer123</code><br>
+              • Admin: <code>admin@orbito.com</code> / <code>admin123</code><br>
+              • Participant: <code>learner@orbito.com</code> / <code>learner123</code>
+            </div>
+          ` : ''}
+
+          <button type="submit" id="auth-submit-btn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 0.5rem;">
             ${isSignUp ? "Create Free Account" : "Log In"}
           </button>
         </form>
 
         <div style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem; color: var(--text-secondary);">
           ${isSignUp ? `
-            Already have an account? <a href="#" id="switch-to-login" style="font-weight: 700; color: var(--text-primary);">Log in</a>
+            Already have an account? <a href="#" id="switch-to-login" style="font-weight: 700; color: var(--charcoal);">Log in</a>
           ` : `
-            Don't have an account? <a href="#" id="switch-to-signup" style="font-weight: 700; color: var(--text-primary);">Sign up</a>
+            Don't have an account? <a href="#" id="switch-to-signup" style="font-weight: 700; color: var(--charcoal);">Sign up</a>
           `}
         </div>
       </div>
@@ -343,11 +542,148 @@ function initAuthModals() {
       if (e.target === modalOverlay) closeModal();
     };
 
+    // Handle account type toggle behavior
+    if (isSignUp) {
+      const typeOptions = modalOverlay.querySelectorAll(".account-type-option");
+      const titleField = modalOverlay.querySelector("#organizer-title-field");
+      typeOptions.forEach(opt => {
+        opt.addEventListener("click", () => {
+          typeOptions.forEach(o => o.classList.remove("active"));
+          opt.classList.add("active");
+          const radio = opt.querySelector("input[type='radio']");
+          if (radio) radio.checked = true;
+          if (titleField) {
+            titleField.style.display = (radio && radio.value === "organizer") ? "block" : "none";
+          }
+        });
+      });
+    }
+
     const form = modalOverlay.querySelector("#auth-form");
-    form.onsubmit = (e) => {
+    const errorBanner = modalOverlay.querySelector("#auth-error-banner");
+    const submitBtn = modalOverlay.querySelector("#auth-submit-btn");
+
+    form.onsubmit = async (e) => {
       e.preventDefault();
-      closeModal();
-      showToast(isSignUp ? "Account created successfully! Welcome to Orbito." : "Signed in successfully. Welcome back!", "success");
+      errorBanner.style.display = "none";
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = "Authenticating...";
+
+      const emailInput = form.querySelector("#auth-input-email");
+      const passwordInput = form.querySelector("#auth-input-password");
+      const email = emailInput ? emailInput.value.trim() : "";
+      const password = passwordInput ? passwordInput.value : "";
+
+      try {
+        if (isSignUp) {
+          const nameInput = form.querySelector("#auth-input-name");
+          const titleInput = form.querySelector("#auth-input-title");
+          const typeRadio = form.querySelector("input[name='auth-account-type']:checked");
+          const fullName = nameInput ? nameInput.value.trim() : "New User";
+          const accountType = typeRadio ? typeRadio.value : "participant";
+          const professionalTitle = titleInput ? titleInput.value.trim() : "";
+
+          let authResponse = null;
+          if (window.OrbitoAPI && window.OrbitoAPI.apiSignup) {
+            try {
+              authResponse = await window.OrbitoAPI.apiSignup(fullName, email, password, accountType, professionalTitle);
+            } catch (err) {
+              // If backend validation error occurred
+              if (err.detail || err.status) {
+                throw err;
+              }
+            }
+          }
+
+          const user = {
+            id: (authResponse && authResponse.user && authResponse.user.id) || ("usr-" + Date.now()),
+            name: fullName,
+            email: email,
+            role: accountType,
+            professionalTitle: professionalTitle,
+            loggedIn: true,
+            loginAt: new Date().toISOString()
+          };
+
+          saveUser(user);
+          closeModal();
+          renderAuthState();
+          showToast(`Welcome to Orbito, ${fullName.split(" ")[0]}!`, "success");
+
+          if (accountType === "organizer") {
+            setTimeout(() => {
+              window.location.href = "organizer-dashboard.html";
+            }, 600);
+          }
+        } else {
+          // Login Flow
+          let authResponse = null;
+          if (window.OrbitoAPI && window.OrbitoAPI.apiLogin) {
+            try {
+              authResponse = await window.OrbitoAPI.apiLogin(email, password);
+            } catch (err) {
+              if (err.detail || err.status) {
+                throw err;
+              }
+            }
+          }
+
+          let userRole = "participant";
+          let fullName = "Learner";
+          let professionalTitle = "";
+
+          if (authResponse && authResponse.user) {
+            userRole = authResponse.user.role;
+            fullName = authResponse.user.fullName;
+            professionalTitle = authResponse.user.professionalTitle || "";
+          } else {
+            // Local fallback role detection for quick evaluation
+            if (email.includes("organizer")) {
+              userRole = "organizer";
+              fullName = "Dr. Elena Rostova";
+              professionalTitle = "Senior AI Researcher & Educator";
+            } else if (email.includes("admin")) {
+              userRole = "admin";
+              fullName = "Orbito Admin";
+              professionalTitle = "Platform Director";
+            } else {
+              fullName = "Alex Morgan";
+            }
+          }
+
+          const user = {
+            id: (authResponse && authResponse.user && authResponse.user.id) || ("usr-" + Date.now()),
+            name: fullName,
+            email: email,
+            role: userRole,
+            professionalTitle: professionalTitle,
+            loggedIn: true,
+            loginAt: new Date().toISOString()
+          };
+
+          saveUser(user);
+          closeModal();
+          renderAuthState();
+          showToast(`Welcome back, ${fullName.split(" ")[0]}!`, "success");
+
+          if (userRole === "organizer") {
+            setTimeout(() => {
+              window.location.href = "organizer-dashboard.html";
+            }, 600);
+          } else if (userRole === "admin") {
+            setTimeout(() => {
+              window.location.href = "admin-review.html";
+            }, 600);
+          }
+        }
+      } catch (err) {
+        errorBanner.textContent = err.detail || err.message || "Authentication failed. Please verify credentials.";
+        errorBanner.style.display = "block";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
     };
 
     const switchLogin = modalOverlay.querySelector("#switch-to-login");
@@ -359,6 +695,9 @@ function initAuthModals() {
 
   loginBtns.forEach(b => b.addEventListener("click", (e) => { e.preventDefault(); openAuthModal(false); }));
   signupBtns.forEach(b => b.addEventListener("click", (e) => { e.preventDefault(); openAuthModal(true); }));
+
+  // Render initial auth state from localStorage on load
+  renderAuthState();
 }
 
 // Universal Registration Modal Controller
