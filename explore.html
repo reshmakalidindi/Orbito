@@ -30,7 +30,7 @@
             <li><a href="index.html" class="nav-link">Home</a></li>
             <li><a href="index.html#domains" class="nav-link">Domains</a></li>
             <li><a href="index.html#how-it-works" class="nav-link">How It Works</a></li>
-            <li class="mobile-only-item" style="display: none;"><a href="index.html#join-orbito" class="nav-link">Join Now</a></li>
+            <li><a href="index.html#join-orbito" class="nav-link">Join Now</a></li>
           </ul>
         </nav>
       </div>
@@ -41,71 +41,13 @@
     </div>
   </header>
 
-  <main id="main-content">
-    <!-- Breadcrumb Bar -->
-    <div class="explore-breadcrumb-bar">
-      <div class="container">
-        <ul class="breadcrumb-nav">
-          <li><a href="index.html">Home</a></li>
-          <li class="separator">/</li>
-          <li><a href="index.html#interests-section">Explore Domains</a></li>
-          <li class="separator">/</li>
-          <li class="current" id="breadcrumb-current-domain">Technology and AI</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Domain Hero Section (Main Page Theme) -->
-    <section class="explore-domain-hero" id="domain-hero-section">
-      <div class="container explore-hero-inner">
-        <div class="explore-hero-content">
-          <span class="explore-domain-badge" id="hero-domain-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            <span id="hero-domain-badge-text">Featured Domain</span>
-          </span>
-          <h1 class="explore-hero-title" id="hero-domain-title">Technology and AI</h1>
-          <p class="explore-hero-desc" id="hero-domain-desc">
-            Master modern software, artificial intelligence, robotics, and cloud engineering through curated hands-on workshops and bootcamps.
-          </p>
-
-          <div class="explore-hero-stats">
-            <div class="hero-stat-pill">
-              <strong id="stat-courses-count">8</strong>
-              <span>Courses</span>
-            </div>
-            <div class="hero-stat-pill">
-              <strong id="stat-workshops-count">3</strong>
-              <span>Live Workshops</span>
-            </div>
-            <div class="hero-stat-pill">
-              <strong>100%</strong>
-              <span>Hands-on Labs</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="explore-hero-art-card" id="hero-art-container" aria-hidden="true">
-          <!-- Populated by JS -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Domain Selector Tabs Strip -->
-    <section class="explore-domain-tabs-section">
-      <div class="container">
-        <div class="domain-tabs-label">Select Learning Domain:</div>
-        <div class="domain-tabs-track" id="domain-tabs-track" role="tablist">
-          <!-- 7 domain tabs populated by JS -->
-        </div>
-      </div>
-    </section>
-
+  <main id="main-content" class="courses-page-main" style="min-height: 70vh;">
     <!-- Search & Filter Toolbar -->
-    <section class="explore-filter-bar-section">
+    <section class="explore-filter-bar-section" style="padding: 2.5rem 0 2rem 0;">
       <div class="container">
         <div class="explore-filter-bar">
           <div class="explore-search-input-group">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
@@ -122,38 +64,11 @@
       </div>
     </section>
 
-    <!-- Domain Courses Section (With Images & Clean Fallbacks) -->
-    <section class="explore-courses-section">
+    <!-- Courses Grid Only (Below search bar and filter pills) -->
+    <section class="explore-courses-section" style="padding: 0 0 5rem 0;">
       <div class="container">
-        <div class="section-title-row">
-          <div>
-            <h2 class="section-heading" id="courses-grid-heading">Courses in Technology and AI</h2>
-            <p class="section-subtext" id="courses-grid-subtext">Comprehensive curriculum tracks and hands-on cohorts.</p>
-          </div>
-          <span class="results-badge" id="courses-count-badge">8 Courses Available</span>
-        </div>
-
-        <!-- 4 cards per row on desktop, 2 on tablet, 1 on mobile -->
         <div class="domain-courses-grid" id="explore-courses-grid" aria-live="polite">
           <!-- Populated with course cards -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Upcoming Live Workshops Section -->
-    <section class="explore-live-workshops-section">
-      <div class="container">
-        <div class="section-title-row">
-          <div>
-            <span class="badge badge-accent" style="margin-bottom: 0.35rem; display: inline-block;">Upcoming Schedules</span>
-            <h2 class="section-heading" id="workshops-grid-heading">Scheduled Live Workshops</h2>
-            <p class="section-subtext">Join upcoming live cohorts led by verified industry practitioners.</p>
-          </div>
-          <span class="results-badge" id="workshops-count-badge">Live Cohorts</span>
-        </div>
-
-        <div class="category-workshops-grid" id="explore-workshops-grid" aria-live="polite">
-          <!-- Populated with workshop cards -->
         </div>
       </div>
     </section>

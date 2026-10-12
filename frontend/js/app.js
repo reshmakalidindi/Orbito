@@ -343,6 +343,13 @@ function renderAuthState() {
       </a>
     ` : '';
 
+    const participantLinksHtml = (user.role !== "organizer" && user.role !== "admin") ? `
+      <a href="quiz.html" class="dropdown-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+        <span>Retake Interest Quiz</span>
+      </a>
+    ` : '';
+
     if (!existingMenu) {
       const menuEl = document.createElement("div");
       menuEl.className = "header-account-menu";
@@ -373,18 +380,7 @@ function renderAuthState() {
           <div class="dropdown-divider"></div>
           ${organizerLinksHtml}
           ${adminLinksHtml}
-          <a href="recommendations.html" class="dropdown-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-            <span>My Recommendations</span>
-          </a>
-          <a href="quiz.html" class="dropdown-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
-            <span>Retake Interest Quiz</span>
-          </a>
-          <a href="explore.html" class="dropdown-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-            <span>Browse All Topics</span>
-          </a>
+          ${participantLinksHtml}
           <div class="dropdown-divider"></div>
           <button type="button" class="dropdown-item dropdown-logout-btn" id="dropdown-logout-btn" role="menuitem">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>

@@ -170,6 +170,29 @@ def test_create_workshop_header_and_footer():
     assert "footer-main-grid" in content
     print("✓ create-workshop.html header and footer verified (horizontal navigation, account symbol anchor, dark charcoal footer).")
 
+def test_account_menus_for_organizers_and_users():
+    for base in ["", "frontend/"]:
+        path = os.path.join(base, "js/app.js")
+        with open(path, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        # Check organizerLinksHtml
+        assert "Organizer Dashboard" in content
+        assert "Create New Workshop" in content
+
+        # Check participantLinksHtml
+        assert "Retake Interest Quiz" in content
+
+        # Both organizer and user must have removed: My Recommendations, Browse All Topics
+        assert "My Recommendations" not in content, f"My Recommendations should be removed in {path}"
+        assert "Browse All Topics" not in content, f"Browse All Topics should be removed in {path}"
+
+        # Organizer dropdown should not have Retake Interest Quiz
+        # Verify participantLinksHtml is only rendered for non-organizers
+        assert 'user.role !== "organizer"' in content or "user.role !== 'organizer'" in content, f"participantLinksHtml should exclude organizer in {path}"
+
+    print("✓ Account dropdown verified: organizer and user menus contain only their required items (no My Recommendations, no Browse All Topics, no quiz for organizers).")
+
 def test_explore_page_domains_and_courses():
     for base_path in ["", "frontend/"]:
         html_file = os.path.join(base_path, "explore.html")
@@ -183,28 +206,29 @@ def test_explore_page_domains_and_courses():
         with open(css_file, "r", encoding="utf-8") as f:
             css = f.read()
 
-        # HTML elements
-        assert "explore-domain-hero" in html, f"Missing explore-domain-hero in {html_file}"
-        assert "domain-tabs-track" in html, f"Missing domain-tabs-track in {html_file}"
+        # HTML elements: Only search bar, 4 filter pills, and courses grid
         assert "explore-filter-bar" in html, f"Missing explore-filter-bar in {html_file}"
+        assert "explore-search-input" in html, f"Missing explore-search-input in {html_file}"
+        assert "filter-pill" in html, f"Missing filter-pill in {html_file}"
         assert "explore-courses-grid" in html, f"Missing explore-courses-grid in {html_file}"
-        assert "explore-workshops-grid" in html, f"Missing explore-workshops-grid in {html_file}"
+
+        # Confirmed removed per user prompt 10:
+        assert "explore-domain-hero" not in html, f"explore-domain-hero should be removed from {html_file}"
+        assert "domain-tabs-track" not in html, f"domain-tabs-track should be removed from {html_file}"
+        assert "explore-workshops-grid" not in html, f"explore-workshops-grid should be removed from {html_file}"
 
         # JS functions and domain coverage
         assert "COURSE_IMAGE_MAP" in js, f"Missing COURSE_IMAGE_MAP in {js_file}"
         assert "renderCoursesAndWorkshops" in js, f"Missing renderCoursesAndWorkshops in {js_file}"
-        assert "renderDomainTabs" in js, f"Missing renderDomainTabs in {js_file}"
         assert "renderCoursePlaceholder" in js, f"Missing renderCoursePlaceholder in {js_file}"
-        assert "renderWorkshopCard" in js, f"Missing renderWorkshopCard in {js_file}"
         for cat_slug in ["tech-ai", "creativity-arts", "career-professional", "entrepreneurship-finance", "lifestyle-wellness", "social-outdoor", "emerging-practical"]:
             assert cat_slug in js, f"Domain {cat_slug} not referenced in {js_file}"
 
         # CSS classes
-        assert ".explore-domain-hero" in css, f"Missing .explore-domain-hero in {css_file}"
         assert ".domain-courses-grid" in css, f"Missing .domain-courses-grid in {css_file}"
         assert ".course-card-media" in css, f"Missing .course-card-media in {css_file}"
 
-    print("✓ Explore page layout, 7 domain tabs, course image rendering, and responsive CSS verified in root and frontend.")
+    print("✓ Explore courses page layout (search bar + 4 filter pills + courses grid only) verified in root and frontend.")
 
 if __name__ == "__main__":
     test_all_50_course_images_exist()
@@ -213,6 +237,7 @@ if __name__ == "__main__":
     test_explore_html_header_and_footer()
     test_workshop_details_cover_image()
     test_create_workshop_header_and_footer()
+    test_account_menus_for_organizers_and_users()
     test_explore_page_domains_and_courses()
     print("\n========================================================")
     print("ALL 50 COURSE IMAGES & NAVIGATION TESTS PASSED SUCCESSFULLY!")

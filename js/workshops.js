@@ -181,10 +181,10 @@ const ExploreController = {
       if (found) {
         this.currentCategory = found.id;
       } else {
-        this.currentCategory = "tech-ai";
+        this.currentCategory = "all";
       }
     } else {
-      this.currentCategory = "tech-ai";
+      this.currentCategory = "all";
     }
 
     if (params.has("search")) this.searchKeyword = params.get("search");
@@ -305,14 +305,19 @@ const ExploreController = {
 
   renderDomain() {
     const categories = window.ORBITO_CATEGORIES || [];
-    const cat = categories.find(c => c.id === this.currentCategory) || categories[0];
+    let cat = null;
+    if (this.currentCategory && this.currentCategory !== "all") {
+      cat = categories.find(c => c.id === this.currentCategory) || categories[0];
+    } else {
+      cat = categories[0];
+    }
     if (!cat) return;
 
-    // 1. Update Breadcrumb
+    // 1. Update Breadcrumb if present
     const bc = document.getElementById("breadcrumb-current-domain");
     if (bc) bc.textContent = cat.name;
 
-    // 2. Update Hero
+    // 2. Update Hero if present
     const heroTitle = document.getElementById("hero-domain-title");
     const heroDesc = document.getElementById("hero-domain-desc");
     const heroBadgeText = document.getElementById("hero-domain-badge-text");
@@ -333,13 +338,13 @@ const ExploreController = {
       heroArt.innerHTML = getDomainSvgArt(cat.id);
     }
 
-    // 3. Update Courses Section Heading
+    // 3. Update Courses Section Heading if present
     const coursesHeading = document.getElementById("courses-grid-heading");
     const coursesSubtext = document.getElementById("courses-grid-subtext");
     if (coursesHeading) coursesHeading.textContent = `Courses in ${cat.name}`;
     if (coursesSubtext) coursesSubtext.textContent = `Explore all ${(cat.topics || []).length} structured curriculum tracks and hands-on cohorts.`;
 
-    // 4. Update Workshops Section Heading
+    // 4. Update Workshops Section Heading if present
     const wsHeading = document.getElementById("workshops-grid-heading");
     if (wsHeading) wsHeading.textContent = `Scheduled Live Workshops in ${cat.name}`;
 
@@ -349,16 +354,26 @@ const ExploreController = {
 
   renderCoursesAndWorkshops() {
     const categories = window.ORBITO_CATEGORIES || [];
-    const cat = categories.find(c => c.id === this.currentCategory) || categories[0];
-    if (!cat) return;
+    let topics = [];
+    let domainName = "All Courses";
 
-    let topics = [...(cat.topics || [])];
+    if (this.currentCategory && this.currentCategory !== "all") {
+      const cat = categories.find(c => c.id === this.currentCategory) || categories[0];
+      if (cat) {
+        topics = [...(cat.topics || [])].map(t => ({ ...t, categoryName: cat.name, categoryId: cat.id }));
+        domainName = cat.name;
+      }
+    } else {
+      topics = categories.flatMap(c => (c.topics || []).map(t => ({ ...t, categoryName: c.name, categoryId: c.id })));
+      domainName = "All Domains";
+    }
 
     // Filter by search
     if (this.searchKeyword) {
       topics = topics.filter(t =>
         t.name.toLowerCase().includes(this.searchKeyword) ||
-        (t.description && t.description.toLowerCase().includes(this.searchKeyword))
+        (t.description && t.description.toLowerCase().includes(this.searchKeyword)) ||
+        (t.categoryName && t.categoryName.toLowerCase().includes(this.searchKeyword))
       );
     }
 
@@ -382,7 +397,7 @@ const ExploreController = {
       if (topics.length === 0) {
         coursesGrid.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem 1rem; background: #FFFFFF; border-radius: 24px; border: 1px solid #ECECF2;">
-            <p style="font-size: 1.15rem; font-weight: 700; color: #242428;">No courses match "${escapeHTML(this.searchKeyword)}" in ${escapeHTML(cat.name)}</p>
+            <p style="font-size: 1.15rem; font-weight: 700; color: #242428;">No courses match your filter</p>
             <p style="color: #6B7280; font-size: 0.9rem; margin-top: 0.35rem;">Try another keyword or click "All Courses" to browse the full curriculum.</p>
           </div>
         `;
@@ -394,24 +409,30 @@ const ExploreController = {
           const duration = topic.duration || "4 Weeks";
           const description = topic.description || `Practical, hands-on workshop designed to develop real skills in ${topic.name}.`;
           const isSelected = String(this.selectedTopicId) === String(topic.id);
+          const topicCatName = topic.categoryName || domainName;
+          const topicCatId = topic.categoryId || this.currentCategory;
+
+          const matchingWs = (window.SAMPLE_WORKSHOPS || []).find(w => w.topicId === topic.id || (w.topicName && w.topicName.toLowerCase() === topic.name.toLowerCase()));
+          const cardHref = matchingWs ? `workshop-details.html?id=${encodeURIComponent(matchingWs.id)}` : `#`;
+          const clickHandler = matchingWs ? '' : `onclick="window.openRegistrationModal && window.openRegistrationModal('topic-${topic.id}'); return false;"`;
 
           return `
             <article class="orbito-course-card ${isSelected ? 'is-selected-course' : ''}" data-course-id="${topic.id}">
               <div class="course-card-media">
                 ${imgUrl ? `
-                  <img src="${escapeHTML(imgUrl)}" alt="${escapeHTML(topic.name)}" class="course-card-img" loading="lazy" onerror="this.parentElement.innerHTML=renderCoursePlaceholder('${escapeHTML(cat.name)}', '${escapeHTML(topic.name)}', '${escapeHTML(cat.id)}')">
-                ` : renderCoursePlaceholder(cat.name, topic.name, cat.id)}
+                  <img src="${escapeHTML(imgUrl)}" alt="${escapeHTML(topic.name)}" class="course-card-img" loading="lazy" onerror="this.parentElement.innerHTML=renderCoursePlaceholder('${escapeHTML(topicCatName)}', '${escapeHTML(topic.name)}', '${escapeHTML(topicCatId)}')">
+                ` : renderCoursePlaceholder(topicCatName, topic.name, topicCatId)}
                 ${isSelected ? `<span class="course-badge-overlay course-badge-selected">Selected</span>` : (isPopular ? `<span class="course-badge-overlay">Popular</span>` : '')}
               </div>
 
               <div class="course-card-content">
                 <div class="course-card-meta-top">
-                  <span class="course-domain-tag">${escapeHTML(cat.name)}</span>
+                  <span class="course-domain-tag">${escapeHTML(topicCatName)}</span>
                   <span class="course-level-tag">${escapeHTML(level)}</span>
                 </div>
 
                 <h4 class="course-card-title">
-                  <a href="explore.html?category=${encodeURIComponent(cat.id)}&topic=${encodeURIComponent(topic.id)}" onclick="ExploreController.selectCourse('${encodeURIComponent(topic.id)}', event)">
+                  <a href="${cardHref}" ${clickHandler}>
                     ${escapeHTML(topic.name)}
                   </a>
                 </h4>
@@ -425,8 +446,8 @@ const ExploreController = {
                       ${escapeHTML(duration)}
                     </span>
                   </div>
-                  <a href="#explore-workshops-grid" onclick="ExploreController.scrollToWorkshops('${encodeURIComponent(topic.id)}')" class="course-card-arrow-link" aria-label="Explore ${escapeHTML(topic.name)} workshops">
-                    <span>View Cohort</span>
+                  <a href="${cardHref}" ${clickHandler} class="course-card-arrow-link" aria-label="Explore ${escapeHTML(topic.name)}">
+                    <span>View Workshop</span>
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="7" y1="17" x2="17" y2="7"></line>
                       <polyline points="7 7 17 7 17 17"></polyline>
@@ -440,32 +461,31 @@ const ExploreController = {
       }
     }
 
-    // Render Live Workshops Grid
+    // Render Live Workshops Grid (if element exists)
     const wsGrid = document.getElementById("explore-workshops-grid");
     const wsCountBadge = document.getElementById("workshops-count-badge");
-
-    let workshops = (window.SAMPLE_WORKSHOPS || []).filter(w => w.categoryId === cat.id);
-    if (this.searchKeyword) {
-      workshops = workshops.filter(w =>
-        w.title.toLowerCase().includes(this.searchKeyword) ||
-        w.topicName.toLowerCase().includes(this.searchKeyword)
-      );
-    }
-    if (this.activeFilter === "beginner") {
-      workshops = workshops.filter(w => (w.level || "").toLowerCase().includes("beginner"));
-    } else if (this.activeFilter === "online") {
-      workshops = workshops.filter(w => w.format === "online");
-    }
-
-    if (wsCountBadge) {
-      wsCountBadge.textContent = `${workshops.length} Cohorts Active`;
-    }
-
     if (wsGrid) {
+      let workshops = (window.SAMPLE_WORKSHOPS || []).filter(w => !this.currentCategory || this.currentCategory === "all" || w.categoryId === this.currentCategory);
+      if (this.searchKeyword) {
+        workshops = workshops.filter(w =>
+          w.title.toLowerCase().includes(this.searchKeyword) ||
+          w.topicName.toLowerCase().includes(this.searchKeyword)
+        );
+      }
+      if (this.activeFilter === "beginner") {
+        workshops = workshops.filter(w => (w.level || "").toLowerCase().includes("beginner"));
+      } else if (this.activeFilter === "online") {
+        workshops = workshops.filter(w => w.format === "online");
+      }
+
+      if (wsCountBadge) {
+        wsCountBadge.textContent = `${workshops.length} Cohorts Active`;
+      }
+
       if (workshops.length === 0) {
         wsGrid.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; background: #FFFFFF; border-radius: 24px; border: 1px dashed #D1D5DB;">
-            <p style="font-size: 1.05rem; font-weight: 700; color: #242428;">New cohort schedules for ${escapeHTML(cat.name)} opening soon!</p>
+            <p style="font-size: 1.05rem; font-weight: 700; color: #242428;">New cohort schedules opening soon!</p>
             <p style="color: #6B7280; font-size: 0.88rem; margin-top: 0.35rem;">Browse the courses above and register for priority notification.</p>
           </div>
         `;
@@ -476,9 +496,9 @@ const ExploreController = {
   },
 
   scrollToWorkshops(topicId) {
-    const wsSection = document.getElementById("explore-workshops-grid");
-    if (wsSection) {
-      wsSection.scrollIntoView({ behavior: "smooth" });
+    const card = document.querySelector(`.orbito-course-card[data-course-id="${topicId}"]`);
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
 };
