@@ -453,12 +453,12 @@ img {
 }
 
 .hero-caption {
-  font-size: 1.25rem;
-  font-weight: 450;
-  line-height: 1.55;
+  font-size: 1.05rem;            /* Reduced font size for refined, clean layout */
+  font-weight: 400;
+  line-height: 1.6;
   color: var(--text-secondary);
-  max-width: 580px;
-  margin: 0 auto 2.25rem auto;
+  max-width: 530px;
+  margin: 0 auto 1.85rem auto;
 }
 
 /* Two Horizontally Aligned Pill Buttons */
@@ -478,10 +478,10 @@ img {
   background-color: var(--charcoal);
   color: #FFFFFF !important;
   font-weight: 600;
-  font-size: 1.05rem;
-  padding: 0.95rem 2.25rem;
+  font-size: 0.925rem;           /* Reduced, sleek button font size */
+  padding: 0.65rem 1.65rem;      /* Reduced, sleek button padding */
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-btn);
+  box-shadow: 0 2px 8px rgba(36, 36, 40, 0.12);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
 }
@@ -489,7 +489,7 @@ img {
 .btn-hero-primary:hover {
   background-color: var(--charcoal-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(36, 36, 40, 0.28);
+  box-shadow: 0 4px 14px rgba(36, 36, 40, 0.22);
 }
 
 .btn-hero-primary:active {
@@ -504,11 +504,11 @@ img {
   background-color: var(--bg-surface);
   color: var(--charcoal) !important;
   font-weight: 600;
-  font-size: 1.05rem;
-  padding: 0.95rem 2.25rem;
+  font-size: 0.925rem;           /* Reduced, sleek button font size */
+  padding: 0.65rem 1.65rem;      /* Reduced, sleek button padding */
   border: 1px solid var(--border-light);
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
 }
@@ -517,7 +517,7 @@ img {
   background-color: #F8F8FC;
   border-color: #C2C2CC;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-hero-secondary:active {
