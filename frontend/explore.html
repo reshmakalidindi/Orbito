@@ -3,14 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Workshops | Orbito Discovery Platform</title>
-  <meta name="description" content="Search, filter, and discover live online and in-person workshops across 50 topics. Filter by format, skill level, date, and price.">
+  <title>Explore Courses & Workshops | Orbito</title>
+  <meta name="description" content="Discover hands-on courses, masterclasses, and workshops across 7 domains and 50 topics on Orbito.">
+
+  <!-- Core Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Core Stylesheets -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
+<body class="explore-page-shell">
 
   <!-- Navigation Bar (Consistent with Main Page, All Links in Horizontal Line with Logo) -->
   <header class="site-header" role="banner">
@@ -39,132 +44,122 @@
     </div>
   </header>
 
-  <main id="main-content" class="section-padding">
-    <div class="container">
-      <!-- Breadcrumb & Header -->
-      <div style="margin-bottom: 2rem;">
-        <span class="badge badge-primary" style="margin-bottom: 0.5rem;">Discovery Hub</span>
-        <h1 style="font-size: 2.25rem; font-weight: 800; color: var(--text-primary); margin-bottom: 0.5rem;">
-          Explore Available Workshops
-        </h1>
-        <p style="color: var(--text-secondary); font-size: 1.05rem; max-width: 650px;">
-          Find upcoming hands-on classes, webinars, and masterclasses across 50 topics. Filter by format, cost, schedule, or experience level.
-        </p>
-      </div>
-
-      <!-- Active Filter Chips Area -->
-      <div id="active-filter-chips"></div>
-
-      <!-- Main Layout: Sidebar Filters + Workshop Cards Grid -->
-      <div class="explore-layout">
-        <!-- Filters Sidebar -->
-        <aside class="filters-sidebar" aria-label="Workshop Filters">
-          <div class="filters-header">
-            <div class="filters-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="4" y1="21" x2="4" y2="14"></line>
-                <line x1="4" y1="10" x2="4" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12" y2="3"></line>
-                <line x1="20" y1="21" x2="20" y2="16"></line>
-                <line x1="20" y1="12" x2="20" y2="3"></line>
-                <line x1="1" y1="14" x2="7" y2="14"></line>
-                <line x1="9" y1="8" x2="15" y2="8"></line>
-                <line x1="17" y1="16" x2="23" y2="16"></line>
-              </svg>
-              <span>Filter Events</span>
-            </div>
-            <button type="button" class="btn-clear-filters" id="btn-clear-filters">Reset All</button>
-          </div>
-
-          <!-- Keyword Search -->
-          <div class="filter-group">
-            <label class="filter-label" for="explore-search">Search Keyword</label>
-            <div style="position: relative;">
-              <input type="text" id="explore-search" class="filter-input" placeholder="Title, topic, instructor...">
-            </div>
-          </div>
-
-          <!-- Category Filter -->
-          <div class="filter-group">
-            <label class="filter-label" for="filter-category">Category</label>
-            <select id="filter-category" class="filter-select">
-              <option value="all">All Categories</option>
-              <!-- Populated by JS -->
-            </select>
-          </div>
-
-          <!-- Format Filter (Online vs Offline) -->
-          <div class="filter-group">
-            <label class="filter-label" for="filter-format">Format</label>
-            <select id="filter-format" class="filter-select">
-              <option value="all">All Formats</option>
-              <option value="online">Online (Live Webinar / Lab)</option>
-              <option value="offline">In-Person (Studio / Venue)</option>
-            </select>
-          </div>
-
-          <!-- Price Filter -->
-          <div class="filter-group">
-            <label class="filter-label" for="filter-price">Price</label>
-            <select id="filter-price" class="filter-select">
-              <option value="all">Any Price</option>
-              <option value="free">Free Only ($0)</option>
-              <option value="paid">Paid Workshops</option>
-            </select>
-          </div>
-
-          <!-- Skill Level Filter -->
-          <div class="filter-group">
-            <label class="filter-label" for="filter-level">Skill Level</label>
-            <select id="filter-level" class="filter-select">
-              <option value="all">All Experience Levels</option>
-              <option value="beginner">Beginner (No Prerequisites)</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="advanced">Advanced</option>
-            </select>
-          </div>
-
-          <!-- Date Filter -->
-          <div class="filter-group">
-            <label class="filter-label" for="filter-date">Date Range</label>
-            <select id="filter-date" class="filter-select">
-              <option value="all">Any Upcoming Date</option>
-              <option value="today">Today</option>
-              <option value="weekend">This Weekend</option>
-              <option value="7days">Next 7 Days</option>
-              <option value="30days">Next 30 Days</option>
-            </select>
-          </div>
-        </aside>
-
-        <!-- Right Side: Toolbar + Workshop Grid -->
-        <section aria-label="Workshop listings">
-          <div class="explore-toolbar">
-            <div class="results-count" id="results-count-text">
-              Showing workshops...
-            </div>
-
-            <div class="toolbar-actions">
-              <div class="sort-wrapper">
-                <label for="sort-select">Sort by:</label>
-                <select id="sort-select" class="sort-select">
-                  <option value="upcoming">Upcoming Date</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Highest Rated</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- Dynamic Workshops Cards Grid -->
-          <div class="workshops-grid" id="explore-grid" aria-live="polite">
-            <!-- Injected by ExploreController.loadWorkshops() -->
-          </div>
-        </section>
+  <main id="main-content">
+    <!-- Breadcrumb Bar -->
+    <div class="explore-breadcrumb-bar">
+      <div class="container">
+        <ul class="breadcrumb-nav">
+          <li><a href="index.html">Home</a></li>
+          <li class="separator">/</li>
+          <li><a href="index.html#interests-section">Explore Domains</a></li>
+          <li class="separator">/</li>
+          <li class="current" id="breadcrumb-current-domain">Technology and AI</li>
+        </ul>
       </div>
     </div>
+
+    <!-- Domain Hero Section (Main Page Theme) -->
+    <section class="explore-domain-hero" id="domain-hero-section">
+      <div class="container explore-hero-inner">
+        <div class="explore-hero-content">
+          <span class="explore-domain-badge" id="hero-domain-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span id="hero-domain-badge-text">Featured Domain</span>
+          </span>
+          <h1 class="explore-hero-title" id="hero-domain-title">Technology and AI</h1>
+          <p class="explore-hero-desc" id="hero-domain-desc">
+            Master modern software, artificial intelligence, robotics, and cloud engineering through curated hands-on workshops and bootcamps.
+          </p>
+
+          <div class="explore-hero-stats">
+            <div class="hero-stat-pill">
+              <strong id="stat-courses-count">8</strong>
+              <span>Courses</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong id="stat-workshops-count">3</strong>
+              <span>Live Workshops</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>100%</strong>
+              <span>Hands-on Labs</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="explore-hero-art-card" id="hero-art-container" aria-hidden="true">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Domain Selector Tabs Strip -->
+    <section class="explore-domain-tabs-section">
+      <div class="container">
+        <div class="domain-tabs-label">Select Learning Domain:</div>
+        <div class="domain-tabs-track" id="domain-tabs-track" role="tablist">
+          <!-- 7 domain tabs populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Toolbar -->
+    <section class="explore-filter-bar-section">
+      <div class="container">
+        <div class="explore-filter-bar">
+          <div class="explore-search-input-group">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="explore-search-input" placeholder="Search courses, skills, or topics..." aria-label="Search courses and topics">
+          </div>
+
+          <div class="explore-filter-pills-group" id="filter-pills-group">
+            <button type="button" class="filter-pill active" data-filter="all">All Courses</button>
+            <button type="button" class="filter-pill" data-filter="popular">Popular</button>
+            <button type="button" class="filter-pill" data-filter="beginner">Beginner Friendly</button>
+            <button type="button" class="filter-pill" data-filter="online">Live Online</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Domain Courses Section (With Images & Clean Fallbacks) -->
+    <section class="explore-courses-section">
+      <div class="container">
+        <div class="section-title-row">
+          <div>
+            <h2 class="section-heading" id="courses-grid-heading">Courses in Technology and AI</h2>
+            <p class="section-subtext" id="courses-grid-subtext">Comprehensive curriculum tracks and hands-on cohorts.</p>
+          </div>
+          <span class="results-badge" id="courses-count-badge">8 Courses Available</span>
+        </div>
+
+        <!-- 4 cards per row on desktop, 2 on tablet, 1 on mobile -->
+        <div class="domain-courses-grid" id="explore-courses-grid" aria-live="polite">
+          <!-- Populated with course cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Live Workshops Section -->
+    <section class="explore-live-workshops-section">
+      <div class="container">
+        <div class="section-title-row">
+          <div>
+            <span class="badge badge-accent" style="margin-bottom: 0.35rem; display: inline-block;">Upcoming Schedules</span>
+            <h2 class="section-heading" id="workshops-grid-heading">Scheduled Live Workshops</h2>
+            <p class="section-subtext">Join upcoming live cohorts led by verified industry practitioners.</p>
+          </div>
+          <span class="results-badge" id="workshops-count-badge">Live Cohorts</span>
+        </div>
+
+        <div class="category-workshops-grid" id="explore-workshops-grid" aria-live="polite">
+          <!-- Populated with workshop cards -->
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- Clean, Modern, Responsive Dark Charcoal Footer (#242428) identical to Main Page -->
