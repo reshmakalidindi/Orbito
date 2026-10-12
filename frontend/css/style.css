@@ -1575,576 +1575,331 @@ img {
 }
 
 /* ==========================================================================
-/* ==========================================================================
-   How Orbito Works Section (4-Step Connected Visual Roadmap with Branching Paths)
+   How Orbito Works Section (3-Step Connected Journey Matching Reference Design)
    ========================================================================== */
 .how-orbito-works-section {
   background-color: #FAFAFC;
-  padding: 5.5rem 0 6rem;
+  padding: 5.5rem 0 6.5rem;
   position: relative;
   overflow: hidden;
 }
 
 .how-works-container {
-  max-width: 1320px;
+  max-width: 1160px;
   margin: 0 auto;
   padding: 0 1.5rem;
   position: relative;
 }
 
-/* Centered Section Header */
+/* Centered Section Header with Purple Accents */
 .how-works-header {
   text-align: center;
-  max-width: 720px;
   margin: 0 auto 3.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.how-works-badge {
+.how-works-title-wrap {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background-color: #F5F3FF;
-  color: #7C3AED;
-  padding: 0.38rem 0.95rem;
-  border-radius: var(--radius-full);
-  margin-bottom: 0.85rem;
+  justify-content: center;
+  gap: 1.15rem;
 }
 
 .how-works-title {
   font-family: var(--font-family);
-  font-size: clamp(2.2rem, 4vw, 2.85rem);
+  font-size: clamp(2.35rem, 4.4vw, 3.1rem);
   font-weight: 800;
   color: #242428;
   letter-spacing: -0.03em;
   line-height: 1.15;
-  margin-bottom: 0.85rem;
+  margin: 0;
 }
 
-.how-works-subtitle {
-  font-size: 1.12rem;
-  color: #55555D;
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 0 auto;
+.title-deco-accent {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
 }
 
-/* Roadmap Grid Layout */
-.how-roadmap-wrapper {
+/* Interactive Connected Journey Board */
+.how-works-board {
   position: relative;
+  width: 100%;
 }
 
-.how-roadmap-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.65fr 1.15fr 1.15fr;
-  gap: 1.4rem;
-  align-items: stretch;
-  position: relative;
-  z-index: 2;
-}
-
-/* Desktop Connecting Curved Arrows SVG overlay */
-.roadmap-connectors-svg {
+/* Desktop Connecting Curved & Looping Arrows SVG Overlay */
+.how-works-arrows-svg {
   position: absolute;
-  top: 36px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 100%;
   pointer-events: none;
   z-index: 1;
 }
 
-/* Base Roadmap Step Card */
-.roadmap-step-card {
-  background-color: #FFFFFF;
-  border: 1.5px solid #E8E8EE;
-  border-radius: 26px;
-  padding: 2rem 1.65rem;
-  box-shadow: 0 4px 20px rgba(36, 36, 40, 0.05);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+.how-arrow-path {
+  stroke-dasharray: none;
+}
+
+/* Row Layouts */
+.how-works-top-row {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 3.75rem;
   position: relative;
-  overflow: hidden;
+  z-index: 2;
 }
 
-.roadmap-step-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(36, 36, 40, 0.09);
-  border-color: #D6D6DF;
-}
-
-/* Card Header */
-.step-top-meta {
+.how-works-bottom-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.15rem;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
 }
 
-.step-num-badge {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: inline-flex;
+/* Base Step Card: Clean White, Rounded 28px, Subtle Shadow & Border */
+.how-step-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid #F0F0F4;
+  border-radius: 28px;
+  padding: 1.85rem 2rem;
+  box-shadow: 0 4px 22px rgba(36, 36, 40, 0.04);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.how-step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(36, 36, 40, 0.08);
+  border-color: #E2E2EA;
+}
+
+/* Card Width Sizing on Desktop */
+.how-card-explore,
+.how-card-interests {
+  width: 440px;
+  flex: 0 0 440px;
+  max-width: 460px;
+  min-height: 175px;
+}
+
+.how-card-passion {
+  width: 470px;
+  flex: 0 0 470px;
+  max-width: 490px;
+  min-height: 195px;
+}
+
+/* Card Illustration Containers */
+.how-card-illustration {
+  flex-shrink: 0;
+  width: 125px;
+  height: 110px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.05rem;
-  font-weight: 800;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  position: relative;
 }
 
-.badge-purple {
-  background-color: #F5F3FF;
-  color: #7C3AED;
-  border: 2px solid #DDD6FE;
+.how-illus-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
-.badge-branch {
-  background: linear-gradient(135deg, #ECFDF5, #FFF1F2);
-  color: #242428;
-  border: 2px solid #CBD5E1;
+/* Card Typography & Text Content */
+.how-card-content {
+  flex: 1;
+  min-width: 0;
 }
 
-.badge-orange {
-  background-color: #FFFBEB;
-  color: #D97706;
-  border: 2px solid #FDE68A;
-}
-
-.step-phase-tag {
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
-}
-
-.tag-purple-soft {
-  background-color: #F5F3FF;
-  color: #7C3AED;
-}
-
-.tag-branch-soft {
-  background-color: #F1F5F9;
-  color: #475569;
-}
-
-.tag-orange-soft {
-  background-color: #FFF7ED;
-  color: #EA580C;
-}
-
-/* Typography Inside Step Cards */
-.roadmap-step-title {
-  font-size: 1.35rem;
+.how-card-heading {
+  font-family: var(--font-family);
+  font-size: 1.28rem;
   font-weight: 800;
   color: #242428;
   letter-spacing: -0.02em;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.45rem;
   line-height: 1.25;
 }
 
-.roadmap-step-subtitle {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #7C3AED;
-  margin-bottom: 0.75rem;
-}
-
-.roadmap-step-desc {
-  font-size: 0.93rem;
+.how-card-desc {
+  font-family: var(--font-family);
+  font-size: 0.92rem;
   color: #55555D;
   line-height: 1.55;
-  margin-bottom: 1.25rem;
+  margin: 0;
 }
 
-/* Visual Illustration Wrappers */
-.step-visual-box {
-  border-radius: 18px;
-  padding: 1rem;
+/* See My Recommendations Link on Card 3 */
+.how-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-family);
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #7052FF;
+  text-decoration: none;
+  margin-top: 0.85rem;
+  transition: gap 0.22s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.how-card-link svg {
+  transition: transform 0.22s ease;
+}
+
+.how-card-link:hover {
+  color: #5B3EE8;
+  gap: 0.65rem;
+}
+
+.how-card-link:hover svg {
+  transform: translateX(2px);
+}
+
+/* Bottom-Left Handwritten-style Note */
+.how-bottom-note {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 220px;
+  flex: 0 0 220px;
+  transform: rotate(-2.5deg);
+  user-select: none;
+}
+
+.note-people-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.25rem;
-  position: relative;
-  overflow: hidden;
 }
 
-.visual-box-purple {
-  background: linear-gradient(135deg, #FAF5FF, #F3E8FF);
-  border: 1px solid #E9D5FF;
-  height: 125px;
-}
-
-.visual-box-ai {
-  background: linear-gradient(135deg, #FAF5FF 0%, #EDE9FE 100%);
-  border: 1px solid #DDD6FE;
-  height: 110px;
-}
-
-/* Step 2 Branching Paths Container */
-.step2-branch-wrapper {
-  margin: 0.85rem 0 1.25rem;
-}
-
-.step2-branch-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #64748B;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.85rem;
-}
-
-.step2-branch-header span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.step2-branch-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.95rem;
-}
-
-.branch-path-subcard {
-  border-radius: 18px;
-  padding: 1.15rem;
+.note-text-block {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-  position: relative;
 }
 
-.branch-path-subcard:hover {
-  transform: translateY(-3px);
-}
-
-.path-subcard-mint {
-  background: linear-gradient(180deg, #F0FDF4 0%, #FFFFFF 100%);
-  border: 1.5px solid #A7F3D0;
-}
-
-.path-subcard-mint:hover {
-  border-color: #65D6B0;
-  box-shadow: 0 8px 20px rgba(101, 214, 176, 0.2);
-}
-
-.path-subcard-coral {
-  background: linear-gradient(180deg, #FFF1F2 0%, #FFFFFF 100%);
-  border: 1.5px solid #FECDD3;
-}
-
-.path-subcard-coral:hover {
-  border-color: #FF668D;
-  box-shadow: 0 8px 20px rgba(255, 102, 141, 0.2);
-}
-
-.branch-sub-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.2rem 0.55rem;
-  border-radius: var(--radius-full);
-  margin-bottom: 0.65rem;
-  width: fit-content;
-}
-
-.sub-badge-mint {
-  background: #DCFCE7;
-  color: #059669;
-}
-
-.sub-badge-coral {
-  background: #FFE4E6;
-  color: #E11D48;
-}
-
-.branch-sub-heading {
+.note-word {
+  font-family: var(--font-family);
   font-size: 1.05rem;
   font-weight: 800;
   color: #242428;
-  letter-spacing: -0.01em;
-  margin-bottom: 0.45rem;
-  line-height: 1.25;
-}
-
-.branch-sub-desc {
-  font-size: 0.84rem;
-  color: #55555D;
-  line-height: 1.5;
-  margin-bottom: 0.85rem;
-}
-
-/* Mini Flow Sequence in Step 2 */
-.mini-flow-sequence {
-  background-color: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  padding: 0.65rem 0.75rem;
-  margin: 0.75rem 0 0.95rem;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.mini-flow-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #94A3B8;
-  margin-bottom: 0.35rem;
-}
-
-.mini-flow-nodes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 600;
-}
-
-.mini-node-pill {
-  padding: 0.15rem 0.45rem;
-  border-radius: 6px;
-  white-space: nowrap;
-}
-
-.pill-mint {
-  background-color: #E6FBF2;
-  color: #047857;
-}
-
-.pill-coral {
-  background-color: #FFF1F4;
-  color: #BE123C;
-}
-
-.mini-flow-arrow {
-  color: #94A3B8;
-  font-size: 0.75rem;
-}
-
-/* Step 3: Question Category Chips (8 disciplines) */
-.roadmap-chips-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.45rem;
-  margin: 1rem 0 1.25rem;
-}
-
-.roadmap-discipline-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.35rem 0.65rem;
-  border-radius: var(--radius-full);
-  background-color: #F8FAFC;
-  color: #475569;
-  border: 1px solid #E2E8F0;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.roadmap-discipline-chip:hover {
-  background-color: #F5F3FF;
-  border-color: #DDD6FE;
-  color: #7C3AED;
-  transform: translateY(-1px);
-}
-
-.chip-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #A987FF;
-}
-
-/* Step 4: Mini Mock Recommendation Card */
-.mock-rec-card {
-  background: #FFFFFF;
-  border: 1.5px solid #FED7AA;
-  border-radius: 18px;
-  padding: 1.15rem;
-  margin: 0.95rem 0 1.25rem;
-  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.08);
-  position: relative;
-  transition: transform 0.2s ease;
-}
-
-.mock-rec-card:hover {
-  transform: translateY(-2px);
-}
-
-.mock-rec-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.65rem;
-}
-
-.mock-match-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-size: 0.74rem;
-  font-weight: 800;
-  background-color: #FFF7ED;
-  color: #EA580C;
-  padding: 0.22rem 0.65rem;
-  border-radius: var(--radius-full);
-  border: 1px solid #FFEDD5;
-}
-
-.mock-cat-tag {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #64748B;
-  text-transform: uppercase;
   letter-spacing: 0.04em;
+  line-height: 1.22;
 }
 
-.mock-rec-title {
-  font-size: 1rem;
-  font-weight: 800;
-  color: #242428;
-  line-height: 1.3;
-  margin-bottom: 0.45rem;
-}
-
-.mock-rec-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.76rem;
-  color: #64748B;
-  margin-bottom: 0.85rem;
-}
-
-.mock-book-btn {
+.note-word-last {
+  position: relative;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  width: 100%;
-  padding: 0.55rem 0.85rem;
-  background-color: #242428;
-  color: #FFFFFF;
-  font-size: 0.82rem;
-  font-weight: 700;
-  border-radius: var(--radius-full);
-  text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  flex-direction: column;
 }
 
-.mock-book-btn:hover {
-  background-color: #EA580C;
-  transform: translateY(-1px);
+.note-underline-svg {
+  margin-top: -2px;
+  width: 68px;
+  height: 8px;
 }
 
-/* Action Links on Roadmap Cards */
-.roadmap-action-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.92rem;
-  font-weight: 700;
-  text-decoration: none;
-  transition: gap 0.2s ease, transform 0.2s ease;
-  margin-top: auto;
-  padding-top: 0.5rem;
+/* Bottom Spacer on Desktop (balances the layout under Card 2) */
+.how-bottom-spacer {
+  width: 220px;
+  flex: 0 0 220px;
 }
 
-.roadmap-action-link:hover {
-  gap: 0.75rem;
-}
-
-.link-purple {
-  color: #7C3AED;
-}
-
-.link-purple:hover {
-  color: #6D28D9;
-}
-
-.link-mint {
-  color: #059669;
-}
-
-.link-mint:hover {
-  color: #047857;
-}
-
-.link-coral {
-  color: #E11D48;
-}
-
-.link-coral:hover {
-  color: #BE123C;
-}
-
-.link-orange {
-  color: #EA580C;
-}
-
-.link-orange:hover {
-  color: #C2410C;
-}
-
-/* Responsive Breakpoints */
-@media (max-width: 1140px) and (min-width: 768px) {
-  .how-roadmap-grid {
-    grid-template-columns: repeat(2, 1fr);
+/* Responsive Styles */
+@media (max-width: 1120px) and (min-width: 861px) {
+  .how-works-arrows-svg {
+    display: none;
+  }
+  .how-works-top-row {
     gap: 1.5rem;
   }
-  .roadmap-connectors-svg {
+  .how-card-explore,
+  .how-card-interests {
+    flex: 1;
+    width: auto;
+    max-width: none;
+  }
+  .how-works-bottom-row {
+    gap: 1.5rem;
+  }
+  .how-card-passion {
+    flex: 1;
+    width: auto;
+    max-width: none;
+  }
+  .how-bottom-spacer {
     display: none;
   }
 }
 
-@media (max-width: 767px) {
-  .how-roadmap-grid {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-    position: relative;
-    padding-left: 1.25rem;
-  }
-  .how-roadmap-grid::before {
-    content: "";
-    position: absolute;
-    top: 20px;
-    bottom: 20px;
-    left: 0;
-    width: 3px;
-    background: linear-gradient(180deg, #A987FF, #65D6B0, #FF668D, #FFB63E);
-    border-radius: 999px;
-  }
-  .roadmap-connectors-svg {
+@media (max-width: 860px) {
+  .how-works-arrows-svg {
     display: none;
   }
-  .step2-branch-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .how-works-top-row {
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
   }
-  .roadmap-chips-grid {
-    grid-template-columns: 1fr;
+  .how-works-bottom-row {
+    flex-direction: column-reverse;
+    gap: 2rem;
+    align-items: stretch;
+  }
+  .how-card-explore,
+  .how-card-interests,
+  .how-card-passion {
+    width: 100%;
+    flex: 1 1 auto;
+    max-width: 100%;
+    min-height: auto;
+  }
+  .how-bottom-spacer {
+    display: none;
+  }
+  .how-bottom-note {
+    align-self: center;
+    width: auto;
+    flex: none;
+    margin-top: 1rem;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .how-step-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.6rem 1.4rem;
+    gap: 1.15rem;
+  }
+  .how-card-illustration {
+    width: 100px;
+    height: 90px;
+  }
+  .how-works-title {
+    font-size: 1.85rem;
+  }
+  .title-deco-accent {
+    width: 24px;
+    height: 24px;
   }
 }
 

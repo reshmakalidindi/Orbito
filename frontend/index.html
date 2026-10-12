@@ -427,326 +427,280 @@
       </div>
     </section>
 
-    <!-- How Orbito Works Section (4-Step Connected Visual Roadmap with Branching Paths) -->
+    <!-- How Orbito Works Section (3-Step Connected Journey Matching Reference Design) -->
     <section class="how-orbito-works-section" id="how-it-works" aria-labelledby="how-it-works-title">
       <div class="how-works-container">
         
-        <!-- Section Header -->
+        <!-- Section Header with Small Purple Decorative Strokes -->
         <div class="how-works-header">
-          <span class="how-works-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
+          <div class="how-works-title-wrap">
+            <!-- Left Purple Accents (\ - /) -->
+            <svg class="title-deco-accent deco-left" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+              <path d="M 28 26 L 8 6" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M 30 18 L 4 18" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M 28 10 L 8 30" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
             </svg>
-            How Orbito Works
-          </span>
-          <h2 class="how-works-title" id="how-it-works-title">How Orbito Works</h2>
-          <p class="how-works-subtitle">
-            From discovering your interests to finding your next passion, we make it simple.
-          </p>
+
+            <h2 class="how-works-title" id="how-it-works-title">How Orbito Works</h2>
+
+            <!-- Right Purple Accents (/ - \) -->
+            <svg class="title-deco-accent deco-right" width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+              <path d="M 8 26 L 28 6" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M 6 18 L 32 18" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
+              <path d="M 8 10 L 28 30" stroke="#7052FF" stroke-width="3.2" stroke-linecap="round"/>
+            </svg>
+          </div>
         </div>
 
-        <!-- 4-Step Connected Visual Roadmap -->
-        <div class="how-roadmap-wrapper">
+        <!-- 3-Card Interactive Journey Board -->
+        <div class="how-works-board">
 
-          <!-- Desktop Flow Connectors SVG (Shows smooth progression 1 -> 2 -> 3 -> 4) -->
-          <svg class="roadmap-connectors-svg" viewBox="0 0 1280 60" fill="none" preserveAspectRatio="none" aria-hidden="true">
-            <!-- Connector Line 1 to 2 -->
-            <path d="M 285 24 C 310 24, 320 24, 345 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
-            <polygon points="352,24 340,18 340,30" fill="#94A3B8"/>
+          <!-- Desktop SVG Connectors: Looping Arrow 1 (Card 1 -> Card 2) & Sweeping Arrow 2 (Card 2 -> Card 3) -->
+          <svg class="how-works-arrows-svg" viewBox="0 0 1140 460" fill="none" aria-hidden="true">
+            <!-- Arrow 1: Loop from Card 1 (x: 436, y: 88) to Card 2 (x: 694, y: 88) -->
+            <path class="how-arrow-path" 
+                  d="M 436 88 C 475 80, 482 15, 528 15 C 564 15, 574 65, 550 88 C 528 110, 498 88, 502 52 C 506 20, 560 18, 608 55 C 642 80, 664 88, 694 88" 
+                  stroke="#9CA3AF" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <!-- Open Arrowhead pointing right into Card 2 -->
+            <path d="M 684 81 L 696 88 L 684 95" stroke="#9CA3AF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-            <!-- Connector Line 2 to 3 -->
-            <path d="M 830 24 C 855 24, 865 24, 890 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
-            <polygon points="897,24 885,18 885,30" fill="#94A3B8"/>
+            <!-- Two Purple Accent Strokes Under Arrow 1 Loop -->
+            <line x1="550" y1="98" x2="554" y2="114" stroke="#7052FF" stroke-width="2.8" stroke-linecap="round"/>
+            <line x1="562" y1="94" x2="568" y2="111" stroke="#7052FF" stroke-width="2.8" stroke-linecap="round"/>
 
-            <!-- Connector Line 3 to 4 -->
-            <path d="M 1045 24 C 1065 24, 1075 24, 1095 24" stroke="#CBD5E1" stroke-width="2.5" stroke-dasharray="6 6"/>
-            <polygon points="1102,24 1090,18 1090,30" fill="#94A3B8"/>
+            <!-- Arrow 2: Sweeping Curve from Card 2 bottom (x: 935, y: 178) to Card 3 right (x: 800, y: 338) -->
+            <path class="how-arrow-path" 
+                  d="M 935 178 C 960 215, 966 265, 936 308 C 908 348, 856 340, 802 338" 
+                  stroke="#9CA3AF" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <!-- Open Arrowhead pointing left into Card 3 -->
+            <path d="M 812 331 L 800 338 L 812 345" stroke="#9CA3AF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+            <!-- Two Coral-Pink Accent Strokes beside Arrow 2 Curve -->
+            <line x1="952" y1="245" x2="967" y2="242" stroke="#FF668D" stroke-width="2.8" stroke-linecap="round"/>
+            <line x1="950" y1="257" x2="965" y2="254" stroke="#FF668D" stroke-width="2.8" stroke-linecap="round"/>
           </svg>
 
-          <div class="how-roadmap-grid">
+          <!-- Top Row: Card 1 (Left) & Card 2 (Right) -->
+          <div class="how-works-top-row">
 
-            <!-- STEP 1: Sign In to Orbito -->
-            <div class="roadmap-step-card step-card-signin">
-              <div class="step-card-main-content">
-                <div class="step-top-meta">
-                  <span class="step-num-badge badge-purple" aria-label="Step 1">1</span>
-                  <span class="step-phase-tag tag-purple-soft">Step 1 · Start</span>
-                </div>
+            <!-- Card 1: Explore Activities (Upper-Left) -->
+            <div class="how-step-card how-card-explore">
+              <!-- Left: Workshop Search / Browser SVG Illustration with Purple Accents -->
+              <div class="how-card-illustration ill-explore" aria-hidden="true">
+                <svg viewBox="0 0 130 110" fill="none" class="how-illus-svg">
+                  <!-- Organic Soft Purple Background Blob -->
+                  <path d="M 22 28 C 12 45, 15 80, 32 94 C 52 108, 98 104, 114 88 C 128 72, 126 38, 108 22 C 88 6, 36 8, 22 28 Z" fill="#EDE9FE"/>
 
-                <h3 class="roadmap-step-title">Start Your Journey</h3>
-                <div class="roadmap-step-subtitle">Sign In to Orbito</div>
+                  <!-- Three Purple Accent Strokes Radiating from Top-Left (\ | /) -->
+                  <line x1="18" y1="36" x2="8" y2="44" stroke="#A987FF" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="24" y1="24" x2="16" y2="14" stroke="#A987FF" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="38" y1="18" x2="38" y2="6" stroke="#A987FF" stroke-width="2.5" stroke-linecap="round"/>
 
-                <!-- Playful User Profile / Login SVG Illustration -->
-                <div class="step-visual-box visual-box-purple" aria-hidden="true">
-                  <svg viewBox="0 0 240 120" fill="none" style="width: 100%; height: 100%;">
-                    <!-- Soft background orbital rings -->
-                    <ellipse cx="120" cy="62" rx="90" ry="32" stroke="#DDD6FE" stroke-width="2" stroke-dasharray="5 5"/>
-                    <circle cx="120" cy="55" r="38" fill="#EDE9FE"/>
+                  <!-- Stylized Browser Window -->
+                  <g transform="translate(26, 22)">
+                    <rect x="0" y="0" width="76" height="58" rx="8" fill="#FFFFFF" stroke="#242428" stroke-width="2.4"/>
+                    <!-- Window Top Bar -->
+                    <rect x="0" y="0" width="76" height="15" rx="8" fill="#F1F1F8"/>
+                    <line x1="0" y1="15" x2="76" y2="15" stroke="#242428" stroke-width="2"/>
+                    <!-- Window Control Dots -->
+                    <circle cx="9" cy="7.5" r="2" fill="#242428"/>
+                    <circle cx="16" cy="7.5" r="2" fill="#242428"/>
+                    <circle cx="23" cy="7.5" r="2" fill="#242428"/>
 
-                    <!-- Avatar Character -->
-                    <circle cx="120" cy="42" r="16" fill="#A987FF"/>
-                    <path d="M98 78 C98 62, 142 62, 142 78" fill="#7C3AED"/>
-                    <circle cx="120" cy="38" r="4" fill="#FFFFFF"/>
+                    <!-- Content Blocks inside Browser -->
+                    <!-- Top Block: Purple -->
+                    <rect x="10" y="21" width="26" height="13" rx="3" fill="#A987FF"/>
+                    <line x1="42" y1="24" x2="66" y2="24" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="42" y1="30" x2="58" y2="30" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
 
-                    <!-- Floating Verified Badge / Key -->
-                    <g transform="translate(148, 22)">
-                      <rect x="0" y="0" width="34" height="24" rx="6" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
-                      <circle cx="10" cy="12" r="4" fill="#10B981"/>
-                      <line x1="18" y1="9" x2="28" y2="9" stroke="#7C3AED" stroke-width="2" stroke-linecap="round"/>
-                      <line x1="18" y1="15" x2="25" y2="15" stroke="#C4B5FD" stroke-width="1.8" stroke-linecap="round"/>
-                    </g>
+                    <!-- Bottom Block: Coral / Peach -->
+                    <rect x="10" y="38" width="26" height="13" rx="3" fill="#FFB63E"/>
+                    <line x1="42" y1="41" x2="62" y2="41" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+                    <line x1="42" y1="47" x2="52" y2="47" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+                  </g>
 
-                    <!-- Orbiting Sparkles -->
-                    <polygon points="56,38 58,32 60,38 66,40 60,42 58,48 56,42 50,40" fill="#A987FF"/>
-                    <circle cx="186" cy="74" r="3" fill="#C4B5FD"/>
-                  </svg>
-                </div>
-
-                <p class="roadmap-step-desc">
-                  Create your free account or sign in to save your preferences, track your workshop bookings, and receive personalized recommendations.
-                </p>
+                  <!-- Overlapping Magnifying Glass with Blue Lens and Dark Handle -->
+                  <g transform="translate(80, 50)">
+                    <!-- Lens -->
+                    <circle cx="16" cy="16" r="14" fill="#67E8F9" stroke="#242428" stroke-width="2.5"/>
+                    <circle cx="14" cy="14" r="8" fill="#A5F3FC" opacity="0.6"/>
+                    <!-- Handle -->
+                    <line x1="26" y1="26" x2="38" y2="38" stroke="#242428" stroke-width="4.5" stroke-linecap="round"/>
+                  </g>
+                </svg>
               </div>
 
-              <a href="#signup" class="roadmap-action-link link-purple auth-trigger-signup" id="how-step1-link">
-                <span>Sign In / Join Free</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </div>
-
-            <!-- STEP 2: Choose Your Path (Visually Branches into Path A and Path B) -->
-            <div class="roadmap-step-card step-card-branching">
-              <div class="step-card-main-content">
-                <div class="step-top-meta">
-                  <span class="step-num-badge badge-branch" aria-label="Step 2">2</span>
-                  <span class="step-phase-tag tag-branch-soft">Step 2 · Choose Your Path</span>
-                </div>
-
-                <h3 class="roadmap-step-title">Two Ways to Explore</h3>
-                <div class="roadmap-step-subtitle" style="color: #475569;">Select the path that fits you best</div>
-
-                <p class="roadmap-step-desc" style="margin-bottom: 0.85rem;">
-                  Whether you already know what you'd like to learn or need guidance discovering your passion, Orbito has you covered:
+              <!-- Right: Card Text Content (No button or link) -->
+              <div class="how-card-content">
+                <h3 class="how-card-heading">Explore Activities</h3>
+                <p class="how-card-desc">
+                  Explore different activities, discover exciting hobbies, and find experiences that match your interests.
                 </p>
-
-                <!-- Branching Split Container -->
-                <div class="step2-branch-wrapper">
-                  <div class="step2-branch-grid">
-                    
-                    <!-- PATH A: I know what I want to learn (Mint Green #65D6B0) -->
-                    <div class="branch-path-subcard path-subcard-mint">
-                      <div>
-                        <div class="branch-sub-badge sub-badge-mint">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                          </svg>
-                          <span>Path A</span>
-                        </div>
-                        <h4 class="branch-sub-heading">I know what I want to learn</h4>
-                        <p class="branch-sub-desc">
-                          Browse workshops by category, search by topic, and find exactly what you're looking for.
-                        </p>
-
-                        <!-- Mini Flow Indicator -->
-                        <div class="mini-flow-sequence">
-                          <div class="mini-flow-label">Path A Journey</div>
-                          <div class="mini-flow-nodes">
-                            <span class="mini-node-pill pill-mint">Browse Categories</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-mint">Select Workshop</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-mint">Choose Date &amp; Slot</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-mint">Book &amp; Attend</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <a href="#categories-section" class="roadmap-action-link link-mint" id="how-step2-path-a">
-                        <span>Browse Categories</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </a>
-                    </div>
-
-                    <!-- PATH B: Help me discover my interests (Coral Pink #FF668D) -->
-                    <div class="branch-path-subcard path-subcard-coral">
-                      <div>
-                        <div class="branch-sub-badge sub-badge-coral">
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                            <path d="M2 12h20"></path>
-                          </svg>
-                          <span>Path B</span>
-                        </div>
-                        <h4 class="branch-sub-heading">Help me discover my interests</h4>
-                        <p class="branch-sub-desc">
-                          Take our interactive AI-powered interest discovery quiz to find activities matching your personality and curiosity.
-                        </p>
-
-                        <!-- Mini Flow Indicator -->
-                        <div class="mini-flow-sequence">
-                          <div class="mini-flow-label">Path B Journey</div>
-                          <div class="mini-flow-nodes">
-                            <span class="mini-node-pill pill-coral">Take Quiz</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-coral">AI Recommendations</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-coral">View Matching Workshops</span>
-                            <span class="mini-flow-arrow">&rarr;</span>
-                            <span class="mini-node-pill pill-coral">Book &amp; Attend</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <a href="quiz.html" class="roadmap-action-link link-coral" id="how-step2-path-b">
-                        <span>Take the Quiz</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </a>
-                    </div>
-
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- STEP 3: Discover Your Interests with AI -->
-            <div class="roadmap-step-card step-card-ai">
-              <div class="step-card-main-content">
-                <div class="step-top-meta">
-                  <span class="step-num-badge badge-purple" aria-label="Step 3">3</span>
-                  <span class="step-phase-tag tag-purple-soft">Step 3 · AI Engine</span>
-                </div>
+            <!-- Card 2: Discover Your Interests (Upper-Right) -->
+            <div class="how-step-card how-card-interests">
+              <!-- Left: Checklist Clipboard & Glowing Lightbulb SVG Illustration -->
+              <div class="how-card-illustration ill-interests" aria-hidden="true">
+                <svg viewBox="0 0 130 110" fill="none" class="how-illus-svg">
+                  <!-- Organic Soft Pink Background Blob -->
+                  <path d="M 28 20 C 14 36, 10 74, 26 92 C 44 110, 96 108, 112 90 C 126 72, 124 34, 104 18 C 84 2, 44 4, 28 20 Z" fill="#FFE4E6"/>
 
-                <h3 class="roadmap-step-title">Answer a Few Fun Questions</h3>
-                <div class="roadmap-step-subtitle">Discover Your Interests with AI</div>
+                  <!-- Two Pink Accent Strokes to Upper-Left (\ /) -->
+                  <line x1="22" y1="24" x2="12" y2="18" stroke="#FF668D" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="26" y1="36" x2="14" y2="36" stroke="#FF668D" stroke-width="2.5" stroke-linecap="round"/>
 
-                <!-- Playful AI Brain / Sparkles SVG Illustration -->
-                <div class="step-visual-box visual-box-ai" aria-hidden="true">
-                  <svg viewBox="0 0 220 110" fill="none" style="width: 100%; height: 100%;">
-                    <!-- Central Neural Core -->
-                    <circle cx="110" cy="55" r="32" fill="#EDE9FE" stroke="#A987FF" stroke-width="2"/>
-                    <circle cx="110" cy="55" r="18" fill="#7C3AED"/>
-                    
-                    <!-- Synapse nodes & connecting arcs -->
-                    <circle cx="68" cy="38" r="8" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
-                    <line x1="76" y1="42" x2="94" y2="50" stroke="#C4B5FD" stroke-width="2"/>
-                    
-                    <circle cx="64" cy="74" r="7" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
-                    <line x1="71" y1="71" x2="93" y2="60" stroke="#C4B5FD" stroke-width="2"/>
+                  <!-- Checklist Clipboard -->
+                  <g transform="translate(30, 22)">
+                    <!-- Clipboard Body -->
+                    <rect x="0" y="6" width="56" height="70" rx="7" fill="#FFFFFF" stroke="#242428" stroke-width="2.4"/>
+                    <!-- Top Clip -->
+                    <rect x="18" y="0" width="20" height="10" rx="3" fill="#242428"/>
+                    <circle cx="28" cy="4" r="2" fill="#FFFFFF"/>
 
-                    <circle cx="152" cy="38" r="8" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
-                    <line x1="144" y1="42" x2="126" y2="50" stroke="#C4B5FD" stroke-width="2"/>
+                    <!-- Checklist Item 1 -->
+                    <rect x="8" y="16" width="10" height="10" rx="2" fill="#EDE9FE" stroke="#7052FF" stroke-width="1.6"/>
+                    <polyline points="10 21 12 23 16 18" stroke="#7052FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="24" y1="21" x2="48" y2="21" stroke="#242428" stroke-width="2" stroke-linecap="round"/>
 
-                    <circle cx="156" cy="74" r="7" fill="#FFFFFF" stroke="#A987FF" stroke-width="2"/>
-                    <line x1="149" y1="71" x2="127" y2="60" stroke="#C4B5FD" stroke-width="2"/>
+                    <!-- Checklist Item 2 -->
+                    <rect x="8" y="32" width="10" height="10" rx="2" fill="#EDE9FE" stroke="#7052FF" stroke-width="1.6"/>
+                    <polyline points="10 37 12 39 16 34" stroke="#7052FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="24" y1="37" x2="48" y2="37" stroke="#242428" stroke-width="2" stroke-linecap="round"/>
 
-                    <!-- Center Sparkle in Brain -->
-                    <polygon points="110,48 112,53 117,55 112,57 110,62 108,57 103,55 108,53" fill="#FFFFFF"/>
-                    
-                    <!-- Radiating sparks -->
-                    <polygon points="36,28 38,22 40,28 46,30 40,32 38,38 36,32 30,30" fill="#A987FF"/>
-                    <polygon points="184,26 185.5,21 187,26 192,27.5 187,29 185.5,34 184,29 179,27.5" fill="#C4B5FD"/>
-                  </svg>
-                </div>
+                    <!-- Checklist Item 3 -->
+                    <rect x="8" y="48" width="10" height="10" rx="2" fill="#EDE9FE" stroke="#7052FF" stroke-width="1.6"/>
+                    <polyline points="10 53 12 55 16 50" stroke="#7052FF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="24" y1="53" x2="44" y2="53" stroke="#242428" stroke-width="2" stroke-linecap="round"/>
+                  </g>
 
-                <p class="roadmap-step-desc">
-                  Our smart quiz asks a few questions about your personality, hobbies, work style, and what brings you joy. It analyzes your answers across 8 interest disciplines to uncover your hidden passions.
-                </p>
+                  <!-- Overlapping Glowing Yellow Lightbulb at Top-Right of Clipboard -->
+                  <g transform="translate(76, 12)">
+                    <!-- Bulb Rays -->
+                    <line x1="20" y1="4" x2="20" y2="0" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
+                    <line x1="31" y1="9" x2="35" y2="6" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
+                    <line x1="36" y1="20" x2="40" y2="20" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
 
-                <!-- 8 Discipline Visual Chips -->
-                <div class="roadmap-chips-grid">
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Hands-On Making</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Tech &amp; Coding</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Movement &amp; Outdoor</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Art &amp; Design</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Music &amp; Sound</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Cooking &amp; Food</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Science &amp; Nature</span>
-                  <span class="roadmap-discipline-chip"><span class="chip-dot"></span>Mind &amp; Wellness</span>
-                </div>
+                    <!-- Bulb Body -->
+                    <path d="M 20 6 C 12 6, 8 12, 8 18 C 8 23, 12 26, 13 30 L 27 30 C 28 26, 32 23, 32 18 C 32 12, 28 6, 20 6 Z" 
+                          fill="#FBBF24" stroke="#242428" stroke-width="2.2"/>
+                    <!-- Filament highlight -->
+                    <path d="M 16 16 C 17 12, 23 12, 24 16" stroke="#D97706" stroke-width="1.6" stroke-linecap="round"/>
+                    <!-- Bulb Socket Base -->
+                    <rect x="14" y="30" width="12" height="4" rx="1.5" fill="#242428"/>
+                    <rect x="15" y="34" width="10" height="3" rx="1" fill="#242428"/>
+                  </g>
+                </svg>
               </div>
 
-              <a href="quiz.html" class="roadmap-action-link link-purple" id="how-step3-link">
-                <span>Try the Quiz</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </div>
-
-            <!-- STEP 4: Get Recommendations and Book -->
-            <div class="roadmap-step-card step-card-booking">
-              <div class="step-card-main-content">
-                <div class="step-top-meta">
-                  <span class="step-num-badge badge-orange" aria-label="Step 4">4</span>
-                  <span class="step-phase-tag tag-orange-soft">Step 4 · Match &amp; Book</span>
-                </div>
-
-                <h3 class="roadmap-step-title">Find Your Next Passion</h3>
-                <div class="roadmap-step-subtitle" style="color: #EA580C;">Get Recommendations and Book</div>
-
-                <!-- Mini Mock Recommendation Card Visual Detail -->
-                <div class="mock-rec-card" aria-label="Mock workshop recommendation preview">
-                  <div class="mock-rec-top">
-                    <span class="mock-match-pill">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                      </svg>
-                      98% Match
-                    </span>
-                    <span class="mock-cat-tag">Technology &amp; AI</span>
-                  </div>
-                  
-                  <div class="mock-rec-title">Python for Beginners</div>
-                  
-                  <div class="mock-rec-meta">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                      <line x1="16" y1="2" x2="16" y2="6"></line>
-                      <line x1="8" y1="2" x2="8" y2="6"></line>
-                      <line x1="3" y1="10" x2="21" y2="10"></line>
-                    </svg>
-                    <span>Oct 24 · Online Interactive Lab</span>
-                  </div>
-
-                  <a href="explore.html" class="mock-book-btn">
-                    <span>Book Now</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
-                </div>
-
-                <p class="roadmap-step-desc">
-                  Instantly receive personalized workshop suggestions scored by match percentage. Explore workshop details, meet instructors, choose an upcoming date and time slot, and confirm your booking in seconds.
+              <!-- Right: Card Text Content (No button or link) -->
+              <div class="how-card-content">
+                <h3 class="how-card-heading">Discover Your Interests</h3>
+                <p class="how-card-desc">
+                  Not sure what you want to learn? Answer a few fun, AI-powered questions about your interests and preferences to discover activities you might enjoy.
                 </p>
               </div>
-
-              <a href="recommendations.html" class="roadmap-action-link link-orange" id="how-step4-link">
-                <span>See Sample Recommendations</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
             </div>
 
           </div>
+
+          <!-- Bottom Row: Handwritten Note (Left) & Card 3 (Center) -->
+          <div class="how-works-bottom-row">
+
+            <!-- Bottom-Left Decorative Note: Outline People + EXPLORE · DISCOVER · LEARN -->
+            <div class="how-bottom-note" aria-label="Explore Discover Learn note">
+              <!-- Coral-Pink Two People Line-Drawing Icon -->
+              <div class="note-people-icon" aria-hidden="true">
+                <svg width="48" height="48" viewBox="0 0 52 52" fill="none">
+                  <!-- Radiating Strokes Upper-Left -->
+                  <line x1="8" y1="18" x2="3" y2="18" stroke="#FF668D" stroke-width="2.4" stroke-linecap="round"/>
+                  <line x1="11" y1="10" x2="6" y2="6" stroke="#FF668D" stroke-width="2.4" stroke-linecap="round"/>
+                  <line x1="20" y1="6" x2="20" y2="1" stroke="#FF668D" stroke-width="2.4" stroke-linecap="round"/>
+
+                  <!-- Left Person Head & Body -->
+                  <circle cx="21" cy="22" r="7" stroke="#FF668D" stroke-width="2.4" fill="none"/>
+                  <path d="M 12 40 C 12 32, 17 31, 21 31 C 25 31, 28 32, 29 35" stroke="#FF668D" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+
+                  <!-- Right Person Head & Body -->
+                  <circle cx="34" cy="24" r="6.5" stroke="#FF668D" stroke-width="2.4" fill="none"/>
+                  <path d="M 28 41 C 29 34, 32 33, 35 33 C 40 33, 44 35, 44 42" stroke="#FF668D" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+                </svg>
+              </div>
+
+              <!-- Tilted Handwritten / Bold Text -->
+              <div class="note-text-block">
+                <div class="note-word">EXPLORE ·</div>
+                <div class="note-word">DISCOVER ·</div>
+                <div class="note-word note-word-last">
+                  <span>LEARN</span>
+                  <!-- Coral-Pink Hand-drawn Underline Stroke -->
+                  <svg class="note-underline-svg" width="68" height="10" viewBox="0 0 68 10" fill="none" aria-hidden="true">
+                    <path d="M 2 5 C 18 8, 48 3, 66 6" stroke="#FF668D" stroke-width="2.6" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Find Your Next Passion (Center / Below) -->
+            <div class="how-step-card how-card-passion">
+              <!-- Left: Unfolded Map & Location Pin SVG Illustration with Warm Accents -->
+              <div class="how-card-illustration ill-passion" aria-hidden="true">
+                <svg viewBox="0 0 130 110" fill="none" class="how-illus-svg">
+                  <!-- Organic Soft Peach Background Blob -->
+                  <path d="M 24 24 C 12 42, 14 78, 30 96 C 50 112, 98 108, 114 92 C 128 76, 126 36, 106 18 C 86 2, 40 4, 24 24 Z" fill="#FEF3C7"/>
+
+                  <!-- Yellow Accent Rays Upper-Left (\ | /) -->
+                  <line x1="28" y1="28" x2="20" y2="20" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
+                  <line x1="36" y1="18" x2="36" y2="10" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round"/>
+
+                  <!-- Unfolded 3-Panel Map -->
+                  <g transform="translate(24, 32)">
+                    <!-- Map Fold Panels -->
+                    <!-- Panel 1 (Left) -->
+                    <polygon points="6,14 26,8 26,56 6,62" fill="#FEF9C3" stroke="#242428" stroke-width="2.2" stroke-linejoin="round"/>
+                    <!-- Panel 2 (Center) -->
+                    <polygon points="26,8 46,14 46,62 26,56" fill="#FFFBEB" stroke="#242428" stroke-width="2.2" stroke-linejoin="round"/>
+                    <!-- Panel 3 (Right) -->
+                    <polygon points="46,14 66,8 66,56 46,62" fill="#FEF9C3" stroke="#242428" stroke-width="2.2" stroke-linejoin="round"/>
+
+                    <!-- Dashed Map Trail -->
+                    <path d="M 12 46 Q 26 28 36 42 T 58 24" stroke="#242428" stroke-width="2" stroke-dasharray="3 3" stroke-linecap="round" fill="none"/>
+                  </g>
+
+                  <!-- Overlapping Coral-Pink Location Pin -->
+                  <g transform="translate(62, 14)">
+                    <!-- Pin Body -->
+                    <path d="M 18 2 C 10 2, 4 8, 4 16 C 4 24, 18 38, 18 38 C 18 38, 32 24, 32 16 C 32 8, 26 2, 18 2 Z" 
+                          fill="#FF668D" stroke="#242428" stroke-width="2.4" stroke-linejoin="round"/>
+                    <!-- Inner Circle & Dark Dot -->
+                    <circle cx="18" cy="15" r="6" fill="#FFFFFF"/>
+                    <circle cx="18" cy="15" r="2.5" fill="#242428"/>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Right: Card Text Content & Functional See My Recommendations Link -->
+              <div class="how-card-content">
+                <h3 class="how-card-heading">Find Your Next Passion</h3>
+                <p class="how-card-desc">
+                  Get personalized workshop recommendations based on your interests, explore matching skills, and choose a workshop that feels right for you.
+                </p>
+                <a href="recommendations.html" class="how-card-link" id="how-link-recommendations">
+                  <span>See My Recommendations</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Spacer area on Desktop for Arrow 2 curve -->
+            <div class="how-bottom-spacer" aria-hidden="true"></div>
+
+          </div>
+
         </div>
 
       </div>

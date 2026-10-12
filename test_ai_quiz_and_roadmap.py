@@ -114,56 +114,60 @@ def test_ai_curiosity_endpoints():
 
 
 def test_homepage_roadmap_markup():
-    print("\n--- 5. Verifying 'How Orbito Works' 4-Step Roadmap in index.html ---")
+    print("\n--- 5. Verifying 'How Orbito Works' 3-Card Reference Section in index.html ---")
     with open("index.html", "r", encoding="utf-8") as f:
         html = f.read()
 
     # Section ID & Heading
     assert 'id="how-it-works"' in html
     assert 'How Orbito Works' in html
-    assert 'From discovering your interests to finding your next passion, we make it simple.' in html
-    print("✓ Section title and subtitle verified.")
+    assert 'deco-left' in html and 'deco-right' in html
+    print("✓ Section title 'How Orbito Works' with purple decorative strokes verified.")
 
-    # 4 Steps Present
-    assert 'Step 1 · Start' in html or 'badge-purple' in html
-    assert 'Start Your Journey' in html
-    assert 'Sign In to Orbito' in html
-    assert 'Sign In / Join Free' in html
-    print("✓ Step 1 verified: Sign in to Orbito with user profile illustration.")
+    # 1. First Card — Explore Activities (Upper-Left)
+    assert 'Explore Activities' in html
+    assert 'Explore different activities, discover exciting hobbies, and find experiences that match your interests.' in html
+    assert 'how-card-explore' in html
+    assert 'ill-explore' in html
+    # Confirm no button or link in Card 1
+    explore_card_chunk = html.split('how-card-explore')[1].split('how-card-interests')[0]
+    assert '<a ' not in explore_card_chunk, "Card 1 must not contain any button or link"
+    assert '<button' not in explore_card_chunk, "Card 1 must not contain any button or link"
+    print("✓ Card 1 verified: 'Explore Activities' with browser/magnifier illustration and NO link or button.")
 
-    # Step 2 Branching Paths
-    assert 'Two Ways to Explore' in html
-    assert 'I know what I want to learn' in html
-    assert 'Browse categories' in html or 'Browse Categories' in html
-    clean_text = re.sub(r'<[^>]+>', ' ', html)
-    clean_text = re.sub(r'\s+', ' ', clean_text).replace('&rarr;', '→').replace('&amp;', '&')
+    # 2. Second Card — Discover Your Interests (Upper-Right)
+    assert 'Discover Your Interests' in html
+    assert 'Not sure what you want to learn? Answer a few fun, AI-powered questions about your interests and preferences to discover activities you might enjoy.' in html
+    assert 'how-card-interests' in html
+    assert 'ill-interests' in html
+    # Confirm no button or link in Card 2
+    interests_card_chunk = html.split('how-card-interests')[1].split('how-works-bottom-row')[0]
+    assert '<a ' not in interests_card_chunk, "Card 2 must not contain any button or link"
+    assert '<button' not in interests_card_chunk, "Card 2 must not contain any button or link"
+    print("✓ Card 2 verified: 'Discover Your Interests' with checklist/lightbulb illustration and NO link or button.")
 
-    assert 'Browse Categories → Select Workshop → Choose Date & Slot → Book & Attend' in clean_text
-    assert 'Help me discover my interests' in html
-    assert 'Take the Quiz' in html
-    assert 'Take Quiz → AI Recommendations → View Matching Workshops → Book & Attend' in clean_text
-    print("✓ Step 2 verified: Two Ways to Explore with Path A (Mint #65D6B0) and Path B (Coral #FF668D) with mini-flows.")
-
-    # Step 3 AI Discovery & 8 Disciplines
-    assert 'Answer a Few Fun Questions' in html
-    assert 'Discover Your Interests with AI' in html
-    for discipline in [
-        'Hands-On Making', 'Tech & Coding', 'Movement & Outdoor', 'Art & Design',
-        'Music & Sound', 'Cooking & Food', 'Science & Nature', 'Mind & Wellness'
-    ]:
-        escaped_disp = discipline.replace('&', '&amp;')
-        assert escaped_disp in html or discipline in html, f"Missing discipline chip: {discipline}"
-    assert 'Try the Quiz' in html
-    print("✓ Step 3 verified: AI curiosity with all 8 discipline chips present.")
-
-    # Step 4 Matching & Mock Card
+    # 3. Third Card — Find Your Next Passion (Center / Below)
     assert 'Find Your Next Passion' in html
-    assert 'Get Recommendations and Book' in html
-    assert '98% Match' in html
-    assert 'Python for Beginners' in html
-    assert 'Book Now' in html
-    assert 'See Sample Recommendations' in html
-    print("✓ Step 4 verified: Recommendation card with 98% Match and Book Now CTA.")
+    assert 'Get personalized workshop recommendations based on your interests, explore matching skills, and choose a workshop that feels right for you.' in html
+    assert 'how-card-passion' in html
+    assert 'ill-passion' in html
+    assert 'id="how-link-recommendations"' in html
+    assert 'See My Recommendations' in html
+    print("✓ Card 3 verified: 'Find Your Next Passion' with map/pin illustration and 'See My Recommendations →' link.")
+
+    # 4. Looping & Curved Arrows
+    assert 'how-works-arrows-svg' in html
+    assert 'Arrow 1: Loop from Card 1' in html or 'how-arrow-path' in html
+    assert 'Arrow 2: Sweeping Curve' in html or '#9CA3AF' in html
+    print("✓ Looping Arrow 1 (Card 1 -> 2) & Sweeping Arrow 2 (Card 2 -> 3) verified.")
+
+    # 5. Bottom-Left Handwritten Note
+    assert 'how-bottom-note' in html
+    assert 'EXPLORE ·' in html
+    assert 'DISCOVER ·' in html
+    assert 'LEARN' in html
+    assert 'note-underline-svg' in html
+    print("✓ Bottom-left note verified: Outline people + 'EXPLORE · DISCOVER · LEARN' with underline stroke.")
 
 
 if __name__ == "__main__":

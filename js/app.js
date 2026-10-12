@@ -940,6 +940,40 @@ function initInterestsCarousel() {
   setTimeout(updateControls, 100);
 }
 
+/**
+ * Initialize "How Orbito Works" section interactions
+ */
+function initHowOrbitoWorks() {
+  const recLink = document.getElementById("how-link-recommendations");
+  if (recLink) {
+    recLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      let hasRecs = false;
+      try {
+        const stored = sessionStorage.getItem("orbito_latest_recommendations") || localStorage.getItem("orbito_latest_recommendations");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed) {
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              hasRecs = true;
+            } else if (Array.isArray(parsed.recommendations) && parsed.recommendations.length > 0) {
+              hasRecs = true;
+            }
+          }
+        }
+      } catch (err) {
+        hasRecs = false;
+      }
+
+      if (hasRecs) {
+        window.location.href = "recommendations.html";
+      } else {
+        window.location.href = "quiz.html";
+      }
+    });
+  }
+}
+
 // Initialize on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   initHeaderScroll();
@@ -947,6 +981,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLanguageSelector();
   initAuthModals();
   initInterestsCarousel();
+  initHowOrbitoWorks();
 });
 
 // Expose globals
@@ -956,3 +991,4 @@ window.showToast = showToast;
 window.openRegistrationModal = openRegistrationModal;
 window.openSuccessModal = openSuccessModal;
 window.initInterestsCarousel = initInterestsCarousel;
+window.initHowOrbitoWorks = initHowOrbitoWorks;
